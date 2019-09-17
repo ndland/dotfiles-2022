@@ -8,7 +8,6 @@ Plug 'sheerun/vim-polyglot'
 
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Initialize plugin system
 call plug#end()
