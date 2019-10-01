@@ -27,11 +27,15 @@ alias mkdir="mkdir -p"
 alias grv="git remote -v"
 alias gst="git status"
 alias gc="git commit"
+alias ga="git add"
 alias gaa="git add ."
 alias ggpush="git push"
 
 # Brew aliases
 alias bubc="brew upgrade && brew cask upgrade && brew cleanup"
+
+# Stow alias
+alias stow="stow --target=/Users/nland"
 
 # 0 -- vanilla completion (abc => abc)
 # 1 -- smart case completion (abc => Abc)
