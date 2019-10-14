@@ -30,6 +30,7 @@ alias gc="git commit"
 alias ga="git add"
 alias gaa="git add ."
 alias ggpush="git push"
+alias gd="git diff"
 
 # Brew aliases
 alias bubc="brew upgrade && brew cask upgrade && brew cleanup"
