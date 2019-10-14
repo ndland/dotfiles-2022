@@ -13,8 +13,8 @@ bindkey -v
 
 alias vim="nvim"
 alias reload="source ~/.zshrc"
-alias zshrc="code -a ~/.zshrc"
-alias vimrc="code -a ~/.config/nvim/init.vim"
+alias zshrc="code -r ~/.zshrc"
+alias vimrc="code -r ~/.config/nvim/init.vim"
 alias ls="exa"
 alias ll="exa --long --git --header"
 alias la="exa --long --all --git --header"
