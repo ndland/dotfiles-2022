@@ -20,7 +20,6 @@ alias ls="exa"
 alias ll="exa --long --git --header"
 alias la="exa --long --all --git --header"
 alias l="exa --git --header"
-alias tree="exa --tree --level=3 --long --git --header"
 alias cat="bat"
 alias mkdir="mkdir -p"
 
@@ -39,7 +38,16 @@ git config --global commit.template "$HOME/.git_commit_message_template"
 alias bubc="brew upgrade && brew cask upgrade && brew cleanup"
 
 # Stow alias
-alias stow="stow --target=/Users/nland"
+alias stow="stow --target=/Users/$USER"
+
+
+function tree() {
+    if [ "$1" ]; then
+        exa --tree --level=$1 --long --git --header
+    else
+        exa --tree --level=3 --long --git --header
+    fi
+}
 
 # 0 -- vanilla completion (abc => abc)
 # 1 -- smart case completion (abc => Abc)
