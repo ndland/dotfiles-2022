@@ -11,10 +11,11 @@ SAVEHIST=10000
 # Vim bindings for zsh
 bindkey -v
 
+alias code="code -r"
 alias vim="nvim"
 alias reload="source ~/.zshrc"
-alias zshrc="code -r ~/.zshrc"
-alias vimrc="code -r ~/.config/nvim/init.vim"
+alias zshrc="code ~/.zshrc"
+alias vimrc="code ~/.config/nvim/init.vim"
 alias ls="exa"
 alias ll="exa --long --git --header"
 alias la="exa --long --all --git --header"
