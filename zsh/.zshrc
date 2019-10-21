@@ -33,6 +33,8 @@ alias gaa="git add ."
 alias ggpush="git push"
 alias gd="git diff"
 
+git config --global commit.template "$HOME/.git_commit_message_template"
+
 # Brew aliases
 alias bubc="brew upgrade && brew cask upgrade && brew cleanup"
 

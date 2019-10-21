@@ -1,5 +1,5 @@
 [core]
 	editor = code -rw
 [commit]
-	template = /Users/nland2/.git_commit_message_template
 	verbose = true
+	template = /Users/cl-dev/.git_commit_message_template
