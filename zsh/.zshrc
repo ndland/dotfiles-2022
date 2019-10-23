@@ -40,6 +40,8 @@ alias bubc="brew upgrade && brew cask upgrade && brew cleanup"
 # Stow alias
 alias stow="stow --target=/Users/$USER"
 
+alias df="df -h"
+
 
 function tree() {
     if [ "$1" ]; then
