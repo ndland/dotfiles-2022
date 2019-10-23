@@ -8,6 +8,8 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+export EDITOR="code -rw"
+
 # Vim bindings for zsh
 bindkey -v
 
@@ -41,7 +43,6 @@ alias bubc="brew upgrade && brew cask upgrade && brew cleanup"
 alias stow="stow --target=/Users/$USER"
 
 alias df="df -h"
-
 
 function tree() {
     if [ "$1" ]; then
