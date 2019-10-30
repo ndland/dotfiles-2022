@@ -1,0 +1,8 @@
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/github
+Host whatbox
+  HostName apollo.whatbox.ca
+  User nland22
+  IdentityFile ~/.ssh/whatbox
