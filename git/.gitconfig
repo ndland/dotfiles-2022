@@ -2,4 +2,6 @@
 	editor = code -rw
 [commit]
 	verbose = true
-	template = /Users/cl-dev/.git_commit_message_template
+[user]
+	email = land.d.nicholas@gmail.com
+	name = Nick Land
