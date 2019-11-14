@@ -1,5 +1,5 @@
 [core]
-	editor = code -rw
+	editor = emacsclient -c -a ''
 [commit]
 	verbose = true
 [user]
