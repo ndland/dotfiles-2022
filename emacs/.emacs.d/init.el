@@ -24,7 +24,16 @@
 
 ;; Web-mode
 (use-package web-mode
-  :ensure t)
+  :ensure t
+  :init
+     (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode)))
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :bind
+  (:map global-map
+        ("C-x t t"   . treemacs)))
 
 ;; Set the font
 (set-frame-font "Inconsolata Nerd Font 14" nil t)
