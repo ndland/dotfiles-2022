@@ -1,7 +1,8 @@
 [core]
-	editor = emacsclient -c -a ''
+	editor = code -w
 [commit]
 	verbose = true
+	template = /Users/nland/.git_commit_message_template
 [user]
 	email = land.d.nicholas@gmail.com
 	name = Nick Land
