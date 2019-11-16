@@ -52,6 +52,8 @@ function tree() {
     fi
 }
 
+export PATH=~/.npm-global/bin:$PATH
+
 # 0 -- vanilla completion (abc => abc)
 # 1 -- smart case completion (abc => Abc)
 # 2 -- word flex completion (abc => A-big-Car)
