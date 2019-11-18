@@ -1,8 +1,16 @@
 [core]
-	editor = code -w
+	editor = code -rw
 [commit]
 	verbose = true
 	template = /Users/nland/.git_commit_message_template
 [user]
-	email = land.d.nicholas@gmail.com
 	name = Nick Land
+	email = nland2@ford.com
+[merge]
+    tool = vscode
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
