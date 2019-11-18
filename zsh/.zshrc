@@ -18,10 +18,10 @@ alias vim="nvim"
 alias reload="source ~/.zshrc"
 alias zshrc="code ~/.zshrc"
 alias vimrc="code ~/.config/nvim/init.vim"
-alias ls="exa"
-alias ll="exa --long --git --header"
-alias la="exa --long --all --git --header"
-alias l="exa --git --header"
+alias ls="exa --color=always"
+alias ll="exa --color=always --long --git --header"
+alias la="exa --color=always --long --all --git --header"
+alias l="exa --color=always --git --header"
 alias cat="bat"
 alias mkdir="mkdir -p"
 
@@ -46,6 +46,12 @@ alias stow="stow --target=/Users/$USER"
 
 alias df="df -h"
 
+# Function to grep a search term including the header
+function lag() {
+    la | { head -1; grep $1; }
+}
+
+# Function to return a tree of n length || default to 3
 function tree() {
     if [ "$1" ]; then
         exa --tree --level=$1 --long --git --header
