@@ -33,6 +33,8 @@ alias ga="git add"
 alias gaa="git add ."
 alias ggpush="git push"
 alias gd="git diff"
+alias gco="git checkout"
+alias gcob="git checkout -b"
 
 git config --global commit.template "$HOME/.git_commit_message_template"
 
@@ -68,4 +70,5 @@ source /usr/local/share/zsh-history-substring-search/zsh-history-substring-searc
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+
 function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
