@@ -1,61 +1,63 @@
-;; Enable packages
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-;; Set the theme
-(use-package gruvbox-theme
-  :ensure t
-  :init
-  (load-theme 'gruvbox-dark-hard t))
-
-;; Auto complete
-(use-package company
-  :ensure t
-  :init
-  (add-hook 'after-init-hook 'global-company-mode))
-
-;; Web-mode
-(use-package web-mode
-  :ensure t
-  :init
-     (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode)))
-
-(use-package treemacs
-  :ensure t
-  :defer t
-  :bind
-  (:map global-map
-        ("C-x t t"   . treemacs)))
-
-;; Set the font
-(set-frame-font "Inconsolata Nerd Font 14" nil t)
-
-;; UI improvements
+;;; UI Improvements
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(setq inhibit-startup-screen t)
-(tool-bar-mode -1)
+(menu-bar-mode -1)
 (toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(global-linum-mode 1)
 
-(when (version<= "26.0.50" emacs-version )
-  (global-display-line-numbers-mode))
+;;; Set custom file
+(setq custom-file "~/.emacs.d/emacs-custom.el")
+(load custom-file)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 16777215)) (:background "#282828" :foreground "#fdf4c1")) (((class color) (min-colors 255)) (:background "#262626" :foreground "#ffffaf")))))
+;;; Bootstrap Straight Package Manager
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+
+;;; Org mode
+(use-package org-bullets
+  :straight t)
+
+;;; Miscellaneous
+(use-package magit
+  :straight t
+  :bind
+  ("C-x g" . magit-status))
+
+(use-package base16-theme
+  :straight t
+  :config
+  (load-theme 'base16-materia))
+
+(use-package linum-relative
+  :straight t
+  :bind
+  ("C-x l" . linum-mode)
+  ("C-x t" . linum-relative-toggle))
+
+;;; Save backups to tree structure
+(defun my-backup-file-name(fpath)
+  "Return a new file path of a given file path.
+If the new path's directories do not exist, create them."
+  (let* (
+	 (backupRootDir "~/.emacs.d/backup")
+	 (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath ))
+	 (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") ))
+        )
+    (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
+    backupFilePath
+  )
+)
+
+(setq make-backup-file-name-function 'my-backup-file-name)
