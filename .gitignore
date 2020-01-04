@@ -53,5 +53,6 @@ flycheck_*.el
 /network-security.data
 
 */**/elpa
+*/**/straight
 
 # End of https://www.gitignore.io/api/emacs
