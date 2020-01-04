@@ -5,7 +5,7 @@
 	template = /Users/nland/.git_commit_message_template
 [user]
 	name = Nick Land
-	email = nland2@ford.com
+	email = land.d.nicholas@gmail.com
 [merge]
     tool = vscode
 [mergetool "vscode"]
@@ -14,3 +14,10 @@
     tool = vscode
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
