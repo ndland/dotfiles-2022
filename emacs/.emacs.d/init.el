@@ -9,6 +9,11 @@
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (load custom-file)
 
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
+
+(require 'base)
+(require 'lang-ruby)
+
 ;;; Bootstrap Straight Package Manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -45,6 +50,18 @@
   :bind
   ("C-x l" . linum-mode)
   ("C-x t" . linum-relative-toggle))
+
+;; Access Developer documentation from Emacs
+(use-package devdocs
+  :straight t
+  :bind
+  ("C-x d" . devdocs-search))
+
+(use-package helm
+  :straight t
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ("C-x b" . helm-buffers-list)))
 
 ;;; Save backups to tree structure
 (defun my-backup-file-name(fpath)
