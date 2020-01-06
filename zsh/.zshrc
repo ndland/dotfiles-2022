@@ -8,7 +8,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-export EDITOR="code -rw"
+export EDITOR="emacsclient -c -a emacs"
 
 # Vim bindings for zsh
 bindkey -v
@@ -44,7 +44,16 @@ alias bubc="brew upgrade && brew cask upgrade && brew cleanup"
 # Stow alias
 alias stow="stow --target=/Users/$USER"
 
+# Make file sizes human readable
 alias df="df -h"
+
+alias buku="buku --suggest"
+
+# Set GOROOT
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/dev/go
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
 
 # Function to grep a search term including the header
 function lag() {
@@ -77,4 +86,9 @@ source /usr/local/share/zsh-history-substring-search/zsh-history-substring-searc
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+# Initialize rbenv
+eval "$(rbenv init -)"
+
 function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
+
+export PATH="/usr/local/sbin:$PATH"export PATH="/usr/local/sbin:$PATH"
