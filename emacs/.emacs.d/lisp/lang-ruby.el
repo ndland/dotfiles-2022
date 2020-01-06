@@ -4,6 +4,9 @@
 
 ;;; Code:
 
-(message "Hello from Ruby config")
-
+(use-package enh-ruby-mode
+  :straight t
+  :mode
+  (("\\.rb\\'" . ruby-mode)))
+  
 (provide 'lang-ruby)
