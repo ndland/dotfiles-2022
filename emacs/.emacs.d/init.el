@@ -13,6 +13,7 @@
 
 (require 'base)
 (require 'lang-ruby)
+(require 'lang-org)
 
 ;;; Org mode
 (use-package org-bullets

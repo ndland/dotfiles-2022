@@ -14,4 +14,6 @@
 
 (straight-use-package 'use-package)
 
+(setq inhibit-startup-screen t)
+
 (provide 'base)
