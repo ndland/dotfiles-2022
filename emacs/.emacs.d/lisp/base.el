@@ -16,4 +16,7 @@
 
 (setq inhibit-startup-screen t)
 
+;; Start emacs server
+(server-start)
+
 (provide 'base)
