@@ -92,3 +92,6 @@ eval "$(rbenv init -)"
 function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
 
 export PATH="/usr/local/sbin:$PATH"export PATH="/usr/local/sbin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
