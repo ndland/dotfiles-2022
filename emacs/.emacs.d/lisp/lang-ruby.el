@@ -1,4 +1,4 @@
-;;; Ruby.el starts here
+;;; lang-ruby.el -- Configuration for Ruby
 
 ;;; Commentary:
 
@@ -10,3 +10,5 @@
   (("\\.rb\\'" . ruby-mode)))
   
 (provide 'lang-ruby)
+
+;;; lang-ruby.el ends here
