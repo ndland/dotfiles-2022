@@ -78,6 +78,11 @@
 	      ("C-z" . helm-select-next-action)
 	      ("<backspace>" . helm-find-files-up-one-level)))
 
+(use-package restart-emacs
+  :straight t
+  :bind
+  ("C-x r" . restart-emacs))
+
 (set-frame-font "Victor Mono 13" nil t)
 
 ;; Save backups to tree structure
