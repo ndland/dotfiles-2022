@@ -101,6 +101,9 @@ If the new path's directories do not exist, create them."
 
 (setq make-backup-file-name-function 'my-backup-file-name)
 
+(setq ispell-program-name "/usr/local/bin/ispell")
+(global-set-key (kbd "<f8>") 'ispell-word)
+
 (provide 'base)
 
 ;;; base.el ends here
