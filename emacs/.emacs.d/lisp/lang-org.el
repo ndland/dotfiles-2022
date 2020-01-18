@@ -10,6 +10,8 @@
   :straight t)
 
 (setq org-agenda-files '("~/Google Drive/org"))
+(setq org-log-done 'note)
+(setq org-closed-keep-when-no-todo t)
 
 ;; Keybinds
 (global-set-key (kbd "C-c a") 'org-agenda)
