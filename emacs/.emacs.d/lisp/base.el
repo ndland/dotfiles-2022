@@ -87,7 +87,13 @@
 (use-package dashboard
   :straight t
   :config
-  (dashboard-setup-startup-hook))
+  (dashboard-setup-startup-hook)
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t))
+
+(use-package all-the-icons
+  :straight t)
 
 (set-frame-font "Victor Mono 13" nil t)
 
