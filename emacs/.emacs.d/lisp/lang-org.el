@@ -17,15 +17,18 @@
 (setq org-default-notes-file "~/Google Drive/org/index.org")
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Google Drive/org/gtd.org" "Tasks")
-         "* TODO %?\n  %i\n  %a")
+      '(("t" "Todo" entry (file+headline "~/Google Drive/org/inbox.org" "Tasks")
+         "* TODO %?\n")
+	("r" "Reminder" entry (file+headline "~/Google Drive/org/inbox.org" "Reminders")
+	 "* Reminder %?\n")
         ("j" "Journal" entry (file+datetree "~/Google Drive/org/journal.org")
-         "* %?\n\nEntered on %U\n  %i\n  %a")))
+         "* %?\n\nEntered on %U\n")))
 
 ;; Keybinds
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c C-l") 'org-insert-link)
 
 (provide 'lang-org)
 
