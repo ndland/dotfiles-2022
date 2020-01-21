@@ -13,8 +13,19 @@
 (setq org-log-done 'note)
 (setq org-closed-keep-when-no-todo t)
 
+(setq org-agenda-include-diary t)
+(setq org-default-notes-file "~/Google Drive/org/index.org")
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Google Drive/org/gtd.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+datetree "~/Google Drive/org/journal.org")
+         "* %?\n\nEntered on %U\n  %i\n  %a")))
+
 ;; Keybinds
 (global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c l") 'org-store-link)
 
 (provide 'lang-org)
 
