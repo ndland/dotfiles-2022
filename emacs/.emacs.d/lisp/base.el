@@ -71,7 +71,8 @@
   :straight t
   :bind (("M-x" . helm-M-x)
          ("C-x C-f" . helm-find-files)
-         ("C-x b" . helm-buffers-list))
+         ("C-x b" . helm-buffers-list)
+	 ("C-x C-b" . helm-buffers-list))
   :bind (:map helm-map
 	      ("<tab>" . helm-execute-persistent-action)
 	      ("TAB" . helm-execute-persistent-action)
