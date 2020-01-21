@@ -9,19 +9,22 @@
 (use-package org-bullets
   :straight t)
 
-(setq org-agenda-files '("~/Google Drive/org"))
+(setq org-agenda-files '("~/Dropbox/org"))
 (setq org-log-done 'note)
 (setq org-closed-keep-when-no-todo t)
 
 (setq org-agenda-include-diary t)
-(setq org-default-notes-file "~/Google Drive/org/index.org")
+(setq org-default-notes-file "~/Dropbox/org/index.org")
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps nil)
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Google Drive/org/inbox.org" "Tasks")
+      '(("t" "Todo" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
          "* TODO %?\n")
-	("r" "Reminder" entry (file+headline "~/Google Drive/org/inbox.org" "Reminders")
+	("r" "Reminder" entry (file+headline "~/Dropbox/org/refile.org" "Reminders")
 	 "* Reminder %?\n")
-        ("j" "Journal" entry (file+datetree "~/Google Drive/org/journal.org")
+        ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
          "* %?\n\nEntered on %U\n")))
 
 ;; Keybinds
