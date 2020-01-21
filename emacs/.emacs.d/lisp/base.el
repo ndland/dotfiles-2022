@@ -84,6 +84,11 @@
   :bind
   ("C-x r" . restart-emacs))
 
+(use-package dashboard
+  :straight t
+  :config
+  (dashboard-setup-startup-hook))
+
 (set-frame-font "Victor Mono 13" nil t)
 
 ;; Save backups to tree structure
