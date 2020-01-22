@@ -19,11 +19,13 @@
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 
+(setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "IN PROGRESS(i)" "APPT(a)""|" "DONE(d)" "CANCELLED(c)")))
+
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
          "* TODO %?\n")
 	("r" "Reminder" entry (file+headline "~/Dropbox/org/refile.org" "Reminders")
-	 "* Reminder %?\n")
+	 "* %?\n")
         ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
          "* %?\n\nEntered on %U\n")))
 
