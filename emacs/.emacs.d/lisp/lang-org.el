@@ -22,10 +22,8 @@
 (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "IN PROGRESS(i)" "APPT(a)""|" "DONE(d)" "CANCELLED(c)")))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
+      '(("t" "Todo" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
          "* TODO %?\n")
-	("r" "Reminder" entry (file+headline "~/Dropbox/org/refile.org" "Reminders")
-	 "* %?\n")
         ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
          "* %?\n\nEntered on %U\n")))
 
