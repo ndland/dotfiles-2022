@@ -56,11 +56,6 @@
   :bind
   ("C-x g" . magit-status))
 
-(use-package linum-relative
-  :straight t
-  :bind
-  ("C-x l" . linum-mode))
-
 ;; Access Developer documentation from Emacs
 (use-package devdocs
   :straight t
