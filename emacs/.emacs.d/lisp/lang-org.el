@@ -14,7 +14,6 @@
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-into-drawer t)
 
-(setq org-agenda-include-diary t)
 (setq org-default-notes-file "~/Dropbox/org/index.org")
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 (setq org-refile-use-outline-path 'file)
