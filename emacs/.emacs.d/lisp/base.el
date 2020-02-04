@@ -89,7 +89,11 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t))
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-items '((recents . 10)
+			  (bookmarks . 5)
+			  (agenda . 5)
+			  (registers . 5))))
 
 (use-package all-the-icons
   :straight t)
