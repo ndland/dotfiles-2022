@@ -55,3 +55,10 @@ flycheck_*.el
 */**/straight
 
 # End of https://www.gitignore.io/api/emacs
+/emacs/.emacs.d/.cache/
+/emacs/.emacs.d/abbrev_defs
+/emacs/.emacs.d/bookmarks
+/emacs/.emacs.d/network-security.data
+/emacs/.emacs.d/recentf
+/emacs/.emacs.d/tutorial/
+/.DS_Store
