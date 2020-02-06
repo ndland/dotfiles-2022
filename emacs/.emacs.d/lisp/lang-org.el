@@ -9,12 +9,6 @@
 (use-package org-bullets
   :straight t)
 
-(use-package exec-path-from-shell
-  :straight t
-  :if (memq window-system '(mac ns))
-  :config
-  (exec-path-from-shell-initialize))
-
 (setq org-agenda-files '("~/Dropbox/org"))
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-into-drawer t)

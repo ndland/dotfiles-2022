@@ -38,6 +38,12 @@
   :config
   (golden-ratio-mode 1))
 
+(use-package exec-path-from-shell
+  :straight t
+  :if (memq window-system '(mac ns))
+  :config
+  (exec-path-from-shell-initialize))
+
 ;; Add auto-complete
 (use-package company
   :straight t
