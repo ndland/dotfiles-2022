@@ -9,20 +9,31 @@
 (use-package org-bullets
   :straight t)
 
+(use-package exec-path-from-shell
+  :straight t
+  :if (memq window-system '(mac ns))
+  :config
+  (exec-path-from-shell-initialize))
+
 (setq org-agenda-files '("~/Dropbox/org"))
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-into-drawer t)
 
-(setq org-default-notes-file "~/Dropbox/org/index.org")
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((shell . t)))
+
+(setq org-default-notes-file "~/Dropbox/org/inbox.org")
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 
-(setq org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+(setq org-todo-keywords '((sequence "TODO(t)" "MEETING(m)" "CALL(p)" "NEXT(n)" "|" "DONE(d)")
 			  (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"  "CANCELLED(c@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "red" :weight bold)
+	("MEETING" :foreground "DarkGoldenrod1" :weight bold)
+	("CALL" :foreground "DodgerBlue1" :weight bold)
 	("NEXT" :foreground "blue" :weight bold)
 	("DONE" :foreground "forest green" :weight bold)
 	("WAITING" :foreground "orange" :weight bold)
@@ -30,10 +41,26 @@
 	("CANCELLED" :foreground "firebrick3" :weight bold)))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
-         "* TODO %?\n")
-        ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-         "* %?\n\nEntered on %U\n")))
+      '(("t"
+	 "Todo"
+	 entry
+	 (file+headline org-default-notes-file "Tasks")
+         "* TODO %?\nt" :empty-lines 1)
+	("m"
+	 "Meeting"
+	 entry
+	 (file org-default-notes-file)
+	 "* MEETING with %? :meeting:\n %^{Context} %u" :empty-lines 1)
+	("p"
+	 "Phone"
+	 entry
+	 (file org-default-notes-file)
+	 "* CALL %? :call:\n %^{Phone_Number}p %^{Context}p %u" :empty-lines 1)
+        ("j"
+	 "Journal"
+	 entry
+	 (file+datetree "~/Dropbox/org/journal.org")
+         "**** %<%r> %?%a \n %^{Mood}p \n" :tree-type week :empty-lines 1)))
 
 ;; Keybinds
 (global-set-key (kbd "C-c a") 'org-agenda)
