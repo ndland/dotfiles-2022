@@ -95,3 +95,4 @@ export PATH="/usr/local/sbin:$PATH"export PATH="/usr/local/sbin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+source ~/.config/zsh-plugins/zsh-z.plugin.zsh
