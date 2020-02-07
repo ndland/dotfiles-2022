@@ -39,7 +39,7 @@
 	 "Todo"
 	 entry
 	 (file+headline org-default-notes-file "Tasks")
-         "* TODO %?\nt" :empty-lines 1)
+         "* TODO %?\n" :empty-lines 1)
 	("m"
 	 "Meeting"
 	 entry
