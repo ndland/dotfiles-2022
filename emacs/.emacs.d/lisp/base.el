@@ -96,7 +96,7 @@
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-  (setq dashboard-items '((recents . 10)
+  (setq dashboard-items '((recents . 6)
 			  (bookmarks . 5)
 			  (agenda . 5)
 			  (registers . 5))))
