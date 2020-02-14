@@ -10,11 +10,7 @@ SAVEHIST=10000
 
 export EDITOR="emacsclient -c -a emacs"
 
-# Vim bindings for zsh
-bindkey -v
-
 alias code="code -r"
-alias vim="nvim"
 alias reload="source ~/.zshrc"
 alias zshrc="code ~/.zshrc"
 alias vimrc="code ~/.config/nvim/init.vim"
@@ -91,7 +87,8 @@ eval "$(rbenv init -)"
 
 function gi() { curl -sLw n https://www.gitignore.io/api/$@ ;}
 
-export PATH="/usr/local/sbin:$PATH"export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.bin/:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
