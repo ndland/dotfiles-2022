@@ -21,12 +21,13 @@
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 
-(setq org-todo-keywords '((sequence "TODO(t)" "MEETING(m)" "CALL(p)" "NEXT(n)" "|" "DONE(d)")
+(setq org-todo-keywords '((sequence "TODO(t)" "MEETING(m)" "HABIT(h)" "CALL(p)" "NEXT(n)" "|" "DONE(d)")
 			  (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"  "CANCELLED(c@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "red" :weight bold)
 	("MEETING" :foreground "DarkGoldenrod1" :weight bold)
+	("HABIT" :foreground "SpringGreen1" :weight bold)
 	("CALL" :foreground "DodgerBlue1" :weight bold)
 	("NEXT" :foreground "blue" :weight bold)
 	("DONE" :foreground "forest green" :weight bold)
@@ -50,6 +51,11 @@
 	 entry
 	 (file org-default-notes-file)
 	 "* CALL %? :call:\n %^{Phone_Number}p %^{Context}p %u" :empty-lines 1)
+	("h"
+	 "Habit"
+	 entry
+	 (file org-default-notes-file)
+	 "* HABIT %? :habit:\n %^{SCHEDULED}p %^{Behavior}p %^{Location}p %u" :empty-lines 1)
         ("j"
 	 "Journal"
 	 entry
@@ -62,7 +68,7 @@
 (global-set-key (kbd "C-c b") 'org-switchb)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c C-l") 'org-insert-link)
-(global-set-key (kbd "<f11>") 'org-clock-goto)
+(global-set-key (kbd "C-c f") 'org-clock-goto)
 
 (provide 'lang-org)
 
