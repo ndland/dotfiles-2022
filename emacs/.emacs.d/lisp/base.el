@@ -11,6 +11,12 @@
 (tool-bar-mode -1)
 (global-linum-mode 1)
 
+;; Set the default tab width
+(setq-default tab-width 4)
+
+;; make tab key do indent first then completion.
+(setq-default tab-always-indent 'complete)
+
 ;; Set custom file
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 (load custom-file)
