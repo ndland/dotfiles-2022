@@ -22,7 +22,7 @@
 (setq org-outline-path-complete-in-steps nil)
 
 (setq org-todo-keywords '((sequence "TODO(t)" "MEETING(m)" "HABIT(h)" "CALL(p)" "NEXT(n)" "|" "DONE(d)")
-			  (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|"  "CANCELLED(c@/!)")))
+			  (sequence "WAITING(w@/!)" "HOLD(o@/!)" "|"  "CANCELLED(c@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "red" :weight bold)

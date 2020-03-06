@@ -10,5 +10,6 @@
 (require 'base)
 (require 'lang-ruby)
 (require 'lang-org)
+(require 'lang-markdown)
 
 ;;; init.el ends here
