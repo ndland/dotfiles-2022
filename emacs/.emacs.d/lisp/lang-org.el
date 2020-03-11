@@ -13,6 +13,10 @@
 (setq org-closed-keep-when-no-todo t)
 (setq org-log-into-drawer t)
 
+(with-eval-after-load 'org
+  (add-to-list 'org-modules 'org-habit t))
+
+
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)))
 
@@ -21,13 +25,12 @@
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 
-(setq org-todo-keywords '((sequence "TODO(t)" "MEETING(m)" "HABIT(h)" "CALL(p)" "NEXT(n)" "|" "DONE(d)")
+(setq org-todo-keywords '((sequence "TODO(t)" "MEETING(m)"  "CALL(p)" "NEXT(n)" "|" "DONE(d)")
 			  (sequence "WAITING(w@/!)" "HOLD(o@/!)" "|"  "CANCELLED(c@/!)")))
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "red" :weight bold)
 	("MEETING" :foreground "DarkGoldenrod1" :weight bold)
-	("HABIT" :foreground "SpringGreen1" :weight bold)
 	("CALL" :foreground "DodgerBlue1" :weight bold)
 	("NEXT" :foreground "blue" :weight bold)
 	("DONE" :foreground "forest green" :weight bold)
@@ -37,29 +40,33 @@
 
 (setq org-capture-templates
       '(("t"
-	 "Todo"
-	 entry
-	 (file+headline org-default-notes-file "Tasks")
-         "* TODO %?\n" :empty-lines 1)
-	("m"
-	 "Meeting"
-	 entry
-	 (file org-default-notes-file)
-	 "* MEETING with %? :meeting:\n %^{Context} %u" :empty-lines 1)
-	("p"
-	 "Phone"
-	 entry
-	 (file org-default-notes-file)
-	 "* CALL %? :call:\n %^{Phone_Number}p %^{Context}p %u" :empty-lines 1)
-	("h"
-	 "Habit"
-	 entry
-	 (file org-default-notes-file)
-	 "* HABIT %? :habit:\n %^{SCHEDULED}p %^{Behavior}p %^{Location}p %u" :empty-lines 1)
+		 "Todo"
+		 entry
+		 (file+headline org-default-notes-file "Tasks")
+		 "* TODO %?\n" :empty-lines 1)
+		("m"
+		 "Meeting"
+		 entry
+		 (file org-default-notes-file)
+		 "* MEETING with %? :meeting:\n %^{Context} %u" :empty-lines 1)
+		("p"
+		 "Phone"
+		 entry
+		 (file org-default-notes-file)
+		 "* CALL %? :call:\n %^{Phone_Number}p %^{Context}p %u" :empty-lines 1)
+		("h"
+		 "habit"
+		 entry (file org-default-notes-file)
+		 "* TODO %? :habit:
+           :PROPERTIES:
+           :STYLE: habit
+           :BEHAVIOR: %^{BEHAVIOR|organization}
+           :LOCATION: %^{LOCATION|home|work}
+           :END: \n %^{SCHEDULED}p" :empty-lines 1)
         ("j"
-	 "Journal"
-	 entry
-	 (file+datetree "~/Dropbox/org/journal.org")
+		 "Journal"
+		 entry
+		 (file+datetree "~/Dropbox/org/journal.org")
          "**** %<%r> %?%a \n %^{Mood}p \n" :tree-type week :empty-lines 1)))
 
 ;; Keybinds
