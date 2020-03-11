@@ -30,13 +30,13 @@
 
 (setq org-todo-keyword-faces
       '(("TODO" :foreground "red" :weight bold)
-	("MEETING" :foreground "DarkGoldenrod1" :weight bold)
-	("CALL" :foreground "DodgerBlue1" :weight bold)
-	("NEXT" :foreground "blue" :weight bold)
-	("DONE" :foreground "forest green" :weight bold)
-	("WAITING" :foreground "orange" :weight bold)
-	("HOLD" :foreground "magenta" :weight bold)
-	("CANCELLED" :foreground "firebrick3" :weight bold)))
+		("MEETING" :foreground "DarkGoldenrod1" :weight bold)
+		("CALL" :foreground "DodgerBlue1" :weight bold)
+		("NEXT" :foreground "blue" :weight bold)
+		("DONE" :foreground "forest green" :weight bold)
+		("WAITING" :foreground "orange" :weight bold)
+		("HOLD" :foreground "magenta" :weight bold)
+		("CANCELLED" :foreground "firebrick3" :weight bold)))
 
 (setq org-capture-templates
       '(("t"
