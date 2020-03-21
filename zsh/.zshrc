@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/nland/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -76,6 +76,7 @@ HIST_STAMPS="%F->%r"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  brew
   dnf
   docker
   docker-compose
@@ -84,6 +85,7 @@ plugins=(
   kubectl
   minikube
   zsh-syntax-highlighting
+  z
   )
 
 source $ZSH/oh-my-zsh.sh
