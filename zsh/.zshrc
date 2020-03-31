@@ -84,6 +84,7 @@ plugins=(
   history-substring-search
   kubectl
   minikube
+  taskwarrior
   zsh-syntax-highlighting
   z
   )
@@ -122,7 +123,3 @@ source $ZSH/oh-my-zsh.sh
 # Autocomplete
 autoload -Uz compinit
 compinit
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/nland/.sdkman"
-[[ -s "/home/nland/.sdkman/bin/sdkman-init.sh" ]] && source "/home/nland/.sdkman/bin/sdkman-init.sh"
