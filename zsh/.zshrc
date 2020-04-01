@@ -81,10 +81,14 @@ plugins=(
   docker
   docker-compose
   git
+  git-flow-avh
+  gitignore
   history-substring-search
   kubectl
   minikube
+  redis-cli
   taskwarrior
+  timewarrior
   zsh-syntax-highlighting
   z
   )
