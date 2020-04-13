@@ -89,6 +89,7 @@ plugins=(
   redis-cli
   taskwarrior
   timewarrior
+  zsh-aliases-exa
   zsh-syntax-highlighting
   z
   )
@@ -120,6 +121,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias twd="tw day"
+alias tww="tw week"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
