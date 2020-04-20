@@ -112,6 +112,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+export EDITOR=code
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -124,6 +125,8 @@ source $ZSH/oh-my-zsh.sh
 
 alias twd="tw day"
 alias tww="tw week"
+alias cat="bat"
+alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
