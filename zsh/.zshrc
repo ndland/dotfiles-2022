@@ -82,6 +82,7 @@ plugins=(
   docker-compose
   git
   git-flow-avh
+  git-flow
   gitignore
   history-substring-search
   kubectl
