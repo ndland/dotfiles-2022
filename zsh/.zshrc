@@ -135,3 +135,5 @@ alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 # Autocomplete
 autoload -Uz compinit
 compinit
+
+export PATH="/usr/local/sbin:$PATH"
