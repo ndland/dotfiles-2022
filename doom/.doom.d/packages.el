@@ -14,7 +14,7 @@
 (package! evil-ledger)
 (package! org-super-agenda)
 (package! toml-mode)
-(package! dockerfile-mode)
+(package! docker-compose-mode)
 (package! elfeed)
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

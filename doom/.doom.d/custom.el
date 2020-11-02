@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(ledger-reports
    '(("budget" "%(binary) -f %(ledger-file) --empty -S -T bal ^assets:budget")
-     ("real balance" "%(binary) -f %(ledger-file) bal Assets:Banking:Chase Assets:Banking:Paypal Assets:Cash -R")
+     ("real balance" "%(binary) -f %(ledger-file) bal Assets:Venmo Assets:Banking:Chase Assets:Banking:Paypal Assets:Cash -R")
      ("account real" "%(binary) -f %(ledger-file) reg %(account) -R")
      ("bal" "%(binary) -f %(ledger-file) bal")
      ("reg" "%(binary) -f %(ledger-file) reg")

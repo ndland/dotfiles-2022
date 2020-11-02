@@ -19,8 +19,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 13 :weight 'medium)
-      doom-variable-pitch-font (font-spec :family "Fira Code" :size 13))
+(setq doom-font (font-spec :family "VictorMono Nerd Font" :size 13 :weight 'medium)
+      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font Mono" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -30,6 +30,8 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Dropbox/org")
+
+(add-hook 'org-mode-hook 'org-hide-block-all)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -48,8 +50,15 @@
 (require 'ledger-mode)
 (setq ledger-clear-whole-transactions 1)
 (setq ledger-copy-transaction-insert-blank-line-after -1)
-(setq ledger-post-amount-alignment-column 65)
+(setq ledger-post-amount-alignment-column 70)
 (add-to-list 'evil-emacs-state-modes 'ledger-report-mode)
+
+(add-hook 'ledger-mode-hook
+          (lambda ()
+            (setq-local tab-always-indent 'complete)
+            (setq-local completion-cycle-threshold t)
+            (setq-local ledger-complete-in-steps t)))
+
 
 (require 'evil-ledger)
 (add-hook 'ledger-mode-hook #'evil-ledger-mode)
@@ -67,6 +76,7 @@
         (:map ledger-mode-map
           :localleader                  ; Use local leader
           :desc "Reports" "r" #'ledger-report
+          :desc "Reconcile" "e" #'ledger-reconcile
           :desc "Clean buffer" "c" #'ledger-mode-clean-buffer))
 
 (setq org-ellipsis "⤵")
@@ -81,7 +91,7 @@
 
 (require 'elfeed)
 (map! :leader
-      :desc "Elfeed"       "e"    #'elfeed)
+      :desc "Elfeed" "e" #'elfeed)
 
 (map! :after elfeed-show
         (:map elfeed-show-mode-map
@@ -100,11 +110,6 @@
       '(("https://xkcd.com/atom.xml" comic)
         ("https://news.ycombinator.com/rss" tech)
         ("https://www.espn.com/espn/rss/news" sports)
-        ("https://www.espn.com/espn/rss/nfl/news" sports)
-        ("https://www.espn.com/espn/rss/mlb/news" sports)
-        ("https://www.espn.com/espn/rss/nba/news" sports)
-        ("https://www.espn.com/espn/rss/nhl/news" sports)
-        ("https://www.espn.com/espn/rss/ncf/news" sports)
         ("https://blog.docker.com/feed" tech)
         ("http://feeds.arstechnica.com/arstechnica/index" tech)))
 
