@@ -115,7 +115,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-export EDITOR=code
+eval $(thefuck --alias)
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -126,8 +126,6 @@ export EDITOR=code
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias twd="tw day"
-alias tww="tw week"
 alias cat="bat"
 alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 
@@ -138,4 +136,17 @@ alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 autoload -Uz compinit
 compinit
 
+export BAT_THEME="gruvbox"
+export GOPATH=$HOME/go
 export PATH="/usr/local/sbin:$PATH"
+# Colored Man pages
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+stowit() {
+  dir=$1
+  app=$2
+  # -v verbose
+  # -R recursive
+  # -t target
+  stow -v -R -t ${dir} ${app}
+}
