@@ -20,12 +20,12 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "VictorMono Nerd Font" :size 13 :weight 'medium)
-      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font Mono" :size 13))
+      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-gruvbox)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -88,6 +88,9 @@
 
 (require 'dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
+
+(require 'groovy-mode)
+(add-to-list 'auto-mode-alist '("Jenkinsfile\\'" . groovy-mode))
 
 (require 'elfeed)
 (map! :leader
