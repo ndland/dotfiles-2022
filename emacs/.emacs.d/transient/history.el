@@ -6,9 +6,9 @@
   ("-n256" "--decorate")
   ("-n256" "--graph" "--decorate"))
  (magit-push nil
-	     ("--force-with-lease"))
+			 ("--force-with-lease"))
  (magit-rebase nil
-	       ("--interactive"))
+			   ("--interactive"))
  (magit-stash nil
-	      ("--include-untracked"))
+			  ("--include-untracked"))
  (magit-status-jump nil))

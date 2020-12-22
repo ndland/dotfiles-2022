@@ -4,8 +4,8 @@
 	verbose = true
 	template = /Users/nland/.git_commit_message_template
 [user]
-	name = Nick Land
-	email = land.d.nicholas@gmail.com
+	name = Nicholas
+	email = Land
 [merge]
     tool = vscode
 [mergetool "vscode"]

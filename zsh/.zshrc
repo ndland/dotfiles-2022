@@ -92,6 +92,7 @@ plugins=(
   redis-cli
   taskwarrior
   timewarrior
+  vi-mode
   zsh-aliases-exa
   zsh-syntax-highlighting
   z
@@ -136,9 +137,10 @@ alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 autoload -Uz compinit
 compinit
 
-export BAT_THEME="gruvbox"
+export BAT_THEME="Nord"
 export GOPATH=$HOME/go
 export PATH="/usr/local/sbin:$PATH"
+export EDITOR="code --wait"
 # Colored Man pages
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 

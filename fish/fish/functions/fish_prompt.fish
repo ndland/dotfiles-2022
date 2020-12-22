@@ -1,0 +1,1 @@
+/Users/nland/.local/share/omf/themes/cbjohnson/fish_prompt.fish

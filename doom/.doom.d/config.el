@@ -72,12 +72,12 @@
   '(require 'flycheck-ledger))
 
 ;; Keybinds
-(map! :after ledger-mode
-        (:map ledger-mode-map
-          :localleader                  ; Use local leader
-          :desc "Reports" "r" #'ledger-report
-          :desc "Reconcile" "e" #'ledger-reconcile
-          :desc "Clean buffer" "c" #'ledger-mode-clean-buffer))
+;; (map! :after ledger-mode
+;;         (:map ledger-mode-map
+;;           :localleader                  ; Use local leader
+;;           :desc "Reports" "r" #'ledger-report
+;;           :desc "Reconcile" "e" #'ledger-reconcile
+;;           :desc "Clean buffer" "c" #'ledger-mode-clean-buffer))
 
 (setq org-ellipsis "⤵")
 
