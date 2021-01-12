@@ -7,7 +7,6 @@
 (scroll-bar-mode -1) ; Disable scrollbar
 (tool-bar-mode -1) ; Disable toolbar
 (tooltip-mode -1) ; Disable tooltips
-(set-fringe-mode 10) ; Give some breathing room
 
 (menu-bar-mode -1) ; Disable the menu bar
 
@@ -91,7 +90,7 @@
 (use-package helpful
   :custom
   (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
   :bind
   ([remap describe-function] . counsel-describe-function)
   ([remap describe-command] . helpful-command)
@@ -112,17 +111,31 @@
 
 (use-package general
   :config
-  (general-create-definer rune/leader-keys
+  (general-create-definer nl/leader-keys
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
     :global-prefix "C-SPC")
 
   ;; Rune is just an arbitrary name space can be changed
-  (rune/leader-keys
+  (nl/leader-keys
     ;; This is the prefix
-    "t" '(:ignore t :which-key "toggles")
+    "t" '(:ignore t :which-key "Toggles")
     ;; This comes after the prefix is triggered
-    "tt" '(counsel-load-theme :which-key "choose theme")))
+    "tt" '(counsel-load-theme :which-key "Choose Theme")
+
+    "f" '(:ignore t :which-key "File")
+    "ff" '(counsel-find-file :which-key "Find File")
+    "fs" '(save-buffer :which-key "Save File")
+
+    "g" '(:ignore t :which-key "Git")
+    "gs" '(magit-status :which-key "Git Status"))
+
+    "o" '(:ignore t :which-key "Git")
+    "oc" '(org-capture :which-key "Org Capture")
+    "or" '(org-refile :which-key "Org Refile")
+
+    "b" '(:ignore t :which-key "Buffers")
+    "bb" '(counsel-ibuffer :which-key "Switch Buffers"))
 
 (use-package hydra)
 
@@ -143,10 +156,58 @@
 (use-package magit
   :commands (magit-status magit-get-current-branch)
   :custom
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
 
 (use-package evil-magit
   :after magit)
+
+(defun nl/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 1))
+
+(defun nl/org-heading-setup ()
+  ;; Scale headings
+  (dolist (face '((org-level-1 . 1.5)
+		  (org-level-2 . 1.1)
+		  (org-level-3 . 1.05)
+		  (org-level-4 . 1.1)
+		  (org-level-5 . 1.1)
+		  (org-level-6 . 1.1)
+		  (org-level-7 . 1.1)
+		  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Cantarell" :weight 'normal :height (cdr face))))
+
+(use-package org
+  :hook (org-mode . nl/org-mode-setup)
+  :config
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  (setq org-agenda-files
+	'("~/Dropbox/org/inbox.org"))
+  (setq org-ellipsis " ▼"
+	org-hide-emphasis-markers t)
+  (nl/org-heading-setup)
+
+  (setq org-refile-targets
+	'(("tasks.org" :maxlevel . 1)
+	  ("archive.org" :maxlevel . 2)))
+
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+	  (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(e)" "WAITING(w)" "HOLD(h)" "|" "COMPLETED(c)" "CANCELLED(a)")))
+
+  (setq org-capture-templates
+	'(("t" "Tasks")
+	  ("tt" "Task" entry (file+olp "~/Dropbox/org/tasks.org" "Inbox")
+	   "* TODO %?\n %U\n %a\n %i" :empty-lines 1)
+	  ("j" "Journal")
+	  ("jj" "Journal" entry (file+olp+datetree "~/Dropbox/org/journal.org")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n" :empty-lines 1 :clock-in :clock-resume))))
+
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode))
 
 ;; Look into using Forge by same author as magit
 
@@ -160,7 +221,7 @@
  '(custom-safe-themes
    '("c83c095dd01cde64b631fb0fe5980587deec3834dc55144a6e78ff91ebc80b19" default))
  '(package-selected-packages
-   '(evil-magit magit counsel-projectile projectile hydra evil-collection evil general doom-themes helpful counsel ivy-rich which-key rainbow-delimiters use-package ivy doom-modeline)))
+   '(org org-bullets evil-magit magit counsel-projectile projectile hydra evil-collection evil general doom-themes helpful counsel ivy-rich which-key rainbow-delimiters use-package ivy doom-modeline)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
