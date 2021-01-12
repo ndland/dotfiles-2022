@@ -143,10 +143,8 @@ else
 fi
 
 export BAT_THEME="Nord"
-export GOPATH=$HOME/go
 export PATH="/usr/local/sbin:$PATH"
 export EDITOR="code --wait"
-# Colored Man pages
 
 stowit() {
   dir=$1
