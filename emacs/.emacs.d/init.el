@@ -128,7 +128,7 @@
     "fs" '(save-buffer :which-key "Save File")
 
     "g" '(:ignore t :which-key "Git")
-    "gs" '(magit-status :which-key "Git Status"))
+    "gs" '(magit-status :which-key "Git Status")
 
     "o" '(:ignore t :which-key "Git")
     "oc" '(org-capture :which-key "Org Capture")
