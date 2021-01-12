@@ -127,7 +127,7 @@ eval $(thefuck --alias)
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias cat="bat"
+alias cat="batcat"
 alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -142,7 +142,7 @@ export GOPATH=$HOME/go
 export PATH="/usr/local/sbin:$PATH"
 export EDITOR="code --wait"
 # Colored Man pages
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 
 stowit() {
   dir=$1
