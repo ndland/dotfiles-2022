@@ -90,8 +90,6 @@ plugins=(
   kubectl
   minikube
   redis-cli
-  taskwarrior
-  timewarrior
   vi-mode
   zsh-aliases-exa
   zsh-syntax-highlighting
