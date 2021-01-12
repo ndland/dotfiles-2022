@@ -127,7 +127,6 @@ eval $(thefuck --alias)
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias cat="batcat"
 alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -137,12 +136,18 @@ alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 autoload -Uz compinit
 compinit
 
+if [[ `uname` == "Linux" ]]; then
+    alias cat="batcat"
+else
+    alias cat="bat"
+fi
+
 export BAT_THEME="Nord"
 export GOPATH=$HOME/go
 export PATH="/usr/local/sbin:$PATH"
 export EDITOR="code --wait"
+export MANPAGER="sh -c 'col -bx | cat -l man -p'"
 # Colored Man pages
-export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 
 stowit() {
   dir=$1
