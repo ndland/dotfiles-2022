@@ -138,15 +138,16 @@ compinit
 
 if [[ `uname` == "Linux" ]]; then
     alias cat="batcat"
+    export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 else
     alias cat="bat"
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
 export BAT_THEME="Nord"
 export GOPATH=$HOME/go
 export PATH="/usr/local/sbin:$PATH"
 export EDITOR="code --wait"
-export MANPAGER="sh -c 'col -bx | cat -l man -p'"
 # Colored Man pages
 
 stowit() {
