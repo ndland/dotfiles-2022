@@ -131,6 +131,7 @@
     "gs" '(magit-status :which-key "Git Status")
 
     "o" '(:ignore t :which-key "Git")
+    "oa" '(org-agenda :which-key "Org Agenda")
     "oc" '(org-capture :which-key "Org Capture")
     "or" '(org-refile :which-key "Org Refile")
 
@@ -184,7 +185,8 @@
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-agenda-files
-	'("~/Dropbox/org/inbox.org"))
+	'("~/Dropbox/org/inbox.org"
+	  "~/Dropbox/org/tasks.org"))
   (setq org-ellipsis " ▼"
 	org-hide-emphasis-markers t)
   (nl/org-heading-setup)
