@@ -15,7 +15,7 @@
 
 (set-face-attribute 'default nil :font "VictorMono Nerd Font" :height 100)
 
-(load-theme 'doom-palenight t)
+(load-theme 'spacemacs-dark t)
 
 ;; Initialize package sources
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -77,6 +77,8 @@
   :init (doom-modeline-mode 1)) 
 
 (use-package doom-themes)
+
+(use-package spacemacs-theme)
 
 (use-package which-key
   :init (which-key-mode)
