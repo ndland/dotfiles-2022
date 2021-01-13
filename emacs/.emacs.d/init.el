@@ -130,10 +130,12 @@
     "g" '(:ignore t :which-key "Git")
     "gs" '(magit-status :which-key "Git Status")
 
-    "o" '(:ignore t :which-key "Git")
+    "o" '(:ignore t :which-key "Org")
     "oa" '(org-agenda :which-key "Org Agenda")
     "oc" '(org-capture :which-key "Org Capture")
+    "oh" '(org-archive-subtree-default :which-key "Org Archive")
     "or" '(org-refile :which-key "Org Refile")
+    "ot" '(org-todo :which-key "Org TODO")
 
     "b" '(:ignore t :which-key "Buffers")
     "bb" '(counsel-ibuffer :which-key "Switch Buffers"))
