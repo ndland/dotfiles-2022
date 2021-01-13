@@ -138,80 +138,83 @@
     "ot" '(org-todo :which-key "Org TODO")
 
     "b" '(:ignore t :which-key "Buffers")
-    "bb" '(counsel-ibuffer :which-key "Switch Buffers"))
+    "bb" '(counsel-ibuffer :which-key "Switch Buffers")))
 
-(use-package hydra)
+  (use-package hydra)
 
-(use-package projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  (when (file-directory-p "~/dev")
-    (setq projectile-project-serach-path '("~/dev")))
-  ;; When you switch projects, load dired first
-  (setq projectile-switch-project-action #'projectile-dired))
+  (use-package projectile
+    :diminish projectile-mode
+    :config (projectile-mode)
+    :bind-keymap
+    ("C-c p" . projectile-command-map)
+    :init
+    (when (file-directory-p "~/dev")
+      (setq projectile-project-serach-path '("~/dev")))
+    ;; When you switch projects, load dired first
+    (setq projectile-switch-project-action #'projectile-dired))
 
-(use-package counsel-projectile
-  :config (counsel-projectile-mode))
+  (use-package counsel-projectile
+    :config (counsel-projectile-mode))
 
-(use-package magit
-  :commands (magit-status magit-get-current-branch)
-  :custom
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+  (use-package magit
+    :commands (magit-status magit-get-current-branch)
+    :custom
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package evil-magit
-  :after magit)
+  (use-package evil-magit
+    :after magit)
 
-(defun nl/org-mode-setup ()
-  (org-indent-mode)
-  (variable-pitch-mode 1)
-  (auto-fill-mode 1))
+  (defun nl/org-mode-setup ()
+    (org-indent-mode)
+    (variable-pitch-mode 1)
+    (auto-fill-mode 1))
 
-(defun nl/org-heading-setup ()
-  ;; Scale headings
-  (dolist (face '((org-level-1 . 1.5)
-		  (org-level-2 . 1.1)
-		  (org-level-3 . 1.05)
-		  (org-level-4 . 1.1)
-		  (org-level-5 . 1.1)
-		  (org-level-6 . 1.1)
-		  (org-level-7 . 1.1)
-		  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Cantarell" :weight 'normal :height (cdr face))))
+  (defun nl/org-heading-setup ()
+    ;; Scale headings
+    (dolist (face '((org-level-1 . 1.5)
+		    (org-level-2 . 1.1)
+		    (org-level-3 . 1.05)
+		    (org-level-4 . 1.1)
+		    (org-level-5 . 1.1)
+		    (org-level-6 . 1.1)
+		    (org-level-7 . 1.1)
+		    (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :font "Cantarell" :weight 'normal :height (cdr face))))
 
-(use-package org
-  :hook (org-mode . nl/org-mode-setup)
-  :config
-  (setq org-log-done 'time)
-  (setq org-log-into-drawer t)
-  (setq org-agenda-files
-	'("~/Dropbox/org/inbox.org"
-	  "~/Dropbox/org/tasks.org"))
-  (setq org-ellipsis " ▼"
-	org-hide-emphasis-markers t)
-  (nl/org-heading-setup)
+  (use-package org
+    :hook (org-mode . nl/org-mode-setup)
+    :config
+    (setq org-log-done 'time)
+    (setq org-log-into-drawer t)
+    (setq org-agenda-files
+	  '("~/Dropbox/org/tasks.org"))
+    (setq org-ellipsis " ▼"
+	  org-hide-emphasis-markers t)
+    (nl/org-heading-setup)
 
-  (setq org-refile-targets
-	'(("tasks.org" :maxlevel . 1)
-	  ("archive.org" :maxlevel . 2)))
+    (setq org-refile-targets
+	  '(("tasks.org" :maxlevel . 1)
+	    ("notes.org" :maxlevel . 1)
+	    ("archive.org" :maxlevel . 2)))
 
-  (setq org-todo-keywords
-	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-	  (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(e)" "WAITING(w)" "HOLD(h)" "|" "COMPLETED(c)" "CANCELLED(a)")))
+    (setq org-todo-keywords
+	  '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+	    (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(e)" "WAITING(w)" "HOLD(h)" "|" "COMPLETED(c)" "CANCELLED(a)")))
 
-  (setq org-capture-templates
-	'(("t" "Tasks")
-	  ("tt" "Task" entry (file+olp "~/Dropbox/org/tasks.org" "Inbox")
-	   "* TODO %?\n %U\n %a\n %i" :empty-lines 1)
-	  ("j" "Journal")
-	  ("jj" "Journal" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n" :empty-lines 1 :clock-in :clock-resume))))
+    (setq org-capture-templates
+	  '(("t" "Tasks")
+	    ("tt" "Task" entry (file+olp "~/Dropbox/org/tasks.org" "Inbox")
+	     "* TODO %?\n %U\n %a\n %i" :empty-lines 1)
+	    ("j" "Journal")
+	    ("jj" "Journal" entry (file+olp+datetree "~/Dropbox/org/journal.org")
+	     "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n" :empty-lines 1 :clock-in :clock-resume))))
 
-(use-package org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode))
+  (use-package org-bullets
+    :after org
+    :hook (org-mode . org-bullets-mode))
+
+  (use-package emojify
+    :hook (after-init . global-emojify-mode))
 
 ;; Look into using Forge by same author as magit
 
