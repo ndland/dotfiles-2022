@@ -43,6 +43,7 @@
 # 📦 Update compiled files or packages
 # 🀄 Remove duplications
 # 🙈 Add or update .gitignore
+# 🚚 Move or rename resources (e.g.: files, paths, routes)
 
 # --------------------
 # Remember to:
