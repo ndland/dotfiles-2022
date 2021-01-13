@@ -233,6 +233,14 @@
 (use-package emojify
   :hook (after-init . global-emojify-mode))
 
+;; Markdown
+(use-package markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "pandoc"))
+
 ;; Look into using Forge by same author as magit
 
 
@@ -253,7 +261,7 @@
  '(magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1 nil nil "Customized with use-package magit")
  '(objed-cursor-color "#ff5370")
  '(package-selected-packages
-   '(diff-hl spacemacs-theme org org-bullets evil-magit magit counsel-projectile projectile hydra evil-collection evil general doom-themes helpful counsel ivy-rich which-key rainbow-delimiters use-package ivy doom-modeline))
+   '(markdown-mode diff-hl spacemacs-theme org org-bullets evil-magit magit counsel-projectile projectile hydra evil-collection evil general doom-themes helpful counsel ivy-rich which-key rainbow-delimiters use-package ivy doom-modeline))
  '(rustic-ansi-faces
    ["#292D3E" "#ff5370" "#c3e88d" "#ffcb6b" "#82aaff" "#c792ea" "#89DDFF" "#EEFFFF"])
  '(vc-annotate-background "#292D3E")
