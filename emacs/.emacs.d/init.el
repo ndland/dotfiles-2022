@@ -192,6 +192,7 @@
 	  '("~/Dropbox/org/tasks.org"))
     (setq org-ellipsis " ▼"
 	  org-hide-emphasis-markers t)
+    (setq org-startup-folded 'fold)
     (nl/org-heading-setup)
 
     (setq org-refile-targets
@@ -200,8 +201,8 @@
 	    ("archive.org" :maxlevel . 2)))
 
     (setq org-todo-keywords
-	  '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-	    (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(e)" "WAITING(w)" "HOLD(h)" "|" "COMPLETED(c)" "CANCELLED(a)")))
+	  '((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
+	    (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(a@/!)")))
 
     (setq org-capture-templates
 	  '(("t" "Tasks")
@@ -209,7 +210,12 @@
 	     "* TODO %?\n %U\n %a\n %i" :empty-lines 1)
 	    ("j" "Journal")
 	    ("jj" "Journal" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	     "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n" :empty-lines 1 :clock-in :clock-resume))))
+	     "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n" :empty-lines 1 :clock-in :clock-resume)))
+
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
+       (C . t))))
 
   (use-package org-bullets
     :after org
@@ -230,7 +236,7 @@
  '(custom-safe-themes
    '("c83c095dd01cde64b631fb0fe5980587deec3834dc55144a6e78ff91ebc80b19" default))
  '(package-selected-packages
-   '(org org-bullets evil-magit magit counsel-projectile projectile hydra evil-collection evil general doom-themes helpful counsel ivy-rich which-key rainbow-delimiters use-package ivy doom-modeline)))
+   '(spacemacs-theme org org-bullets evil-magit magit counsel-projectile projectile hydra evil-collection evil general doom-themes helpful counsel ivy-rich which-key rainbow-delimiters use-package ivy doom-modeline)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
