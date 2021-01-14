@@ -1,10 +1,9 @@
 ;;; Init.el --- This is my Emacs Config
 
-
 ;;; Commentary:
-;; This is just a jump off point for my Emacs config
-;; I will continue to modify this to my own personal
-;; preference as time goes on.
+
+;;; This is just a jump off point for my Emacs config I will continue
+;;; to modify this to my own personal preference as time goes on.
 
 ;;; Code:
 (setq inhibit-startup-message t)
@@ -151,6 +150,7 @@
 
     "g" '(:ignore t :which-key "Git")
     "gs" '(magit-status :which-key "Git Status")
+    "gf" '(magit-gitflow-popup :which-key "Git Flow")
 
     "o" '(:ignore t :which-key "Org")
     "oa" '(org-agenda :which-key "Org Agenda")
@@ -185,6 +185,11 @@
 
 (use-package evil-magit
   :after magit)
+
+(use-package magit-gitflow
+  :straight t
+  :hook
+  (magit-mode . turn-on-magit-gitflow))
 
 (use-package diff-hl
   :hook
