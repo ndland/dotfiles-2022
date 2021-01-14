@@ -67,7 +67,7 @@
 	 ("C-j" . ivy-next-line)
 	 ("C-k" . ivy-previous-line)
 	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line) 
+	 ("C-k" . ivy-previous-line)
 	 ("C-l" . ivy-done)
 	 ("C-d" . ivy-switch-buffer-kill)
 	 :map ivy-reverse-i-search-map
@@ -90,7 +90,7 @@
 (use-package all-the-icons)
 
 (use-package doom-modeline
-  :init (doom-modeline-mode 1)) 
+  :init (doom-modeline-mode 1))
 
 (use-package doom-themes)
 
