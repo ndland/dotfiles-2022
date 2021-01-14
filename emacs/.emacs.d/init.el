@@ -1,7 +1,12 @@
+;;; Init.el --- This is my Emacs Config
+
+
+;;; Commentary:
 ;; This is just a jump off point for my Emacs config
 ;; I will continue to modify this to my own personal
 ;; preference as time goes on.
 
+;;; Code:
 (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1) ; Disable scrollbar
@@ -277,6 +282,11 @@
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode))
 
+(use-package flycheck
+  :straight t
+  :config
+  (global-flycheck-mode))
+
 ;; Look into using Forge by same author as magit
 
 
@@ -327,4 +337,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+)
+
+;;; Init.el ends here
