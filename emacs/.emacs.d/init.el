@@ -217,11 +217,14 @@
 
 (use-package org
   :hook (org-mode . nl/org-mode-setup)
+  :bind
+  ([remap org-set-tags-command] . #'counsel-org-tag)
   :config
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-agenda-files
-	'("~/Dropbox/org/tasks.org"))
+	'("~/Dropbox/org/tasks.org"
+	  "~/Dropbox/org/notes.org"))
   (setq org-ellipsis " ▼"
 	org-hide-emphasis-markers t)
   (setq org-startup-folded 'fold)
