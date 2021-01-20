@@ -14,11 +14,14 @@
 
 (menu-bar-mode -1) ; Disable the menu bar
 
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+
 ;; Set up the visual bell
 (setq visible-bell t)
 
 (set-face-attribute 'default nil :font "VictorMono Nerd Font" :height 100)
 
+(electric-pair-mode 1)
 
 ;; Initialize package sources
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -159,10 +162,19 @@
     "or" '(org-refile :which-key "Org Refile")
     "ot" '(org-todo :which-key "Org TODO")
 
+    "s" '(:ignore t :which-key "Snippets")
+    "si" '(yas-insert-snippet :which-key "Insert Snippet")
+    "sn" '(yas-new-snippet :which-key "New Snippet")
+
     "b" '(:ignore t :which-key "Buffers")
     "bb" '(counsel-ibuffer :which-key "Switch Buffers")))
 
 (use-package hydra)
+
+(use-package company
+  :straight t
+  :init
+  (global-company-mode 1))
 
 (use-package projectile
   :diminish projectile-mode
@@ -220,15 +232,16 @@
   :bind
   ([remap org-set-tags-command] . #'counsel-org-tag)
   :config
-  (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-agenda-files
 	'("~/Dropbox/org/tasks.org"
+	  "~/Dropbox/org/habits.org"
 	  "~/Dropbox/org/notes.org"))
   (setq org-ellipsis " ▼"
 	org-hide-emphasis-markers t)
-  (setq org-startup-folded 'fold)
   (nl/org-heading-setup)
+
+  (setq org-habit-graph-column 60)
 
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
@@ -243,19 +256,42 @@
   (setq org-refile-targets
 	'(("tasks.org" :maxlevel . 1)
 	  ("notes.org" :maxlevel . 1)
+	  ("habits.org" :maxlevel . 1)
 	  ("archive.org" :maxlevel . 2)))
 
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
 	  (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(a@/!)")))
 
+  (setq org-todo-keyword-faces
+	'(("TODO" . org-warning)
+	  ("NEXT" . (:foreground "blue" :weight bold))
+	  ("DONE" . (:foreground "lime green" :weight bold))
+	  ("BACKLOG" . (:foreground "dim gray" :weight regular))
+	  ("PLAN" . (:foreground "orange red" :weight regular))
+	  ("READY" . (:foreground "spring green" :weight bold))
+	  ("ACTIVE" . (:foreground "yellow" :weight bold))
+	  ("REVIEW" . (:foreground "orange" :weight bold))
+	  ("WAITING" . (:foreground "salmon" :weight bold))
+	  ("HOLD" . (:foreground "tomato" :weight bold))
+	  ("COMPLETED" . (:foreground "lime green" :weight bold))
+	  ("CANCELED" . (:foreground "red" :weight bold))))
+
   (setq org-capture-templates
 	'(("t" "Tasks")
-	  ("tt" "Task" entry (file+olp "~/Dropbox/org/tasks.org" "Inbox")
-	   "* TODO %?\n %U\n %a\n %i" :empty-lines 1)
+	  ("tt" "Task" entry
+	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
+	   "* TODO %?\nCaptured: %U\n %a\n %i"
+	   :empty-lines 1)
+	  ("td" "Task Today" entry
+	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
+	   "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n %a\n %i"
+	   :empty-lines 1)
 	  ("j" "Journal")
-	  ("jj" "Journal" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n" :empty-lines 1 :clock-in :clock-resume)))
+	  ("jj" "Journal" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n"
+	   :empty-lines 1 :clock-in :clock-resume)))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -295,6 +331,14 @@
   :config
   (global-flycheck-mode))
 
+(use-package yasnippet
+  :straight t
+  :config (yas-global-mode 1))
+
+(use-package yasnippet-snippets
+  :after yasnippet
+  :straight t)
+
 ;; Look into using Forge by same author as magit
 
 
@@ -314,6 +358,8 @@
  '(jdee-db-spec-breakpoint-face-colors (cons "#1c1f2b" "#676E95"))
  '(magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1 nil nil "Customized with use-package magit")
  '(objed-cursor-color "#ff5370")
+ '(org-modules
+   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
    '(beancount-mode markdown-mode diff-hl spacemacs-theme org org-bullets evil-magit magit counsel-projectile projectile hydra evil-collection evil general doom-themes helpful counsel ivy-rich which-key rainbow-delimiters use-package ivy doom-modeline))
  '(rustic-ansi-faces
@@ -345,6 +391,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
 
 ;;; Init.el ends here
