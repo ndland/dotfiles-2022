@@ -202,6 +202,10 @@
 (use-package evil-magit
   :after magit)
 
+(use-package evil-nerd-commenter
+  :straight t
+  :bind ("C-/" . evilnc-comment-or-uncomment-lines))
+
 (use-package magit-gitflow
   :straight t
   :hook
