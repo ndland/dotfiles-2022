@@ -351,6 +351,20 @@
   :after yasnippet
   :straight t)
 
+;; lsp-mode
+(use-package lsp-mode
+  :straight t
+  :commands (lsp lsp-deferred)
+  :hook (c-mode-common . lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package lsp-ivy
+  :straight t
+  :commands lsp-ivy-workspace-symbol)
+
 ;; Look into using Forge by same author as magit
 
 
