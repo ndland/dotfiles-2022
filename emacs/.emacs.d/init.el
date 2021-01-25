@@ -308,7 +308,13 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (C . t))))
+     (C . t)))
+
+  (general-define-key
+   :states '(normal insert visual emacs)
+   :keymaps 'org-agenda-mode-map
+   "j" 'org-agenda-next-line
+   "k" 'org-agenda-previous-line))
 
 (use-package org-bullets
   :after org
