@@ -176,6 +176,10 @@
   :init
   (global-company-mode 1))
 
+(use-package company-box
+  :straight t
+  :hook (company-mode . company-box-mode))
+
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
