@@ -261,11 +261,11 @@
 
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
-	  (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(a@/!)")))
+	  (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
 
   (setq org-todo-keyword-faces
 	'(("TODO" . org-warning)
-	  ("NEXT" . (:foreground "blue" :weight bold))
+	  ("NEXT" . (:foreground "gold" :weight bold))
 	  ("DONE" . (:foreground "lime green" :weight bold))
 	  ("BACKLOG" . (:foreground "dim gray" :weight regular))
 	  ("PLAN" . (:foreground "orange red" :weight regular))
@@ -275,23 +275,35 @@
 	  ("WAITING" . (:foreground "salmon" :weight bold))
 	  ("HOLD" . (:foreground "tomato" :weight bold))
 	  ("COMPLETED" . (:foreground "lime green" :weight bold))
-	  ("CANCELED" . (:foreground "red" :weight bold))))
+	  ("CANCELLED" . (:foreground "red" :weight bold))))
 
   (setq org-capture-templates
 	'(("t" "Tasks")
 	  ("tt" "Task" entry
 	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
 	   "* TODO %?\nCaptured: %U\n %a\n %i"
-	   :empty-lines 1)
+	   :empty-lines 0)
 	  ("td" "Task Today" entry
 	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
 	   "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n %a\n %i"
-	   :empty-lines 1)
+	   :empty-lines 0)
 	  ("j" "Journal")
 	  ("jj" "Journal" entry
-	   (file+olp+datetree "~/Dropbox/org/journal.org")
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Journal")
 	   "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n"
-	   :empty-lines 1 :clock-in :clock-resume)))
+	   :empty-lines 0 :clock-in :clock-resume)
+	  ("jb" "Blender" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Blender")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:blender:\n\n%?\n"
+	   :empty-lines 0 :clock-in :clock-resume)
+	  ("je" "Exercise" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Exercise")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:exercise:\n\n%?\n"
+	   :empty-lines 0 :clock-in :clock-resume)
+	  ("jg" "Guitar" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Guitar")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:guitar:\n\n%?\n"
+	   :empty-lines 0 :clock-in :clock-resume)))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
