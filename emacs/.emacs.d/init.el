@@ -11,7 +11,6 @@
 (scroll-bar-mode -1) ; Disable scrollbar
 (tool-bar-mode -1) ; Disable toolbar
 (tooltip-mode -1) ; Disable tooltips
-
 (menu-bar-mode -1) ; Disable the menu bar
 
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -140,7 +139,7 @@
     :prefix "SPC"
     :global-prefix "C-SPC")
 
-  ;; Rune is just an arbitrary name space can be changed
+  ;; nl is just an arbitrary name space can be changed
   (nl/leader-keys
     ;; This is the prefix
     "t" '(:ignore t :which-key "Toggles")
@@ -221,7 +220,7 @@
 (defun nl/org-mode-setup ()
   ;; (org-indent-mode)
   (variable-pitch-mode 1)
-  (auto-fill-mode 1))
+  (auto-fill-mode 0))
 
 (defun nl/org-heading-setup ()
   ;; Scale headings
@@ -327,6 +326,15 @@
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode))
+
+(defun nl/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+	visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :straight t
+  :hook (org-mode . nl/org-mode-visual-fill))
 
 (use-package emojify
   :hook (after-init . global-emojify-mode))
