@@ -379,6 +379,12 @@
   :straight t
   :commands lsp-ivy-workspace-symbol)
 
+(use-package lsp-ui
+  :straight t
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottm))
+
 ;; Look into using Forge by same author as magit
 
 
