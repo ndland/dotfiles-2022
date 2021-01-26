@@ -79,8 +79,15 @@
     #+end_src
 ** Emacs Default Behavior
    #+begin_src emacs-lisp
-  ;; Set backup directory
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+     (setq
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      backup-directory-alist
+      `((".*" . ,temporary-file-directory))
+      auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
    #+end_src
 *** Structure Templates 
     #+begin_src emacs-lisp
