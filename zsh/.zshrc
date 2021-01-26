@@ -142,8 +142,11 @@ else
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
+export NPM_GLOBAL=$HOME/.npm-global
+
 export BAT_THEME="Nord"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="$NPM_GLOBAL/bin:$PATH"
 export EDITOR="code --wait"
 
 stowit() {
