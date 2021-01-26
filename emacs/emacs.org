@@ -112,6 +112,13 @@
 
      (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'nl/org-babel-tangle-config)))
    #+end_src
+** Reload Emacs file
+   I'm tired of having to manually reload this file.
+   #+begin_src emacs-lisp
+     (defun reload-emacs ()
+       (interactive)
+       (load-file "~/.emacs.d/init.el"))
+   #+end_src
 
 * Packages
 ** Keybindings

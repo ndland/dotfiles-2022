@@ -90,6 +90,10 @@
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'nl/org-babel-tangle-config)))
 
+(defun reload-emacs ()
+  (interactive)
+  (load-file "~/.emacs.d/init.el"))
+
 (use-package evil
   :init
   (setq evil-want-keybinding nil)
