@@ -1,27 +1,3 @@
-;;; Init.el --- This is my Emacs Config
-
-;;; Commentary:
-
-;;; This is just a jump off point for my Emacs config I will continue
-;;; to modify this to my own personal preference as time goes on.
-
-;;; Code:
-(setq inhibit-startup-message t)
-
-(scroll-bar-mode -1) ; Disable scrollbar
-(tool-bar-mode -1) ; Disable toolbar
-(tooltip-mode -1) ; Disable tooltips
-(menu-bar-mode -1) ; Disable the menu bar
-
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
-
-;; Set up the visual bell
-(setq visible-bell t)
-
-(set-face-attribute 'default nil :font "VictorMono Nerd Font" :height 100)
-
-(electric-pair-mode 1)
-
 ;; Initialize package sources
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("org" . "https://orgmode.org/elpa/")
@@ -49,7 +25,30 @@
 ;; (setq straight-use-package-by-default t)
 
 (require 'use-package)
-;; (setq use-package-always-ensure t)
+(setq use-package-always-ensure t)
+
+(use-package spacemacs-theme
+  :straight t
+  :defer t
+  :init
+  (load-theme 'spacemacs-dark t))
+
+(use-package doom-themes)
+
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1) ; Disable scrollbar
+(tool-bar-mode -1) ; Disable toolbar
+(tooltip-mode -1) ; Disable tooltips
+
+(menu-bar-mode -1) ; Disable the menu bar
+
+;; Set up the visual bell
+(setq visible-bell t)
+
+(set-face-attribute 'default nil :font "VictorMono Nerd Font" :height 100)
+
+(electric-pair-mode 1)
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -60,65 +59,29 @@
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(use-package ivy
-  :diminish
-  :bind (("C-s" . swiper)
-	 :map ivy-minibuffer-map
-	 ("TAB" . ivy-alt-done)
-	 ("C-l" . ivy-alt-done)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
-	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
-  :init
-  (ivy-mode 1))
-
-(use-package counsel
-  :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-ibuffer)
-	 ("C-x C-f" . counsel-find-file)
-	 :map minibuffer-local-map
-	 ("C-r" . 'counsel-minibuffer-history))
-  :init (counsel-mode 1))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package all-the-icons)
+;; Set backup directory
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
-(use-package doom-modeline
-  :init (doom-modeline-mode 1))
+;; This is needed as of Org 9.2
+(require 'org-tempo)
 
-(use-package doom-themes)
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 
-(use-package spacemacs-theme
-  :defer t
-  :init
-  (load-theme 'spacemacs-dark t))
 
-(use-package which-key
-  :init (which-key-mode)
-  :diminish which-key-mode
-  :config
-  (setq which-key-idle-delay 0.3))
 
-(use-package ivy-rich
-  :init (ivy-rich-mode 1))
+;; Automatically tangle our Emacs.org config file when we save it
+(defun nl/org-babel-tangle-config ()
+  (when (string-equal (file-name-directory (buffer-file-name))
+		      (expand-file-name user-emacs-directory))
+    ;; Dynamic scoping to the rescue
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle))))
 
-(use-package helpful
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind
-  ([remap describe-function] . counsel-describe-function)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . counsel-describe-variable)
-  ([remap describe-key] . helpful-key))
+(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'nl/org-babel-tangle-config)))
 
 (use-package evil
   :init
@@ -167,55 +130,6 @@
 
     "b" '(:ignore t :which-key "Buffers")
     "bb" '(counsel-ibuffer :which-key "Switch Buffers")))
-
-(use-package hydra)
-
-(use-package company
-  :straight t
-  :init
-  (global-company-mode 1))
-
-(use-package company-box
-  :straight t
-  :hook (company-mode . company-box-mode))
-
-(use-package projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  (when (file-directory-p "~/dev")
-    (setq projectile-project-serach-path '("~/dev")))
-  ;; When you switch projects, load dired first
-  (setq projectile-switch-project-action #'projectile-dired))
-
-(use-package counsel-projectile
-  :config (counsel-projectile-mode))
-
-(use-package magit
-  :commands (magit-status magit-get-current-branch)
-  :custom
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(use-package evil-magit
-  :after magit)
-
-(use-package evil-nerd-commenter
-  :straight t
-  :bind ("C-/" . evilnc-comment-or-uncomment-lines))
-
-(use-package magit-gitflow
-  :straight t
-  :hook
-  (magit-mode . turn-on-magit-gitflow))
-
-(use-package diff-hl
-  :hook
-  ((magit-pre-refresh . diff-hl-magit-pre-refresh)
-   (magit-post-refresh . diff-hl-magit-post-refresh))
-  :init
-  (global-diff-hl-mode))
 
 (defun nl/org-mode-setup ()
   ;; (org-indent-mode)
@@ -333,11 +247,116 @@
   (visual-fill-column-mode 1))
 
 (use-package visual-fill-column
-  :straight t
   :hook (org-mode . nl/org-mode-visual-fill))
+
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done)
+	 ("C-l" . ivy-alt-done)
+	 ("C-j" . ivy-next-line)
+	 ("C-k" . ivy-previous-line)
+	 :map ivy-switch-buffer-map
+	 ("C-k" . ivy-previous-line)
+	 ("C-l" . ivy-done)
+	 ("C-d" . ivy-switch-buffer-kill)
+	 :map ivy-reverse-i-search-map
+	 ("C-k" . ivy-previous-line)
+	 ("C-d" . ivy-reverse-i-search-kill))
+  :init
+  (ivy-mode 1))
+
+(use-package ivy-rich
+  :init (ivy-rich-mode 1))
+
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+	 ("C-x b" . counsel-ibuffer)
+	 ("C-x C-f" . counsel-find-file)
+	 :map minibuffer-local-map
+	 ("C-r" . 'counsel-minibuffer-history))
+  :init (counsel-mode 1))
+
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1))
+
+(use-package all-the-icons)
+
+(use-package magit
+  :commands (magit-status magit-get-current-branch)
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+
+(use-package evil-magit
+  :straight t
+  :after magit)
+
+(use-package evil-nerd-commenter
+  :straight t
+  :bind ("C-/" . evilnc-comment-or-uncomment-lines))
+
+(use-package magit-gitflow
+  :straight t
+  :hook
+  (magit-mode . turn-on-magit-gitflow))
+
+(use-package diff-hl
+  :hook
+  ((magit-pre-refresh . diff-hl-magit-pre-refresh)
+   (magit-post-refresh . diff-hl-magit-post-refresh))
+  :init
+  (global-diff-hl-mode))
+
+(use-package which-key
+ :init (which-key-mode)
+ :diminish which-key-mode
+ :config
+ (setq which-key-idle-delay 0.3))
+
+(use-package company
+  :init
+  (global-company-mode 1))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 (use-package emojify
   :hook (after-init . global-emojify-mode))
+
+(use-package flycheck
+  :config
+  (global-flycheck-mode))
+
+(use-package yasnippet
+  :config (yas-global-mode 1))
+
+(use-package yasnippet-snippets
+  :after yasnippet)
+
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  (when (file-directory-p "~/dev")
+    (setq projectile-project-serach-path '("~/dev")))
+  ;; When you switch projects, load dired first
+  (setq projectile-switch-project-action #'projectile-dired))
+
+(use-package counsel-projectile
+  :config (counsel-projectile-mode))
 
 ;; Markdown
 (use-package markdown-mode
@@ -360,22 +379,8 @@
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode))
 
-(use-package flycheck
-  :straight t
-  :config
-  (global-flycheck-mode))
-
-(use-package yasnippet
-  :straight t
-  :config (yas-global-mode 1))
-
-(use-package yasnippet-snippets
-  :after yasnippet
-  :straight t)
-
 ;; lsp-mode
 (use-package lsp-mode
-  :straight t
   :commands (lsp lsp-deferred)
   :hook (c-mode-common . lsp-deferred)
   :init
@@ -384,67 +389,19 @@
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ivy
-  :straight t
   :commands lsp-ivy-workspace-symbol)
 
 (use-package lsp-ui
-  :straight t
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottm))
 
+;;
+;;  (use-package hydra)
+;;
+;;
+;;
+;;
+;;
+;;
 ;; Look into using Forge by same author as magit
-
-
-;; Figure out how to manage this shit.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(counsel-describe-function-function #'helpful-callable nil nil "Customized with use-package helpful")
- '(counsel-describe-variable-function #'helpful-variable nil nil "Customized with use-package helpful")
- '(custom-safe-themes
-   '("c83c095dd01cde64b631fb0fe5980587deec3834dc55144a6e78ff91ebc80b19" default))
- '(fci-rule-color "#676E95")
- '(jdee-db-active-breakpoint-face-colors (cons "#1c1f2b" "#c792ea"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#1c1f2b" "#c3e88d"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#1c1f2b" "#676E95"))
- '(magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1 nil nil "Customized with use-package magit")
- '(objed-cursor-color "#ff5370")
- '(org-modules
-   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
- '(package-selected-packages
-   '(beancount-mode markdown-mode diff-hl spacemacs-theme org org-bullets evil-magit magit counsel-projectile projectile hydra evil-collection evil general doom-themes helpful counsel ivy-rich which-key rainbow-delimiters use-package ivy doom-modeline))
- '(rustic-ansi-faces
-   ["#292D3E" "#ff5370" "#c3e88d" "#ffcb6b" "#82aaff" "#c792ea" "#89DDFF" "#EEFFFF"])
- '(vc-annotate-background "#292D3E")
- '(vc-annotate-color-map
-   (list
-    (cons 20 "#c3e88d")
-    (cons 40 "#d7de81")
-    (cons 60 "#ebd476")
-    (cons 80 "#ffcb6b")
-    (cons 100 "#fcb66b")
-    (cons 120 "#f9a16b")
-    (cons 140 "#f78c6c")
-    (cons 160 "#e78e96")
-    (cons 180 "#d690c0")
-    (cons 200 "#c792ea")
-    (cons 220 "#d97dc1")
-    (cons 240 "#ec6898")
-    (cons 260 "#ff5370")
-    (cons 280 "#d95979")
-    (cons 300 "#b36082")
-    (cons 320 "#8d678b")
-    (cons 340 "#676E95")
-    (cons 360 "#676E95")))
- '(vc-annotate-very-old-color nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;;; Init.el ends here
