@@ -132,9 +132,8 @@
     "bb" '(counsel-ibuffer :which-key "Switch Buffers")))
 
 (defun nl/org-mode-setup ()
-  ;; (org-indent-mode)
   (variable-pitch-mode 1)
-  (auto-fill-mode 0))
+  (auto-fill-mode 1))
 
 (defun nl/org-heading-setup ()
   ;; Scale headings
@@ -147,6 +146,9 @@
 		  (org-level-7 . 1.1)
 		  (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil :font "Cantarell" :weight 'normal :height (cdr face))))
+
+(require 'org-habit)
+(add-to-list 'org-modules 'org-habit)
 
 (use-package org
   :hook (org-mode . nl/org-mode-setup)
@@ -174,11 +176,10 @@
   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
 
-  (setq org-refile-targets
-	'(("tasks.org" :maxlevel . 1)
-	  ("notes.org" :maxlevel . 1)
-	  ("habits.org" :maxlevel . 1)
-	  ("archive.org" :maxlevel . 2)))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-use-outline-path t)
 
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
@@ -379,7 +380,6 @@
   :mode
   ("\\.bean\\(?:count\\)?\\'" . beancount-mode))
 
-;; lsp-mode
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :hook (c-mode-common . lsp-deferred)
@@ -395,13 +395,3 @@
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-position 'bottm))
-
-;;
-;;  (use-package hydra)
-;;
-;;
-;;
-;;
-;;
-;;
-;; Look into using Forge by same author as magit
