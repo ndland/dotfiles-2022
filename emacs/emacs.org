@@ -71,13 +71,10 @@
 		      eshell-mode-hook))
 	(add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-
       (use-package rainbow-delimiters
 	:hook (prog-mode . rainbow-delimiters-mode))
-
-
     #+end_src
-** Emacs Default Behavior
+** Emacs auto-save & backup behavior
    #+begin_src emacs-lisp
      (setq
       delete-old-versions t
