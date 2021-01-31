@@ -394,6 +394,8 @@
 	 ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
+(use-package json-mode)
+
 (use-package beancount-mode
   :straight (beancount-mode
 	     :type git

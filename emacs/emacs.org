@@ -451,7 +451,10 @@
 	      ("\\.markdown\\'" . markdown-mode))
        :init (setq markdown-command "pandoc"))
    #+end_src
-
+** JSON
+   #+begin_src emacs-lisp
+     (use-package json-mode)
+   #+end_src
 ** Beancount
    #+begin_src emacs-lisp
      (use-package beancount-mode
