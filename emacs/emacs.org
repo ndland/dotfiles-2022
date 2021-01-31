@@ -271,6 +271,20 @@
 	'((emacs-lisp . t)
 	  (C . t)))
 
+       (setq org-tag-alist
+	     '((:startgroup)
+	       (:endgroup)
+	       ("@home" . ?H)
+	       ("@errand" . ?E)
+	       ("@work" . ?W)
+	       ("finance" . ?F)
+	       ("chore" . ?C)
+	       ("plex" . ?P)
+	       ("hobbies" . ?h)
+	       ("productivity" . ?p)
+	       ("emacs" . ?e)
+	       ("repair" . ?r)))
+
        (general-define-key
 	:states '(normal insert visual emacs)
 	:keymaps 'org-agenda-mode-map
