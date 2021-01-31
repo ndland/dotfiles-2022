@@ -411,7 +411,7 @@
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (c-mode-common . lsp-deferred)
+  :hook (prog-mode . lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-c l")
   :config
