@@ -262,6 +262,10 @@
 		(file+olp+datetree "~/Dropbox/org/journal.org" "Exercise")
 		"\n* %<%I:%M %p> - %^{Summary} :journal:exercise:\n\n%?\n"
 		:empty-lines 0 :clock-in :clock-resume)
+	       ("jp" "Programming" entry
+		(file+olp+datetree "~/Dropbox/org/journal.org" "Programming")
+		"\n* %<%I:%M %p> - %^{Summary} :journal:programming:\n\n%?\n"
+		:empty-lines 0 :clock-in :clock-resume)
 	       ("jg" "Guitar" entry
 		(file+olp+datetree "~/Dropbox/org/journal.org" "Guitar")
 		"\n* %<%I:%M %p> - %^{Summary} :journal:guitar:\n\n%?\n"
