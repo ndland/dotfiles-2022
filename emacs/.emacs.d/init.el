@@ -67,6 +67,7 @@
  kept-new-versions 6
  kept-old-versions 2
  version-control t
+ create-lockfiles nil
  backup-directory-alist
  `((".*" . ,temporary-file-directory))
  auto-save-file-name-transforms
@@ -394,7 +395,26 @@
 	 ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
-(use-package json-mode)
+(use-package json-mode
+  :mode "\\.json$")
+
+(use-package web-mode
+  :mode (("\\.js\\'" . web-mode)
+	 ("\\.jsx\\'" . web-mode)
+	 ("\\.ts\\'" . web-mode)
+	 ("\\.html\\'" . web-mode)
+	 ("\\.tsx\\'" . web-mode))
+  :hook ((web-mode . lsp-deferred))
+  :config
+  (setq company-tooltip-align-annotations t)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-content-types-alist
+	'(("jsx" . "\\.js[x]?\\'"))))
+
+(use-package prettier
+  :hook (json-mode . prettier-mode))
 
 (use-package beancount-mode
   :straight (beancount-mode
