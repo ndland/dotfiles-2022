@@ -392,6 +392,11 @@
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
 
+(when (memq window-system '(mac ns x))
+  (use-package exec-path-from-shell
+    :init
+    (exec-path-from-shell-initialize)))
+
 ;; Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)

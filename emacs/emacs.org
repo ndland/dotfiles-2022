@@ -445,6 +445,15 @@
      (use-package counsel-projectile
        :config (counsel-projectile-mode))
    #+end_src
+** Better OSX integration
+   When I'm using Mac OS X, Include this package to help with making
+   my $PATH available to Emacs.
+   #+begin_src emacs-lisp
+     (when (memq window-system '(mac ns x))
+       (use-package exec-path-from-shell
+	 :init
+	 (exec-path-from-shell-initialize)))
+   #+end_src
 
 * Languages
 **  Markdown
