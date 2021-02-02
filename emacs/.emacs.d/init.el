@@ -402,6 +402,8 @@
     :init
     (exec-path-from-shell-initialize)))
 
+(use-package restart-emacs)
+
 ;; Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)

@@ -459,6 +459,11 @@
 	 :init
 	 (exec-path-from-shell-initialize)))
    #+end_src
+** Reload Emacs
+   I'm tired of doing this manually.
+   #+begin_src emacs-lisp
+     (use-package restart-emacs)
+   #+end_src
 
 * Languages
 **  Markdown
