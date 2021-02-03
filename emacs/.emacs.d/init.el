@@ -414,6 +414,11 @@
 (use-package lsp-treemacs
   :after lsp)
 
+(use-package ace-window
+  :bind
+  ("M-o" . ace-window)
+  :config (ace-window-display-mode 1))
+
 (use-package vterm)
 
 ;; Markdown
