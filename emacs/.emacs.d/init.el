@@ -57,6 +57,7 @@
 (dolist (mode '(org-mode-hook
 		term-mode-hook
 		vterm-mode-hook
+		treemacs-mode-hook
 		org-agenda-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
@@ -129,6 +130,7 @@
     "f" '(:ignore t :which-key "File")
     "ff" '(counsel-find-file :which-key "Find File")
     "fs" '(save-buffer :which-key "Save File")
+    "ft" '(treemacs :which-key "Toggle Treemacs")
 
     "g" '(:ignore t :which-key "Git")
     "gs" '(magit-status :which-key "Git Status")
@@ -408,6 +410,9 @@
     (exec-path-from-shell-initialize)))
 
 (use-package restart-emacs)
+
+(use-package lsp-treemacs
+  :after lsp)
 
 (use-package vterm)
 
