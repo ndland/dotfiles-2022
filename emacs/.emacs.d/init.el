@@ -225,14 +225,18 @@
 	  ("CANCELLED" . (:foreground "red" :weight bold))))
 
   (setq org-capture-templates
-	'(("t" "Tasks")
+	'(("b" "Bookmarks" entry
+	   (file+olp "~/Dropbox/org/bookmarks.org" "Bookmarks")
+	   "* %?\n:PROPERTIES:\n:CREATED: %u\n:END:\n  %a\n %i"
+	   :empty-lines 0)
+	  ("t" "Tasks")
 	  ("tt" "Task" entry
 	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
-	   "* TODO %?\nCaptured: %U\n %a\n %i"
+	   "* TODO %?\nCaptured: %U\n  %a\n %i"
 	   :empty-lines 0)
 	  ("td" "Task Today" entry
 	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
-	   "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n %a\n %i"
+	   "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n  %a\n %i"
 	   :empty-lines 0)
 	  ("j" "Journal")
 	  ("jj" "Journal" entry
