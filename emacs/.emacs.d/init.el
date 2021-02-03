@@ -46,6 +46,10 @@
 ;; Set up the visual bell
 (setq visible-bell t)
 
+;; Set the font a little bigger in OS X
+(when (memq window-system '(mac ns x))
+  (set-face-attribute 'default nil :font "VictorMono Nerd Font" :height 140))
+
 (set-face-attribute 'default nil :font "VictorMono Nerd Font" :height 100)
 
 (electric-pair-mode 1)
