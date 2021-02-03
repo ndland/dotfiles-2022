@@ -68,6 +68,7 @@
       ;; Disable line numbers for some modes
       (dolist (mode '(org-mode-hook
 		      term-mode-hook
+		      vterm-mode-hook
 		      org-agenda-mode-hook
 		      eshell-mode-hook))
 	(add-hook mode (lambda () (display-line-numbers-mode 0))))
@@ -143,6 +144,10 @@
 
        ;; nl is just an arbitrary name space can be changed
        (nl/leader-keys
+	 "a" '(:ignore t :which-key "Applications")
+	 ;; This comes after the prefix is triggered
+	 "at" '(vterm :which-key "Vterm")
+
 	 ;; This is the prefix
 	 "t" '(:ignore t :which-key "Toggles")
 	 ;; This comes after the prefix is triggered
@@ -463,6 +468,11 @@
    I'm tired of doing this manually.
    #+begin_src emacs-lisp
      (use-package restart-emacs)
+   #+end_src
+
+** Terminal
+   #+begin_src emacs-lisp
+     (use-package vterm)
    #+end_src
 
 * Languages

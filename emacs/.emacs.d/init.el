@@ -56,6 +56,7 @@
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
 		term-mode-hook
+		vterm-mode-hook
 		org-agenda-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
@@ -116,6 +117,10 @@
 
   ;; nl is just an arbitrary name space can be changed
   (nl/leader-keys
+    "a" '(:ignore t :which-key "Applications")
+    ;; This comes after the prefix is triggered
+    "at" '(vterm :which-key "Vterm")
+
     ;; This is the prefix
     "t" '(:ignore t :which-key "Toggles")
     ;; This comes after the prefix is triggered
@@ -403,6 +408,8 @@
     (exec-path-from-shell-initialize)))
 
 (use-package restart-emacs)
+
+(use-package vterm)
 
 ;; Markdown
 (use-package markdown-mode
