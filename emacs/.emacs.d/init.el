@@ -184,6 +184,8 @@
   (nl/org-heading-setup)
 
   (setq org-habit-graph-column 60)
+  (setq org-tags-column 120
+	org-auto-align-tags t)
 
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
@@ -262,6 +264,7 @@
 	  ("@errand" . ?E)
 	  ("@work" . ?W)
 	  ("finance" . ?F)
+	  ("event" . ?v)
 	  ("chore" . ?C)
 	  ("plex" . ?P)
 	  ("hobbies" . ?h)
@@ -280,7 +283,7 @@
   :hook (org-mode . org-bullets-mode))
 
 (defun nl/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
+  (setq visual-fill-column-width 150
 	visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
