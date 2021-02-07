@@ -282,6 +282,8 @@
 	  ("emacs" . ?e)
 	  ("repair" . ?r)))
 
+  (setq org-clock-in-switch-to-state "ACTIVE")
+
   (general-define-key
    :states '(normal insert visual emacs)
    :keymaps 'org-agenda-mode-map
