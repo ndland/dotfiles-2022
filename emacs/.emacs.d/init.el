@@ -274,6 +274,7 @@
 	  ("@work" . ?W)
 	  ("finance" . ?F)
 	  ("event" . ?v)
+	  ("habit" . ?a)
 	  ("chore" . ?C)
 	  ("plex" . ?P)
 	  ("hobbies" . ?h)
