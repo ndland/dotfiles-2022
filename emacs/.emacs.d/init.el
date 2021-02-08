@@ -87,10 +87,12 @@
 
 
 
+(defvar nl/emacs-dotfile-directory "/Users/nland/dev/github.com/ndland/dotfiles/emacs/")
+
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun nl/org-babel-tangle-config ()
   (when (string-equal (file-name-directory (buffer-file-name))
-		      (expand-file-name user-emacs-directory))
+		      nl/emacs-dotfile-directory)
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
