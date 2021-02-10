@@ -389,6 +389,8 @@
   (setq org-habit-graph-column 60)
   (setq org-tags-column 120
 	org-auto-align-tags t)
+  (setq org-startup-with-inline-images t
+	org-image-actual-width 500)
 
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
