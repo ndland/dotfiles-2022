@@ -48,8 +48,8 @@
 
 ;; Set the font a little bigger in OS X
 (if (memq window-system '(mac ns x))
-    (set-face-attribute 'default nil :font "VictorMono Nerd Font" :height 140)
-  (set-face-attribute 'default nil :font "VictorMono Nerd Font" :height 100))
+    (set-face-attribute 'default nil :font "Monoid Nerd Font Mono" :height 130)
+  (set-face-attribute 'default nil :font "Monoid Nerd Font Mono" :height 100))
 
 (electric-pair-mode 1)
 
