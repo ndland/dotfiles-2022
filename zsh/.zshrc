@@ -144,7 +144,7 @@ fi
 
 export NPM_GLOBAL=$HOME/.npm-global
 
-export BAT_THEME="Nord"
+export BAT_THEME="ansi-dark"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$NPM_GLOBAL/bin:$PATH"
 export EDITOR="code --wait"
