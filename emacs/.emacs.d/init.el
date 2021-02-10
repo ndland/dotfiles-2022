@@ -155,155 +155,6 @@
     "b" '(:ignore t :which-key "Buffers")
     "bb" '(counsel-ibuffer :which-key "Switch Buffers")))
 
-(defun nl/org-mode-setup ()
-  (variable-pitch-mode 1)
-  (auto-fill-mode 1))
-
-(defun nl/org-heading-setup ()
-  ;; Scale headings
-  (dolist (face '((org-level-1 . 1.5)
-		  (org-level-2 . 1.1)
-		  (org-level-3 . 1.05)
-		  (org-level-4 . 1.1)
-		  (org-level-5 . 1.1)
-		  (org-level-6 . 1.1)
-		  (org-level-7 . 1.1)
-		  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Cantarell" :weight 'normal :height (cdr face))))
-
-(require 'org-habit)
-(add-to-list 'org-modules 'org-habit)
-
-(use-package org
-  :hook (org-mode . nl/org-mode-setup)
-  :bind
-  ([remap org-set-tags-command] . #'counsel-org-tag)
-  :config
-  (setq org-log-into-drawer t)
-  (setq org-agenda-files
-	'("~/Dropbox/org/tasks.org"
-	  "~/Dropbox/org/habits.org"
-	  "~/Dropbox/org/notes.org"))
-  (setq org-ellipsis " ▼"
-	org-hide-emphasis-markers t)
-  (nl/org-heading-setup)
-
-  (setq org-habit-graph-column 60)
-  (setq org-tags-column 120
-	org-auto-align-tags t)
-
-  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
-  (set-face-attribute 'org-date nil    :inherit 'fixed-pitch)
-  (set-face-attribute 'org-link nil     :inherit 'fixed-pitch)
-  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
-
-  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-use-outline-path t)
-
-  (setq org-todo-keywords
-	'((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
-	  (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
-
-  (setq org-todo-keyword-faces
-	'(("TODO" . org-warning)
-	  ("NEXT" . (:foreground "gold" :weight bold))
-	  ("DONE" . (:foreground "lime green" :weight bold))
-	  ("BACKLOG" . (:foreground "dim gray" :weight regular))
-	  ("PLAN" . (:foreground "orange red" :weight regular))
-	  ("READY" . (:foreground "spring green" :weight bold))
-	  ("ACTIVE" . (:foreground "yellow" :weight bold))
-	  ("REVIEW" . (:foreground "orange" :weight bold))
-	  ("WAITING" . (:foreground "salmon" :weight bold))
-	  ("HOLD" . (:foreground "tomato" :weight bold))
-	  ("COMPLETED" . (:foreground "lime green" :weight bold))
-	  ("CANCELLED" . (:foreground "red" :weight bold))))
-
-  (setq org-capture-templates
-	'(("b" "Bookmarks" entry
-	   (file+olp "~/Dropbox/org/bookmarks.org" "Bookmarks")
-	   "* %?\n:PROPERTIES:\n:CREATED: %u\n:END:\n  %a\n %i"
-	   :empty-lines 0)
-	  ("t" "Tasks")
-	  ("tt" "Task" entry
-	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
-	   "* TODO %?\nCaptured: %U\n  %a\n %i"
-	   :empty-lines 0)
-	  ("td" "Task Today" entry
-	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
-	   "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n  %a\n %i"
-	   :empty-lines 0)
-	  ("j" "Journal")
-	  ("jj" "Journal" entry
-	   (file+olp+datetree "~/Dropbox/org/journal.org" "Journal")
-	   "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n"
-	   :empty-lines 0 :clock-in :clock-resume)
-	  ("jb" "Blender" entry
-	   (file+olp+datetree "~/Dropbox/org/journal.org" "Blender")
-	   "\n* %<%I:%M %p> - %^{Summary} :journal:blender:\n\n%?\n"
-	   :empty-lines 0 :clock-in :clock-resume)
-	  ("je" "Exercise" entry
-	   (file+olp+datetree "~/Dropbox/org/journal.org" "Exercise")
-	   "\n* %<%I:%M %p> - %^{Summary} :journal:exercise:\n\n%?\n"
-	   :empty-lines 0 :clock-in :clock-resume)
-	  ("jp" "Programming" entry
-	   (file+olp+datetree "~/Dropbox/org/journal.org" "Programming")
-	   "\n* %<%I:%M %p> - %^{Summary} :journal:programming:\n\n%?\n"
-	   :empty-lines 0 :clock-in :clock-resume)
-	  ("jg" "Guitar" entry
-	   (file+olp+datetree "~/Dropbox/org/journal.org" "Guitar")
-	   "\n* %<%I:%M %p> - %^{Summary} :journal:guitar:\n\n%?\n"
-	   :empty-lines 0 :clock-in :clock-resume)))
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (C . t)))
-
-  (setq org-tag-alist
-	'((:startgroup)
-	  (:endgroup)
-	  ("@home" . ?H)
-	  ("@errand" . ?E)
-	  ("@work" . ?W)
-	  ("finance" . ?F)
-	  ("event" . ?v)
-	  ("habit" . ?a)
-	  ("chore" . ?C)
-	  ("plex" . ?P)
-	  ("hobbies" . ?h)
-	  ("productivity" . ?p)
-	  ("emacs" . ?e)
-	  ("repair" . ?r)))
-
-  (setq org-clock-in-switch-to-state "ACTIVE")
-
-  (general-define-key
-   :states '(normal insert visual emacs)
-   :keymaps 'org-agenda-mode-map
-   "j" 'org-agenda-next-line
-   "k" 'org-agenda-previous-line))
-
-(use-package org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode))
-
-(defun nl/org-mode-visual-fill ()
-  (setq visual-fill-column-width 150
-	visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
-
-(use-package visual-fill-column
-  :hook (org-mode . nl/org-mode-visual-fill))
-
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
@@ -502,3 +353,151 @@
 	    (lambda ()
 	      (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
 
+(defun nl/org-mode-setup ()
+  (variable-pitch-mode 1)
+  (auto-fill-mode 1))
+
+(defun nl/org-heading-setup ()
+  ;; Scale headings
+  (dolist (face '((org-level-1 . 1.5)
+		  (org-level-2 . 1.1)
+		  (org-level-3 . 1.05)
+		  (org-level-4 . 1.1)
+		  (org-level-5 . 1.1)
+		  (org-level-6 . 1.1)
+		  (org-level-7 . 1.1)
+		  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Cantarell" :weight 'normal :height (cdr face))))
+
+(require 'org-habit)
+(add-to-list 'org-modules 'org-habit)
+
+(use-package org
+  :hook (org-mode . nl/org-mode-setup)
+  :bind
+  ([remap org-set-tags-command] . #'counsel-org-tag)
+  :config
+  (setq org-log-into-drawer t)
+  (setq org-agenda-files
+	'("~/Dropbox/org/tasks.org"
+	  "~/Dropbox/org/habits.org"
+	  "~/Dropbox/org/notes.org"))
+  (setq org-ellipsis " ⌄"
+	org-hide-emphasis-markers t)
+  (nl/org-heading-setup)
+
+  (setq org-habit-graph-column 60)
+  (setq org-tags-column 120
+	org-auto-align-tags t)
+
+  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+  (set-face-attribute 'org-date nil    :inherit 'fixed-pitch)
+  (set-face-attribute 'org-link nil     :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-refile-use-outline-path t)
+
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
+	  (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
+
+  (setq org-todo-keyword-faces
+	'(("TODO" . org-warning)
+	  ("NEXT" . (:foreground "gold" :weight bold))
+	  ("DONE" . (:foreground "lime green" :weight bold))
+	  ("BACKLOG" . (:foreground "dim gray" :weight regular))
+	  ("PLAN" . (:foreground "orange red" :weight regular))
+	  ("READY" . (:foreground "spring green" :weight bold))
+	  ("ACTIVE" . (:foreground "yellow" :weight bold))
+	  ("REVIEW" . (:foreground "orange" :weight bold))
+	  ("WAITING" . (:foreground "salmon" :weight bold))
+	  ("HOLD" . (:foreground "tomato" :weight bold))
+	  ("COMPLETED" . (:foreground "lime green" :weight bold))
+	  ("CANCELLED" . (:foreground "red" :weight bold))))
+
+  (setq org-capture-templates
+	'(("b" "Bookmarks" entry
+	   (file+olp "~/Dropbox/org/bookmarks.org" "Bookmarks")
+	   "* %?\n:PROPERTIES:\n:CREATED: %u\n:END:\n  %a\n %i"
+	   :empty-lines 0)
+	  ("t" "Tasks")
+	  ("tt" "Task" entry
+	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
+	   "* TODO %?\nCaptured: %U\n  %a\n %i"
+	   :empty-lines 0)
+	  ("td" "Task Today" entry
+	   (file+olp "~/Dropbox/org/tasks.org" "Inbox")
+	   "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n  %a\n %i"
+	   :empty-lines 0)
+	  ("j" "Journal")
+	  ("jj" "Journal" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Journal")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n"
+	   :empty-lines 0 :clock-in :clock-resume)
+	  ("jb" "Blender" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Blender")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:blender:\n\n%?\n"
+	   :empty-lines 0 :clock-in :clock-resume)
+	  ("je" "Exercise" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Exercise")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:exercise:\n\n%?\n"
+	   :empty-lines 0 :clock-in :clock-resume)
+	  ("jp" "Programming" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Programming")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:programming:\n\n%?\n"
+	   :empty-lines 0 :clock-in :clock-resume)
+	  ("jg" "Guitar" entry
+	   (file+olp+datetree "~/Dropbox/org/journal.org" "Guitar")
+	   "\n* %<%I:%M %p> - %^{Summary} :journal:guitar:\n\n%?\n"
+	   :empty-lines 0 :clock-in :clock-resume)))
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (C . t)))
+
+  (setq org-tag-alist
+	'((:startgroup)
+	  (:endgroup)
+	  ("@home" . ?H)
+	  ("@errand" . ?E)
+	  ("@work" . ?W)
+	  ("finance" . ?F)
+	  ("event" . ?v)
+	  ("habit" . ?a)
+	  ("chore" . ?C)
+	  ("plex" . ?P)
+	  ("hobbies" . ?h)
+	  ("productivity" . ?p)
+	  ("emacs" . ?e)
+	  ("repair" . ?r)))
+
+  ;; (setq org-clock-in-switch-to-state "ACTIVE")
+
+  (general-define-key
+   :states '(normal insert visual emacs)
+   :keymaps 'org-agenda-mode-map
+   "j" 'org-agenda-next-line
+   "k" 'org-agenda-previous-line))
+
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode))
+
+(defun nl/org-mode-visual-fill ()
+  (setq visual-fill-column-width 150
+	visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+(use-package visual-fill-column
+  :hook (org-mode . nl/org-mode-visual-fill))
