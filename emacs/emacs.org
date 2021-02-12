@@ -529,6 +529,10 @@
 		(file+olp+datetree "~/Dropbox/org/journal.org" "Journal")
 		"\n* %<%I:%M %p> - %^{Summary} :journal:\n\n%?\n"
 		:empty-lines 0 :clock-in :clock-resume)
+	       ("ja" "AutoCAD" entry
+		(file+olp+datetree "~/Dropbox/org/journal.org" "AutoCAD")
+		"\n* %<%I:%M %p> - %^{Summary} :journal:autocad:\n\n%?\n"
+		:empty-lines 0 :clock-in :clock-resume)
 	       ("jb" "Blender" entry
 		(file+olp+datetree "~/Dropbox/org/journal.org" "Blender")
 		"\n* %<%I:%M %p> - %^{Summary} :journal:blender:\n\n%?\n"
