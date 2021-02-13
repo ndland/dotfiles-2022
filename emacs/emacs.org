@@ -163,6 +163,7 @@
 	 "ff" '(counsel-find-file :which-key "Find File")
 	 "fs" '(save-buffer :which-key "Save File")
 	 "ft" '(treemacs :which-key "Toggle Treemacs")
+	 "fr" '(counsel-recentf :which-key "Recent Files")
 
 	 "g" '(:ignore t :which-key "Git")
 	 "gs" '(magit-status :which-key "Git Status")
