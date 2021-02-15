@@ -468,7 +468,7 @@
 	       "~/Dropbox/org/notes.org"))
        (setq org-ellipsis " ⌄"
 	     org-hide-emphasis-markers t)
-       (nl/org-heading-setup)
+       ;; (nl/org-heading-setup)
 
        (setq org-habit-graph-column 60)
        (setq org-tags-column 120
@@ -478,7 +478,7 @@
 
        (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
        (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
-       (set-face-attribute 'org-date nil    :inherit 'fixed-pitch)
+       (set-face-attribute 'org-date nil     :inherit 'fixed-pitch)
        (set-face-attribute 'org-link nil     :inherit 'fixed-pitch)
        (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
        (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
