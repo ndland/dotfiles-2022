@@ -549,6 +549,10 @@
 	       ("jg" "Guitar" entry
 		(file+olp+datetree "~/Dropbox/org/journal.org" "Guitar")
 		"\n* %<%I:%M %p> - %^{Summary} :journal:guitar:\n\n%?\n"
+		:empty-lines 0 :clock-in :clock-resume)
+	       ("jr" "Revit" entry
+		(file+olp+datetree "~/Dropbox/org/journal.org" "Revit")
+		"\n* %<%I:%M %p> - %^{Summary} :journal:revit:\n\n%?\n"
 		:empty-lines 0 :clock-in :clock-resume)))
 
        (org-babel-do-load-languages
