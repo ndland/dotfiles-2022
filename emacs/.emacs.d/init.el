@@ -313,8 +313,8 @@
   (setq web-mode-content-types-alist
 	'(("jsx" . "\\.js[x]?\\'"))))
 
-(use-package prettier
-  :hook (json-mode . prettier-mode))
+(use-package prettier-js
+  :hook (json-mode . prettier-js-mode))
 
 (use-package beancount-mode
   :straight (beancount-mode
