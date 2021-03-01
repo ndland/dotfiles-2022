@@ -124,7 +124,12 @@
        (interactive)
        (load-file "~/.emacs.d/init.el"))
    #+end_src
-
+** Search Org directory using ripgrep
+   #+begin_src emacs-lisp
+     (defun nl/search-org-notes ()
+       (interactive)
+       (counsel-rg nil "~/Dropbox/org" nil nil))
+   #+end_src
 * Packages
 ** Keybindings
    #+begin_src emacs-lisp
@@ -167,6 +172,9 @@
 	 "g" '(:ignore t :which-key "Git")
 	 "gs" '(magit-status :which-key "Git Status")
 	 "gf" '(magit-gitflow-popup :which-key "Git Flow")
+
+	 "n" '(:ignore t :which-key "Notes")
+	 "ns" '(nl/search-org-notes :which-key "Search org notes")
 
 	 "o" '(:ignore t :which-key "Org")
 	 "oa" '(org-agenda :which-key "Org Agenda")

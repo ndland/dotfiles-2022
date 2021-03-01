@@ -101,6 +101,10 @@
   (interactive)
   (load-file "~/.emacs.d/init.el"))
 
+(defun nl/search-org-notes ()
+  (interactive)
+  (counsel-rg nil "~/Dropbox/org" nil nil))
+
 (use-package evil
   :init
   (setq evil-want-keybinding nil)
@@ -140,6 +144,9 @@
     "g" '(:ignore t :which-key "Git")
     "gs" '(magit-status :which-key "Git Status")
     "gf" '(magit-gitflow-popup :which-key "Git Flow")
+
+    "n" '(:ignore t :which-key "Notes")
+    "ns" '(nl/search-org-notes :which-key "Search org notes")
 
     "o" '(:ignore t :which-key "Org")
     "oa" '(org-agenda :which-key "Org Agenda")
