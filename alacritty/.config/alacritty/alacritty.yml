@@ -8,38 +8,38 @@ window:
 font:
 
   normal:
-    family: Monoid Nerd Font Mono
-    style: Regular
+    family: CaskaydiaCove Nerd Font Mono
+    style: Book
     
-  italic:
-    family: Monoid Nerd Font Mono
-    style: Italic
+  # italic:
+  #   family: CaskaydiaCove Nerd Font Mono
+  #   style: Italic
 
-  bold:
-    family: Monoid Nerd Font Mono
-    style: Bold
+  # bold:
+  #   family: CaskaydiaCove Nerd Font Mono
+  #   style: Bold
 
-  size: 13
+  size: 14
 
   use_thin_strokes: true
 
-# Colors (Spacemacs dark)
+# Colors (Github dark)
 colors:
   # Default colors
   primary:
-    background: '#292b2e'
+    background: '#24292e'
     foreground: '#b2b2b2'
 
   # Normal colors
   normal:
-    black:   '#282828'
-    red:     '#ce537a'
-    green:   '#2d9574'
-    yellow:  '#b1951d'
-    blue:    '#4f97d7'
-    magenta: '#bc6ec5'
-    cyan:    '#28def0'
-    white:   '#b2b2b2'
+    black:   '#24292e'
+    red:     '#d73a49'
+    green:   '#28a745'
+    yellow:  '#ffd33d'
+    blue:    '#0366d6'
+    magenta: '#ea4aaa'
+    cyan:    '#2188ff'
+    white:   '#fafbfc'
 
   # Bright colors
   bright:
