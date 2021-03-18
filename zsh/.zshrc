@@ -89,6 +89,8 @@ plugins=(
   history-substring-search
   kubectl
   minikube
+  taskwarrior
+  timewarrior
   redis-cli
   vi-mode
   zsh-aliases-exa
