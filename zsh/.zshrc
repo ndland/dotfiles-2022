@@ -80,6 +80,7 @@ HIST_STAMPS="%F -> %r"
 plugins=(
   brew
   dnf
+  dnote
   docker
   docker-compose
   git
