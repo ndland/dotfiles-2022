@@ -129,6 +129,7 @@ eval $(thefuck --alias)
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
+alias dn="dnote"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -150,7 +151,7 @@ export NPM_GLOBAL=$HOME/.npm-global
 export BAT_THEME="base16"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$NPM_GLOBAL/bin:$PATH"
-export EDITOR="code --wait"
+export EDITOR="vim"
 
 stowit() {
   dir=$1
