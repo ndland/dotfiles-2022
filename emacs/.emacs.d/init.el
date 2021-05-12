@@ -28,9 +28,12 @@
 (setq use-package-always-ensure t)
 
 (use-package spacemacs-theme
+  :defer t)
+
+(use-package one-themes
   :defer t
   :init
-  (load-theme 'spacemacs-dark t))
+  (load-theme 'one-dark t))
 
 (use-package doom-themes)
 
@@ -47,8 +50,8 @@
 
 ;; Set the font a little bigger in OS X
 (if (memq window-system '(mac ns x))
-    (set-face-attribute 'default nil :font "Monoid Nerd Font Mono" :height 130)
-  (set-face-attribute 'default nil :font "Monoid Nerd Font Mono" :height 100))
+    (set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Book" :height 130)
+  (set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Book" :height 100))
 
 (electric-pair-mode 1)
 
