@@ -416,10 +416,8 @@
   :config
   (setq org-log-into-drawer t)
   ;; (org-hide-drawer-toggle t)
-  (setq org-agenda-files
-	'("~/Dropbox/org/tasks.org"
-	  "~/Dropbox/org/habits.org"
-	  "~/Dropbox/org/notes.org"))
+  (setq org-agenda-files '("~/Dropbox/org/inbox.org"))
+
   (setq org-ellipsis " ⌄"
 	org-hide-emphasis-markers t)
   ;; (nl/org-heading-setup)
