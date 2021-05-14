@@ -382,7 +382,7 @@
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
   :custom
-  (lsp-ui-doc-position 'bottm))
+  (lsp-ui-doc-position 'bottom))
 
 (use-package yaml-mode
   :config
