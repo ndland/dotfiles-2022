@@ -137,6 +137,10 @@
        (interactive)
        (counsel-rg nil "~/Dropbox/org" nil nil))
    #+end_src
+** Start a server
+   #+begin_src emacs-lisp
+     (server-start)
+   #+end_src
 * Packages
 ** Keybindings
    #+begin_src emacs-lisp

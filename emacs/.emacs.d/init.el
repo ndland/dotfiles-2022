@@ -112,6 +112,8 @@
   (interactive)
   (counsel-rg nil "~/Dropbox/org" nil nil))
 
+(server-start)
+
 (use-package evil
   :init
   (setq evil-want-keybinding nil)
