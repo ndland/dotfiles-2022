@@ -265,7 +265,14 @@
 
 (use-package flycheck
   :config
-  (global-flycheck-mode))
+  (global-flycheck-mode)
+  (setq-default flycheck-disabled-checkers
+		(append flycheck-disabled-checkers
+			'(javascript-jshint)))
+  (setq-default flycheck-disabled-checkers
+		(append flycheck-disabled-checkers
+			'(json-jsonlist)))
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
 
 (use-package yasnippet
   :config (yas-global-mode 1))
@@ -314,6 +321,8 @@
 
 (use-package json-mode
   :mode "\\.json$")
+
+(use-package js2-mode)
 
 (use-package web-mode
   :mode (("\\.js\\'" . web-mode)
