@@ -244,7 +244,9 @@
  (setq which-key-idle-delay 0.3))
 
 (use-package company
+  :ensure t
   :after lsp-mode
+  :hook (after-init . global-company)
   :bind
   (:map company-active-map
 	("<tab>" . company-complete-selection))
@@ -252,9 +254,7 @@
 	("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0)
-  :init
-  (global-company-mode 1))
+  (company-idle-delay 0.0))
 
 (use-package company-box
   :after company-mode
