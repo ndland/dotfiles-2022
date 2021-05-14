@@ -70,6 +70,10 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+;; Start Emacs fullscreen
+(custom-set-variables
+ '(initial-frame-alist '((fullscreen . maximized))))
+
 (setq
  delete-old-versions t
  kept-new-versions 6

@@ -47,7 +47,7 @@
 
       (use-package doom-themes)
     #+end_src
-*** Disable Default UI elements
+*** UI Changes
     #+begin_src emacs-lisp
       (setq inhibit-startup-message t)
 
@@ -81,6 +81,10 @@
 
       (use-package rainbow-delimiters
 	:hook (prog-mode . rainbow-delimiters-mode))
+
+      ;; Start Emacs fullscreen
+      (custom-set-variables
+       '(initial-frame-alist '((fullscreen . maximized))))
     #+end_src
 ** Emacs auto-save & backup behavior
    #+begin_src emacs-lisp
