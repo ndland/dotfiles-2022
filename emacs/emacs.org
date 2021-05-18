@@ -69,6 +69,7 @@
       (dolist (mode '(org-mode-hook
 		      term-mode-hook
 		      vterm-mode-hook
+		      nov-mode-hook
 		      treemacs-mode-hook
 		      org-agenda-mode-hook
 		      eshell-mode-hook))
@@ -409,9 +410,15 @@
    #+begin_src emacs-lisp
      (use-package vterm)
    #+end_src
-
+** Read Books
+   #+begin_src emacs-lisp
+     (use-package nov
+       :config
+       (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+       (setq nov-text-width 120))
+   #+end_src
 * Languages
-**  Markdown
+** Markdown
    #+begin_src emacs-lisp
      ;; Markdown
      (use-package markdown-mode

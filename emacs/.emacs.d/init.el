@@ -57,6 +57,7 @@
 (dolist (mode '(org-mode-hook
 		term-mode-hook
 		vterm-mode-hook
+		nov-mode-hook
 		treemacs-mode-hook
 		org-agenda-mode-hook
 		eshell-mode-hook))
@@ -332,6 +333,11 @@
   :config (ace-window-display-mode 1))
 
 (use-package vterm)
+
+(use-package nov
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  (setq nov-text-width 120))
 
 ;; Markdown
 (use-package markdown-mode
