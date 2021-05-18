@@ -48,11 +48,6 @@
 ;; Set up the visual bell
 (setq visible-bell t)
 
-;; Set the font a little bigger in OS X
-(if (memq window-system '(mac ns x))
-    (set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Book" :height 130)
-  (set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Book" :height 100))
-
 (electric-pair-mode 1)
 
 (column-number-mode)
@@ -73,6 +68,21 @@
 ;; Start Emacs fullscreen
 (custom-set-variables
  '(initial-frame-alist '((fullscreen . maximized))))
+
+;; Set the font a little bigger in OS X
+(if (memq window-system '(mac ns x))
+    (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 135)
+  (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 100))
+
+;; Set the variable pitch face
+(set-face-attribute 'fixed-pitch nil
+		    :font "Iosevka Nerd Font Mono"
+		    :height 130)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil
+		    :font "Iosevka Etoile"
+		    :height 130)
 
 (setq
  delete-old-versions t
@@ -404,7 +414,7 @@
 		  (org-level-6 . 1.1)
 		  (org-level-7 . 1.1)
 		  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Cantarell" :weight 'normal :height (cdr face))))
+    (set-face-attribute (car face) nil :font "Iosevka Etoile" :weight 'normal :height (cdr face))))
 
 (require 'org-habit)
 (add-to-list 'org-modules 'org-habit)
@@ -430,7 +440,7 @@
 
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
-  (set-face-attribute 'org-date nil     :inherit 'fixed-pitch)
+  (set-face-attribute 'org-date nil     :inherit 'variable-pitch)
   (set-face-attribute 'org-link nil     :inherit 'fixed-pitch)
   (set-face-attribute 'org-checkbox-statistics-todo nil :inherit 'fixed-pitch :foreground "DarkOrange1")
   (set-face-attribute 'org-checkbox-statistics-done nil :inherit 'fixed-pitch :foreground "lime green")
