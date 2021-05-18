@@ -8,8 +8,8 @@ window:
 font:
 
   normal:
-    family: CaskaydiaCove Nerd Font Mono
-    style: Book
+    family: Iosevka Nerd Font Mono
+    style: Regular
     
   # italic:
   #   family: CaskaydiaCove Nerd Font Mono
@@ -19,7 +19,7 @@ font:
   #   family: CaskaydiaCove Nerd Font Mono
   #   style: Bold
 
-  size: 14
+  size: 16
 
   use_thin_strokes: true
 
