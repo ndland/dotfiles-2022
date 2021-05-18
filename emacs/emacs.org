@@ -3,6 +3,7 @@
 
 * Basic configuration
 ** Package Setup
+   Definitely need some packages to improve Emacs, let's load the archives.
    #+begin_src emacs-lisp
      ;; Initialize package sources
      (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -116,18 +117,20 @@
       auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
    #+end_src
-*** Structure Templates 
+*** Structure Templates
     #+begin_src emacs-lisp
-     ;; This is needed as of Org 9.2
-     (require 'org-tempo)
+      ;; This is needed as of Org 9.2
+      (require 'org-tempo)
 
-     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
     #+end_src
 
     #+begin_src emacs-lisp
-    
+
     #+end_src
 ** Auto-tangle on save
+   When I save my ~emacs.org~ file, write it to ~init.el~ so that I can
+   make use of my new functionality.
    #+begin_src emacs-lisp
      (defvar nl/emacs-dotfile-directory "/Users/nland/dev/github.com/ndland/dotfiles/emacs/")
 
@@ -152,7 +155,7 @@
    #+begin_src emacs-lisp
      (defun nl/search-org-notes ()
        (interactive)
-       (counsel-rg nil "~/Dropbox/org" nil nil))
+       (counsel-rg "" "~/Dropbox/org" nil "Search org notes: "))
    #+end_src
 ** Start a server
    #+begin_src emacs-lisp
@@ -241,6 +244,7 @@
        (setq ivy-use-virtual-buffers t))
 
      (use-package ivy-rich
+       :after counsel
        :init (ivy-rich-mode 1))
 
      (use-package counsel
@@ -297,11 +301,11 @@
 ** Which Key
    I don't have to remember the keybinds anymore. This will help remind me what the binds are!
    #+begin_src emacs-lisp
-  (use-package which-key
-   :init (which-key-mode)
-   :diminish which-key-mode
-   :config
-   (setq which-key-idle-delay 0.3))
+     (use-package which-key
+       :init (which-key-mode)
+       :diminish which-key-mode
+       :config
+       (setq which-key-idle-delay 0.3))
    #+end_src
 ** Auto completion
    #+begin_src emacs-lisp
@@ -650,7 +654,7 @@
        :hook (org-mode . org-bullets-mode))
 
      (defun nl/org-mode-visual-fill ()
-       (setq visual-fill-column-width 100
+       (setq visual-fill-column-width 120
 	     visual-fill-column-center-text t)
        (visual-fill-column-mode 1))
 

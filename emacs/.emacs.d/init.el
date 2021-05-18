@@ -121,7 +121,7 @@
 
 (defun nl/search-org-notes ()
   (interactive)
-  (counsel-rg nil "~/Dropbox/org" nil nil))
+  (counsel-rg "" "~/Dropbox/org" nil "Search org notes: "))
 
 (server-start)
 
@@ -203,6 +203,7 @@
   (setq ivy-use-virtual-buffers t))
 
 (use-package ivy-rich
+  :after counsel
   :init (ivy-rich-mode 1))
 
 (use-package counsel
@@ -249,10 +250,10 @@
   (global-diff-hl-mode))
 
 (use-package which-key
- :init (which-key-mode)
- :diminish which-key-mode
- :config
- (setq which-key-idle-delay 0.3))
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0.3))
 
 (use-package company
   :ensure t
@@ -557,7 +558,7 @@
   :hook (org-mode . org-bullets-mode))
 
 (defun nl/org-mode-visual-fill ()
-  (setq visual-fill-column-width 100
+  (setq visual-fill-column-width 120
 	visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
