@@ -453,6 +453,7 @@ I'm using [[https://github.com/seagle0128/doom-modeline][Doom Modeline]] with so
     :bind ("C-/" . evilnc-comment-or-uncomment-lines))
 
   (use-package magit-gitflow
+    :after magit
     :hook
     (magit-mode . turn-on-magit-gitflow))
 
@@ -462,6 +463,11 @@ I'm using [[https://github.com/seagle0128/doom-modeline][Doom Modeline]] with so
      (magit-post-refresh . diff-hl-magit-post-refresh))
     :init
     (global-diff-hl-mode))
+
+  (use-package magit-delta
+    :after magit
+    :config
+    (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
 #+end_src
 ** Which Key
 I don't have to remember the keybinds anymore. This will help remind me what the binds are!

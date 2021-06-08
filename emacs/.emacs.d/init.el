@@ -401,6 +401,7 @@
   :bind ("C-/" . evilnc-comment-or-uncomment-lines))
 
 (use-package magit-gitflow
+  :after magit
   :hook
   (magit-mode . turn-on-magit-gitflow))
 
@@ -410,6 +411,11 @@
    (magit-post-refresh . diff-hl-magit-post-refresh))
   :init
   (global-diff-hl-mode))
+
+(use-package magit-delta
+  :after magit
+  :config
+  (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
 
 (use-package which-key
   :init (which-key-mode)
