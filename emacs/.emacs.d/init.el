@@ -28,11 +28,11 @@
   :defer t)
 
 (use-package one-themes
-  :defer t
-  :init
-  (load-theme 'one-dark t))
+  :defer t)
 
-(use-package doom-themes)
+(use-package doom-themes
+  :config
+  (load-theme 'doom-shades-of-purple t))
 
 (setq inhibit-startup-message t)
 
@@ -171,6 +171,7 @@
     "oh" '(org-archive-subtree-default :which-key "Org Archive")
     "or" '(org-refile :which-key "Org Refile")
     "ot" '(org-todo :which-key "Org TODO")
+    "oi" '(org-time-stamp-inactive :which-key "Org timestamp inactive")
 
     "s" '(:ignore t :which-key "Snippets")
     "si" '(yas-insert-snippet :which-key "Insert Snippet")
@@ -179,47 +180,42 @@
     "b" '(:ignore t :which-key "Buffers")
     "bb" '(counsel-ibuffer :which-key "Switch Buffers")))
 
-(defun nl/org-mode-setup ()
-  (variable-pitch-mode 1)
-  (auto-fill-mode 1))
-
 (defun nl/org-heading-setup ()
   ;; Scale headings
   (dolist (face '((org-level-1 . 1.5)
-                  (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.1)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
+		  (org-level-2 . 1.1)
+		  (org-level-3 . 1.05)
+		  (org-level-4 . 1.1)
+		  (org-level-5 . 1.1)
+		  (org-level-6 . 1.1)
+		  (org-level-7 . 1.1)
+		  (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil :font "Iosevka Etoile" :weight 'normal :height (cdr face))))
 
 (require 'org-habit)
 (add-to-list 'org-modules 'org-habit)
 
+(defun nl/org-mode-setup ()
+  (org-indent-mode)
+  (variable-pitch-mode 1)
+  (auto-fill-mode 1))
+
 (use-package org
-  :hook
-  ((org-mode . nl/org-mode-setup)
-   (org-mode . org-indent-mode))
-  :bind
-  ([remap org-set-tags-command] . #'counsel-org-tag)
+  :bind ([remap org-set-tags-command] . #'counsel-org-tag)
+  :hook (org-mode . nl/org-mode-setup)
   :config
   (setq org-log-into-drawer t)
-  ;; (org-hide-drawer-toggle t)
   (setq org-agenda-files '("~/Dropbox/org/inbox.org"))
   (setq org-contacts-files '("~/Dropbox/org/inbox.org"))
-  ;; (setq org-agenda-include-diary t)
 
   (setq org-ellipsis " ⌄"
-        org-hide-emphasis-markers t)
-  ;; (nl/org-heading-setup)
+	org-hide-emphasis-markers t)
 
   (setq org-habit-graph-column 60)
   (setq org-tags-column 120
-        org-auto-align-tags t)
+	org-auto-align-tags t)
   (setq org-startup-with-inline-images t
-        org-image-actual-width 500)
+	org-image-actual-width 500)
 
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
@@ -242,36 +238,36 @@
   (setq org-refile-use-outline-path t)
 
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
-          (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
+	'((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
+	  (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
 
   (setq org-todo-keyword-faces
-        '(("TODO" . org-warning)
-          ("NEXT" . (:foreground "gold" :weight bold))
-          ("DONE" . (:foreground "lime green" :weight bold))
-          ("BACKLOG" . (:foreground "dim gray" :weight regular))
-          ("PLAN" . (:foreground "orange red" :weight regular))
-          ("READY" . (:foreground "spring green" :weight bold))
-          ("ACTIVE" . (:foreground "yellow" :weight bold))
-          ("REVIEW" . (:foreground "orange" :weight bold))
-          ("WAITING" . (:foreground "salmon" :weight bold))
-          ("HOLD" . (:foreground "tomato" :weight bold))
-          ("COMPLETED" . (:foreground "lime green" :weight bold))
-          ("CANCELLED" . (:foreground "red" :weight bold))))
+	'(("TODO" . org-warning)
+	  ("NEXT" . (:foreground "gold" :weight bold))
+	  ("DONE" . (:foreground "lime green" :weight bold))
+	  ("BACKLOG" . (:foreground "dim gray" :weight regular))
+	  ("PLAN" . (:foreground "orange red" :weight regular))
+	  ("READY" . (:foreground "spring green" :weight bold))
+	  ("ACTIVE" . (:foreground "yellow" :weight bold))
+	  ("REVIEW" . (:foreground "orange" :weight bold))
+	  ("WAITING" . (:foreground "salmon" :weight bold))
+	  ("HOLD" . (:foreground "tomato" :weight bold))
+	  ("COMPLETED" . (:foreground "lime green" :weight bold))
+	  ("CANCELLED" . (:foreground "red" :weight bold))))
 
   (setq org-capture-templates
-        '(("t" "Tasks")
-          ("tt" "Task" entry
-           (file+olp "~/Dropbox/org/inbox.org" "Inbox")
-           "* TODO %?\n  Captured: %U\n  %a\n %i"
-           :empty-lines 0)
-          ("td" "Task Today" entry
-           (file+olp "~/Dropbox/org/inbox.org" "Inbox")
-           "* TODO %?\nSCHEDULED: %t\n  Captured: %U\n  %a\n %i"
-           :empty-lines 0)
-          ("c" "Contacts")
-          ("cf" "Family" entry (file+headline "~/Dropbox/org/inbox.org" "Family")
-           "* %(org-contacts-template-name)
+	'(("t" "Tasks")
+	  ("tt" "Task" entry
+	   (file+olp "~/Dropbox/org/inbox.org" "Inbox")
+	   "* TODO %?\n  Captured: %U\n  %a\n %i"
+	   :empty-lines 0)
+	  ("td" "Task Today" entry
+	   (file+olp "~/Dropbox/org/inbox.org" "Inbox")
+	   "* TODO %?\nSCHEDULED: %t\n  Captured: %U\n  %a\n %i"
+	   :empty-lines 0)
+	  ("c" "Contacts")
+	  ("cf" "Family" entry (file+headline "~/Dropbox/org/inbox.org" "Family")
+	   "* %(org-contacts-template-name)
 :PROPERTIES:
 :ADDRESS: %^{289 Cleveland St. Brooklyn, 11206 NY, USA}
 :BIRTHDAY: %^{yyyy-mm-dd}
@@ -283,9 +279,9 @@
 :ICON:
 :NOTE: %^{Note}
 :END:"
-           :empty-lines 0)
-          ("cr" "Friends" entry (file+olp "~/Dropbox/org/inbox.org" "Contacts" "Friends")
-           "* %(org-contacts-template-name)
+	   :empty-lines 0)
+	  ("cr" "Friends" entry (file+olp "~/Dropbox/org/inbox.org" "Contacts" "Friends")
+	   "* %(org-contacts-template-name)
 :PROPERTIES:
 :ADDRESS: %^{289 Cleveland St. Brooklyn, 11206 NY, USA}
 :BIRTHDAY: %^{yyyy-mm-dd}
@@ -297,7 +293,7 @@
 :ICON:
 :NOTE: %^{Note}
 :END:"
-           :empty-lines 0)))
+	   :empty-lines 0)))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -305,20 +301,22 @@
      (C . t)))
 
   (setq org-tag-alist
-        '((:startgroup)
-          (:endgroup)
-          ("@home" . ?H)
-          ("@errand" . ?E)
-          ("@work" . ?W)
-          ("finance" . ?F)
-          ("event" . ?v)
-          ("habit" . ?a)
-          ("chore" . ?C)
-          ("plex" . ?P)
-          ("hobbies" . ?h)
-          ("productivity" . ?p)
-          ("emacs" . ?e)
-          ("repair" . ?r)))
+	'((:startgroup)
+	  (:endgroup)
+	  ("@home" . ?H)
+	  ("@errand" . ?E)
+	  ("@work" . ?W)
+	  ("finance" . ?F)
+	  ("event" . ?v)
+	  ("habit" . ?a)
+	  ("chore" . ?C)
+	  ("plex" . ?P)
+	  ("hobbies" . ?h)
+	  ("productivity" . ?p)
+	  ("emacs" . ?e)
+	  ("repair" . ?r)))
+
+  (nl/org-heading-setup)
 
   (general-define-key
    :states '(normal insert visual emacs)
@@ -331,8 +329,8 @@
   :hook (org-mode . org-bullets-mode))
 
 (defun nl/org-mode-visual-fill ()
-  (setq visual-fill-column-width 120
-        visual-fill-column-center-text t)
+  (setq visual-fill-column-width 130
+	visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
 (use-package visual-fill-column
@@ -366,6 +364,10 @@
 (use-package ivy-rich
   :after counsel
   :init (ivy-rich-mode 1))
+
+(use-package all-the-icons-ivy-rich
+  :ensure t
+  :init (all-the-icons-ivy-rich-mode 1))
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -496,6 +498,13 @@
   :after (treemacs magit)
   :ensure t)
 
+(use-package golden-ratio
+  :config (golden-ratio-mode 1))
+
+(define-advice select-window (:after (window &optional no-record) golden-ratio-resize-window)
+    (golden-ratio)
+    nil)
+
 (use-package ace-window
   :bind
   ("M-o" . ace-window)
@@ -519,26 +528,44 @@
 (use-package json-mode
   :mode "\\.json$")
 
-(use-package js2-mode)
+(use-package rjsx-mode
+  :mode (("\\.js\\'" . rjsx-mode)
+         ("\\.jsx\\'" . rjsx-mode))
+  :config (setq js-indent-level 2))
 
-(use-package web-mode
-  :mode (("\\.js\\'" . web-mode)
-         ("\\.jsx\\'" . web-mode)
-         ("\\.ts\\'" . web-mode)
-         ("\\.html\\'" . web-mode)
-         ("\\.tsx\\'" . web-mode))
-  :hook ((web-mode . lsp-deferred))
-  :config
-  (setq company-tooltip-align-annotations t)
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-content-types-alist
-        '(("jsx" . "\\.js[x]?\\'"))))
+(defun setup-tide-mode()
+  "Setup function for tide"
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (company-mode +1))
 
+(use-package tide
+  :after (rjsx-mode company flycheck)
+  :hook (rjsx-mode . setup-tide-mode))
+
+;; (use-package js2-mode)
+
+;; (use-package web-mode
+;;   :mode (("\\.js\\'" . web-mode)
+;;          ("\\.jsx\\'" . web-mode)
+;;          ("\\.ts\\'" . web-mode)
+;;          ("\\.html\\'" . web-mode)
+;;          ("\\.tsx\\'" . web-mode))
+;;   :hook ((web-mode . lsp-deferred))
+;;   :config
+;;   (setq company-tooltip-align-annotations t)
+;;   (setq web-mode-markup-indent-offset 2)
+;;   (setq web-mode-css-indent-offset 2)
+;;   (setq web-mode-code-indent-offset 2)
+;;   (setq web-mode-content-types-alist
+;;         '(("jsx" . "\\.js[x]?\\'"))))
 
 (use-package prettier-js
-  :hook (json-mode . prettier-js-mode))
+  :after (rjsx-mode)
+  :hook ((json-mode . prettier-js-mode)
+         (rjsx-mode . prettier-js-mode)))
 
 (use-package beancount-mode
   :straight (beancount-mode
