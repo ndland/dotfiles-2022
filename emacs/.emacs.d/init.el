@@ -183,13 +183,13 @@
 (defun nl/org-heading-setup ()
   ;; Scale headings
   (dolist (face '((org-level-1 . 1.5)
-		  (org-level-2 . 1.1)
-		  (org-level-3 . 1.05)
-		  (org-level-4 . 1.1)
-		  (org-level-5 . 1.1)
-		  (org-level-6 . 1.1)
-		  (org-level-7 . 1.1)
-		  (org-level-8 . 1.1)))
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.1)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
     (set-face-attribute (car face) nil :font "Iosevka Etoile" :weight 'normal :height (cdr face))))
 
 (require 'org-habit)
@@ -209,13 +209,13 @@
   (setq org-contacts-files '("~/Dropbox/org/inbox.org"))
 
   (setq org-ellipsis " ⌄"
-	org-hide-emphasis-markers t)
+        org-hide-emphasis-markers t)
 
   (setq org-habit-graph-column 60)
   (setq org-tags-column 120
-	org-auto-align-tags t)
+        org-auto-align-tags t)
   (setq org-startup-with-inline-images t
-	org-image-actual-width 500)
+        org-image-actual-width 500)
 
   (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
   (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
@@ -238,36 +238,36 @@
   (setq org-refile-use-outline-path t)
 
   (setq org-todo-keywords
-	'((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
-	  (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
+        '((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
+          (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
 
   (setq org-todo-keyword-faces
-	'(("TODO" . org-warning)
-	  ("NEXT" . (:foreground "gold" :weight bold))
-	  ("DONE" . (:foreground "lime green" :weight bold))
-	  ("BACKLOG" . (:foreground "dim gray" :weight regular))
-	  ("PLAN" . (:foreground "orange red" :weight regular))
-	  ("READY" . (:foreground "spring green" :weight bold))
-	  ("ACTIVE" . (:foreground "yellow" :weight bold))
-	  ("REVIEW" . (:foreground "orange" :weight bold))
-	  ("WAITING" . (:foreground "salmon" :weight bold))
-	  ("HOLD" . (:foreground "tomato" :weight bold))
-	  ("COMPLETED" . (:foreground "lime green" :weight bold))
-	  ("CANCELLED" . (:foreground "red" :weight bold))))
+        '(("TODO" . org-warning)
+          ("NEXT" . (:foreground "gold" :weight bold))
+          ("DONE" . (:foreground "lime green" :weight bold))
+          ("BACKLOG" . (:foreground "dim gray" :weight regular))
+          ("PLAN" . (:foreground "orange red" :weight regular))
+          ("READY" . (:foreground "spring green" :weight bold))
+          ("ACTIVE" . (:foreground "yellow" :weight bold))
+          ("REVIEW" . (:foreground "orange" :weight bold))
+          ("WAITING" . (:foreground "salmon" :weight bold))
+          ("HOLD" . (:foreground "tomato" :weight bold))
+          ("COMPLETED" . (:foreground "lime green" :weight bold))
+          ("CANCELLED" . (:foreground "red" :weight bold))))
 
   (setq org-capture-templates
-	'(("t" "Tasks")
-	  ("tt" "Task" entry
-	   (file+olp "~/Dropbox/org/inbox.org" "Inbox")
-	   "* TODO %?\n  Captured: %U\n  %a\n %i"
-	   :empty-lines 0)
-	  ("td" "Task Today" entry
-	   (file+olp "~/Dropbox/org/inbox.org" "Inbox")
-	   "* TODO %?\nSCHEDULED: %t\n  Captured: %U\n  %a\n %i"
-	   :empty-lines 0)
-	  ("c" "Contacts")
-	  ("cf" "Family" entry (file+headline "~/Dropbox/org/inbox.org" "Family")
-	   "* %(org-contacts-template-name)
+        '(("t" "Tasks")
+          ("tt" "Task" entry
+           (file+olp "~/Dropbox/org/inbox.org" "Inbox")
+           "* TODO %?\nCaptured: %U\n%a\n %i"
+           :empty-lines 0)
+          ("td" "Task Today" entry
+           (file+olp "~/Dropbox/org/inbox.org" "Inbox")
+           "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n%a\n %i"
+           :empty-lines 0)
+          ("c" "Contacts")
+          ("cf" "Family" entry (file+headline "~/Dropbox/org/inbox.org" "Family")
+           "* %(org-contacts-template-name)
 :PROPERTIES:
 :ADDRESS: %^{289 Cleveland St. Brooklyn, 11206 NY, USA}
 :BIRTHDAY: %^{yyyy-mm-dd}
@@ -279,9 +279,9 @@
 :ICON:
 :NOTE: %^{Note}
 :END:"
-	   :empty-lines 0)
-	  ("cr" "Friends" entry (file+olp "~/Dropbox/org/inbox.org" "Contacts" "Friends")
-	   "* %(org-contacts-template-name)
+           :empty-lines 0)
+          ("cr" "Friends" entry (file+olp "~/Dropbox/org/inbox.org" "Contacts" "Friends")
+           "* %(org-contacts-template-name)
 :PROPERTIES:
 :ADDRESS: %^{289 Cleveland St. Brooklyn, 11206 NY, USA}
 :BIRTHDAY: %^{yyyy-mm-dd}
@@ -293,7 +293,7 @@
 :ICON:
 :NOTE: %^{Note}
 :END:"
-	   :empty-lines 0)))
+           :empty-lines 0)))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -301,20 +301,20 @@
      (C . t)))
 
   (setq org-tag-alist
-	'((:startgroup)
-	  (:endgroup)
-	  ("@home" . ?H)
-	  ("@errand" . ?E)
-	  ("@work" . ?W)
-	  ("finance" . ?F)
-	  ("event" . ?v)
-	  ("habit" . ?a)
-	  ("chore" . ?C)
-	  ("plex" . ?P)
-	  ("hobbies" . ?h)
-	  ("productivity" . ?p)
-	  ("emacs" . ?e)
-	  ("repair" . ?r)))
+        '((:startgroup)
+          (:endgroup)
+          ("@home" . ?H)
+          ("@errand" . ?E)
+          ("@work" . ?W)
+          ("finance" . ?F)
+          ("event" . ?v)
+          ("habit" . ?a)
+          ("chore" . ?C)
+          ("plex" . ?P)
+          ("hobbies" . ?h)
+          ("productivity" . ?p)
+          ("emacs" . ?e)
+          ("repair" . ?r)))
 
   (nl/org-heading-setup)
 
@@ -330,7 +330,7 @@
 
 (defun nl/org-mode-visual-fill ()
   (setq visual-fill-column-width 130
-	visual-fill-column-center-text t)
+        visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
 (use-package visual-fill-column

@@ -62,3 +62,8 @@ flycheck_*.el
 /emacs/.emacs.d/recentf
 /emacs/.emacs.d/tutorial/
 /.DS_Store
+/emacs/.emacs.d/.lsp-session-v1
+/emacs/.emacs.d/emojis/
+/emacs/.emacs.d/nov-places
+/emacs/.emacs.d/projectile-bookmarks.eld
+/emacs/.emacs.d/transient/
