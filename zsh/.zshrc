@@ -129,7 +129,7 @@ eval $(thefuck --alias)
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
-alias dn="dnote"
+alias ec="emacsclient"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -147,11 +147,11 @@ else
 fi
 
 export NPM_GLOBAL=$HOME/.npm-global
-
 export BAT_THEME="base16"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$NPM_GLOBAL/bin:$PATH"
-export EDITOR="vim"
+export PATH="/opt/mongodb/bin:$PATH"
+export EDITOR="emacs" 
 
 stowit() {
   dir=$1
@@ -161,3 +161,6 @@ stowit() {
   # -t target
   stow -v -R -t ${dir} ${app}
 }
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
