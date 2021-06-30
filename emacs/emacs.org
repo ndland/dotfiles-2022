@@ -427,6 +427,7 @@ I'm tired of having to manually reload this file.
 This package offers some really helpful (no pun intended) help buffers. Presents the help in a nice way.
 #+begin_src emacs-lisp
   (use-package helpful
+    :commands (helpful-callable helpful-variable helpful-command helpful-key)
     :custom
     (counsel-describe-function-function #'helpful-callable)
     (counsel-describe-variable-function #'helpful-variable)
@@ -495,7 +496,7 @@ I don't have to remember the keybinds anymore. This will help remind me what the
     :custom
     (company-minimum-prefix-length 1)
     (company-idle-delay 0.0))
-
+  
   (use-package company-box
     :after company-mode
     :hook (company-mode . company-box-mode))
