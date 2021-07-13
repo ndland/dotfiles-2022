@@ -590,6 +590,7 @@
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ivy
+  :after lsp
   :commands lsp-ivy-workspace-symbol)
 
 (use-package lsp-ui
