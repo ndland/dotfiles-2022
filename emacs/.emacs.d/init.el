@@ -25,14 +25,13 @@
 (require 'use-package)
 
 (use-package spacemacs-theme
-  :defer t)
+  :defer t
+  :init (load-theme 'spacemacs-dark t))
 
 (use-package one-themes
   :defer t)
 
-(use-package doom-themes
-  :config
-  (load-theme 'doom-shades-of-purple t))
+(use-package doom-themes)
 
 (setq inhibit-startup-message t)
 
@@ -603,3 +602,20 @@
   (add-hook 'yaml-mode-hook
             (lambda ()
               (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+
+;; Set up before-save hooks to format buffer and add/delete imports.
+;; Make sure you don't have other gofmt/goimports hooks enabled.
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
+(use-package go-mode
+  :mode "\\.go$"
+  :config
+  (add-hook 'go-mode-hook 'lsp-deferred)
+  (lsp-go-install-save-hooks)
+
+  (lsp-register-custom-settings
+   '(("gopls.completeUnimported" t t)
+     ("gopls.staticcheck" t t))))
