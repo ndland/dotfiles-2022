@@ -86,7 +86,7 @@ start. I like the idea of having a different font for ~org-mode~, it
 makes more sense to break up the headings.
 #+begin_src emacs-lisp
   ;; Set the font a little bigger in OS X
-  (if (memq window-system '(mac ns x))
+  (if (memq window-system '(mac ns))
       (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 135)
     (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 100))
 
@@ -130,11 +130,15 @@ When I save my ~emacs.org~ file, write it to ~init.el~ so that I can
 make use of my new functionality.
 #+begin_src emacs-lisp
   (defvar nl/emacs-dotfile-directory "/Users/nland/dev/github.com/ndland/dotfiles/emacs/")
+  (defvar nl/emacs-linux-dotfile-directory "/home/nland/dev/github.com/ndland/dotfiles/emacs/")
 
   ;; Automatically tangle our Emacs.org config file when we save it
   (defun nl/org-babel-tangle-config ()
-    (when (string-equal (file-name-directory (buffer-file-name))
-                        nl/emacs-dotfile-directory)
+    "This function is to automatically write to '~/.emacs.d/init.el'."
+    (when
+        (or
+         (string-equal (file-name-directory (buffer-file-name)) nl/emacs-dotfile-directory)
+         (string-equal (file-name-directory (buffer-file-name)) nl/emacs-linux-dotfile-directory))
       ;; Dynamic scoping to the rescue
       (let ((org-confirm-babel-evaluate nil))
         (org-babel-tangle))))
@@ -356,27 +360,32 @@ I'm tired of having to manually reload this file.
             ("productivity" . ?p)
             ("emacs" . ?e)
             ("repair" . ?r)))
-  
+
     (nl/org-heading-setup)
-  
+
+    (general-define-key
+     :states '(normal visual)
+     :keymaps 'org-mode-map
+     "TAB" 'org-cycle)
+
     (general-define-key
      :states '(normal insert visual emacs)
      :keymaps 'org-agenda-mode-map
      "j" 'org-agenda-next-line
      "k" 'org-agenda-previous-line))
-  
+
   (use-package org-bullets
     :after org
     :hook (org-mode . org-bullets-mode))
-  
+
   (defun nl/org-mode-visual-fill ()
     (setq visual-fill-column-width 130
           visual-fill-column-center-text t)
     (visual-fill-column-mode 1))
-  
+
   (use-package visual-fill-column
     :hook (org-mode . nl/org-mode-visual-fill))
-  
+
   (use-package org-contrib
     :after org
     :config
@@ -467,10 +476,11 @@ I'm using [[https://github.com/seagle0128/doom-modeline][Doom Modeline]] with so
     :init
     (global-diff-hl-mode))
 
-  (use-package magit-delta
-    :after magit
-    :config
-    (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
+  (if (memq window-system '(mac ns))
+      (use-package magit-delta
+        :after magit
+        :config
+        (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))))
 #+end_src
 ** Which Key
 I don't have to remember the keybinds anymore. This will help remind me what the binds are!

@@ -67,7 +67,7 @@
  '(initial-frame-alist '((fullscreen . maximized))))
 
 ;; Set the font a little bigger in OS X
-(if (memq window-system '(mac ns x))
+(if (memq window-system '(mac ns))
     (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 135)
   (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 100))
 
@@ -100,11 +100,15 @@
 
 
 (defvar nl/emacs-dotfile-directory "/Users/nland/dev/github.com/ndland/dotfiles/emacs/")
+(defvar nl/emacs-linux-dotfile-directory "/home/nland/dev/github.com/ndland/dotfiles/emacs/")
 
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun nl/org-babel-tangle-config ()
-  (when (string-equal (file-name-directory (buffer-file-name))
-                      nl/emacs-dotfile-directory)
+  "This function is to automatically write to '~/.emacs.d/init.el'."
+  (when
+      (or
+       (string-equal (file-name-directory (buffer-file-name)) nl/emacs-dotfile-directory)
+       (string-equal (file-name-directory (buffer-file-name)) nl/emacs-linux-dotfile-directory))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
@@ -318,6 +322,11 @@
   (nl/org-heading-setup)
 
   (general-define-key
+   :states '(normal visual)
+   :keymaps 'org-mode-map
+   "TAB" 'org-cycle)
+
+  (general-define-key
    :states '(normal insert visual emacs)
    :keymaps 'org-agenda-mode-map
    "j" 'org-agenda-next-line
@@ -414,10 +423,11 @@
   :init
   (global-diff-hl-mode))
 
-(use-package magit-delta
-  :after magit
-  :config
-  (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1))))
+(if (memq window-system '(mac ns))
+    (use-package magit-delta
+      :after magit
+      :config
+      (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))))
 
 (use-package which-key
   :init (which-key-mode)
