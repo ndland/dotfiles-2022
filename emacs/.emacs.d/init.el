@@ -181,14 +181,14 @@
 
 (defun nl/org-heading-setup ()
   ;; Scale headings
-  (dolist (face '((org-level-1 . 1.5)
+  (dolist (face '((org-level-1 . 1.2)
                   (org-level-2 . 1.1)
                   (org-level-3 . 1.05)
-                  (org-level-4 . 1.1)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
+                  (org-level-4 . 1.05)
+                  (org-level-5 . 1.05)
+                  (org-level-6 . 1.05)
+                  (org-level-7 . 1.05)
+                  (org-level-8 . 1.05)))
     (set-face-attribute (car face) nil :font "Iosevka Etoile" :weight 'normal :height (cdr face))))
 
 (require 'org-habit)

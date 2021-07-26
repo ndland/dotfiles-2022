@@ -39,30 +39,30 @@ Definitely need some packages to improve Emacs, let's load the archives.
   (use-package spacemacs-theme
     :defer t
     :init (load-theme 'spacemacs-dark t))
-  
+
   (use-package one-themes
     :defer t)
-  
+
   (use-package doom-themes)
 #+end_src
 *** UI Changes
 #+begin_src emacs-lisp
   (setq inhibit-startup-message t)
-  
+
   (scroll-bar-mode -1) ; Disable scrollbar
   (tool-bar-mode -1) ; Disable toolbar
   (tooltip-mode -1) ; Disable tooltips
-  
+
   (menu-bar-mode -1) ; Disable the menu bar
-  
+
   ;; Set up the visual bell
   (setq visible-bell t)
-  
+
   (electric-pair-mode 1)
-  
+
   (column-number-mode)
   (global-display-line-numbers-mode t)
-  
+
   ;; Disable line numbers for some modes
   (dolist (mode '(org-mode-hook
                   term-mode-hook
@@ -72,10 +72,10 @@ Definitely need some packages to improve Emacs, let's load the archives.
                   org-agenda-mode-hook
                   eshell-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
-  
+
   (use-package rainbow-delimiters
     :hook (prog-mode . rainbow-delimiters-mode))
-  
+
   ;; Start Emacs fullscreen
   (custom-set-variables
    '(initial-frame-alist '((fullscreen . maximized))))
@@ -167,43 +167,43 @@ I'm tired of having to manually reload this file.
     (setq evil-want-integration t)
     :config
     (evil-mode 1))
-  
+
   (use-package evil-collection
     :after evil
     :init
     (evil-collection-init))
-  
+
   (use-package general
     :config
     (general-create-definer nl/leader-keys
       :keymaps '(normal insert visual emacs)
       :prefix "SPC"
       :global-prefix "C-SPC")
-  
+
     ;; nl is just an arbitrary name space can be changed
     (nl/leader-keys
       "a" '(:ignore t :which-key "Applications")
       ;; This comes after the prefix is triggered
       "at" '(vterm :which-key "Vterm")
-  
+
       ;; This is the prefix
       "t" '(:ignore t :which-key "Toggles")
       ;; This comes after the prefix is triggered
       "tt" '(counsel-load-theme :which-key "Choose Theme")
-  
+
       "f" '(:ignore t :which-key "File")
       "ff" '(counsel-find-file :which-key "Find File")
       "fs" '(save-buffer :which-key "Save File")
       "ft" '(treemacs :which-key "Toggle Treemacs")
       "fr" '(counsel-recentf :which-key "Recent Files")
-  
+
       "g" '(:ignore t :which-key "Git")
       "gs" '(magit-status :which-key "Git Status")
       "gf" '(magit-gitflow-popup :which-key "Git Flow")
-  
+
       "n" '(:ignore t :which-key "Notes")
       "ns" '(nl/search-org-notes :which-key "Search org notes")
-  
+
       "o" '(:ignore t :which-key "Org")
       "oa" '(org-agenda :which-key "Org Agenda")
       "oc" '(org-capture :which-key "Org Capture")
@@ -211,11 +211,11 @@ I'm tired of having to manually reload this file.
       "or" '(org-refile :which-key "Org Refile")
       "ot" '(org-todo :which-key "Org TODO")
       "oi" '(org-time-stamp-inactive :which-key "Org timestamp inactive")
-  
+
       "s" '(:ignore t :which-key "Snippets")
       "si" '(yas-insert-snippet :which-key "Insert Snippet")
       "sn" '(yas-new-snippet :which-key "New Snippet")
-  
+
       "b" '(:ignore t :which-key "Buffers")
       "bb" '(counsel-ibuffer :which-key "Switch Buffers")))
 #+end_src
@@ -223,24 +223,24 @@ I'm tired of having to manually reload this file.
 #+begin_src emacs-lisp
   (defun nl/org-heading-setup ()
     ;; Scale headings
-    (dolist (face '((org-level-1 . 1.5)
+    (dolist (face '((org-level-1 . 1.2)
                     (org-level-2 . 1.1)
                     (org-level-3 . 1.05)
-                    (org-level-4 . 1.1)
-                    (org-level-5 . 1.1)
-                    (org-level-6 . 1.1)
-                    (org-level-7 . 1.1)
-                    (org-level-8 . 1.1)))
+                    (org-level-4 . 1.05)
+                    (org-level-5 . 1.05)
+                    (org-level-6 . 1.05)
+                    (org-level-7 . 1.05)
+                    (org-level-8 . 1.05)))
       (set-face-attribute (car face) nil :font "Iosevka Etoile" :weight 'normal :height (cdr face))))
-  
+
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit)
-  
+
   (defun nl/org-mode-setup ()
     (org-indent-mode)
     (variable-pitch-mode 1)
     (auto-fill-mode 1))
-  
+
   (use-package org
     :bind ([remap org-set-tags-command] . #'counsel-org-tag)
     :hook (org-mode . nl/org-mode-setup)
@@ -248,16 +248,16 @@ I'm tired of having to manually reload this file.
     (setq org-log-into-drawer t)
     (setq org-agenda-files '("~/Dropbox/org/inbox.org"))
     (setq org-contacts-files '("~/Dropbox/org/inbox.org"))
-  
+
     (setq org-ellipsis " ⌄"
           org-hide-emphasis-markers t)
-  
+
     (setq org-habit-graph-column 60)
     (setq org-tags-column 120
           org-auto-align-tags t)
     (setq org-startup-with-inline-images t
           org-image-actual-width 500)
-  
+
     (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
     (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
     (set-face-attribute 'org-date nil     :inherit 'fixed-pitch)
@@ -272,16 +272,16 @@ I'm tired of having to manually reload this file.
     (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
     (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
     (set-face-attribute 'org-agenda-calendar-sexp nil :inherit 'variable-pitch :foreground "LemonChiffon")
-  
+
     (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-  
+
     (setq org-outline-path-complete-in-steps nil)
     (setq org-refile-use-outline-path t)
-  
+
     (setq org-todo-keywords
           '((sequence "TODO(t)" "NEXT(n!)" "|" "DONE(d!)")
             (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
-  
+
     (setq org-todo-keyword-faces
           '(("TODO" . org-warning)
             ("NEXT" . (:foreground "gold" :weight bold))
@@ -295,7 +295,7 @@ I'm tired of having to manually reload this file.
             ("HOLD" . (:foreground "tomato" :weight bold))
             ("COMPLETED" . (:foreground "lime green" :weight bold))
             ("CANCELLED" . (:foreground "red" :weight bold))))
-  
+
     (setq org-capture-templates
           '(("t" "Tasks")
             ("tt" "Task" entry
@@ -335,12 +335,12 @@ I'm tired of having to manually reload this file.
   :NOTE: %^{Note}
   :END:"
              :empty-lines 0)))
-  
+
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((emacs-lisp . t)
        (C . t)))
-  
+
     (setq org-tag-alist
           '((:startgroup)
             (:endgroup)
@@ -404,15 +404,15 @@ I'm tired of having to manually reload this file.
     (ivy-mode 1)
     :config
     (setq ivy-use-virtual-buffers t))
-  
+
   (use-package ivy-rich
     :after counsel
     :init (ivy-rich-mode 1))
-  
+
   (use-package all-the-icons-ivy-rich
     :ensure t
     :init (all-the-icons-ivy-rich-mode 1))
-  
+
   (use-package counsel
     :bind (("M-x" . counsel-M-x)
            ("C-x b" . counsel-ibuffer)
@@ -495,7 +495,7 @@ I don't have to remember the keybinds anymore. This will help remind me what the
     :custom
     (company-minimum-prefix-length 1)
     (company-idle-delay 0.0))
-  
+
   (use-package company-box
     :after company-mode
     :hook (company-mode . company-box-mode))
@@ -582,7 +582,7 @@ you!
 #+begin_src emacs-lisp
   (use-package golden-ratio
     :config (golden-ratio-mode 1))
-  
+
   (define-advice select-window (:after (window &optional no-record) golden-ratio-resize-window)
       (golden-ratio)
       nil)
@@ -621,12 +621,12 @@ you!
 #+begin_src emacs-lisp
   (use-package json-mode
     :mode "\\.json$")
-  
+
   (use-package rjsx-mode
     :mode (("\\.js\\'" . rjsx-mode)
            ("\\.jsx\\'" . rjsx-mode))
     :config (setq js-indent-level 2))
-  
+
   (defun setup-tide-mode()
     "Setup function for tide"
     (interactive)
@@ -634,13 +634,13 @@ you!
     (flycheck-mode +1)
     (setq flycheck-check-syntax-automatically '(save mode-enabled))
     (company-mode +1))
-  
+
   (use-package tide
     :after (rjsx-mode company flycheck)
     :hook (rjsx-mode . setup-tide-mode))
-  
+
   ;; (use-package js2-mode)
-  
+
   ;; (use-package web-mode
   ;;   :mode (("\\.js\\'" . web-mode)
   ;;          ("\\.jsx\\'" . web-mode)
@@ -655,7 +655,7 @@ you!
   ;;   (setq web-mode-code-indent-offset 2)
   ;;   (setq web-mode-content-types-alist
   ;;         '(("jsx" . "\\.js[x]?\\'"))))
-  
+
   (use-package prettier-js
     :after (rjsx-mode)
     :hook ((json-mode . prettier-js-mode)
@@ -686,11 +686,11 @@ you!
     (setq lsp-keymap-prefix "C-c l")
     :config
     (lsp-enable-which-key-integration t))
-  
+
   (use-package lsp-ivy
     :after lsp
     :commands lsp-ivy-workspace-symbol)
-  
+
   (use-package lsp-ui
     :hook (lsp-mode . lsp-ui-mode)
     :custom
@@ -712,14 +712,14 @@ you!
     (add-hook 'before-save-hook #'lsp-format-buffer t t)
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-  
+
   (use-package go-mode
     :mode "\\.go$"
     :config
     (add-hook 'go-mode-hook 'lsp-deferred)
     (lsp-go-install-save-hooks)
-  
+
     (lsp-register-custom-settings
      '(("gopls.completeUnimported" t t)
        ("gopls.staticcheck" t t))))
-#+end_src 
+#+end_src
