@@ -37,13 +37,25 @@ Definitely need some packages to improve Emacs, let's load the archives.
 *** Color Theme
 #+begin_src emacs-lisp
   (use-package spacemacs-theme
-    :defer t
-    :init (load-theme 'spacemacs-dark t))
-
+    :defer t)
+  
   (use-package one-themes
     :defer t)
-
+  
   (use-package doom-themes)
+  
+  (use-package ewal
+    :init (setq ewal-use-builtin-always-p nil
+                ewal-use-builtin-on-failure-p t))
+  
+  (use-package ewal-spacemacs-themes
+    :config (progn
+              (load-theme 'ewal-spacemacs-modern t)
+              (enable-theme 'ewal-spacemacs-modern)))
+  (use-package ewal-evil-cursors
+    :after (ewal-spacemacs-themes)
+    :config (ewal-evil-cursors-get-colors
+             :apply t :spaceline t))
 #+end_src
 *** UI Changes
 #+begin_src emacs-lisp
@@ -89,17 +101,17 @@ makes more sense to break up the headings.
   (if (memq window-system '(mac ns))
       (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 135)
     (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 100))
-
+  
   ;; Set the variable pitch face
   (set-face-attribute 'fixed-pitch nil
                       :font "Iosevka Nerd Font Mono"
-                      :height 130)
-
+                      :height 100)
+  
   ;; Set the variable pitch face
   (set-face-attribute 'variable-pitch nil
                       :font "Iosevka Etoile"
-                      :height 130)
-
+                      :height 100)
+  
 #+end_src
 ** Emacs auto-save & backup behavior
 #+begin_src emacs-lisp
