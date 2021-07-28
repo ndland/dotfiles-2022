@@ -1,0 +1,3 @@
+! Font
+URxvt.font: xft:Iosevka Term Light Nerd Font Complete Mono:size=10
+URxvt.letterSpace: -5
