@@ -37,7 +37,9 @@ sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
 # ~/.fehbg &
 
 # Restore last colors from wal
-wal -R
+wal -R &
+
+polybar example &
 
 picom -b --config ~/.config/picom/picom.conf
 
