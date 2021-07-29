@@ -7,8 +7,8 @@ super + Return
 	urxvt
 
 # program launcher
-super + alt + @space
-	dmenu_run
+super + @space
+	rofi -modi run,drun,window -show drun -show-icons -sidebar-mode
 
 # make sxhkd reload its configuration files:
 super + Escape
