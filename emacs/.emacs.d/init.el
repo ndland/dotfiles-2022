@@ -257,7 +257,7 @@
           (sequence "BACKLOG(b!)" "PLAN(p!)" "READY(r!)" "ACTIVE(a!)" "REVIEW(e!)" "WAITING(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANCELLED(l@/!)")))
 
   (setq org-todo-keyword-faces
-        '(("TODO" . org-warning)
+        '(("TODO" . (:foreground "red" :weight bold))
           ("NEXT" . (:foreground "gold" :weight bold))
           ("DONE" . (:foreground "lime green" :weight bold))
           ("BACKLOG" . (:foreground "dim gray" :weight regular))
