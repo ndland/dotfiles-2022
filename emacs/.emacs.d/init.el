@@ -450,12 +450,6 @@
 (use-package company
   :ensure t
   :after lsp-mode
-  :hook (after-init . global-company)
-  :bind
-  (:map company-active-map
-        ("<tab>" . company-complete-selection))
-  (:map lsp-mode-map
-        ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
@@ -539,6 +533,33 @@
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
   (setq nov-text-width 120))
 
+(use-package beancount-mode
+  :straight (beancount-mode
+             :type git
+             :host github
+             :repo "beancount/beancount-mode")
+  :hook
+  (beancount-mode . outline-minor)
+  :bind
+  ("C-c C-n" . outline-next-visible-heading)
+  ("C-c C-p" . outline-previous-visible-heading)
+  :mode
+  ("\\.bean\\(?:count\\)?\\'" . beancount-mode))
+
+(use-package ledger-mode
+  :mode "\\.ledger\\'"
+  :after company
+  :init
+  (add-hook 'ledger-mode-hook 'company-mode)
+  :config
+  (add-hook 'ledger-mode-hook
+            (lambda ()
+              (setq-local tab-always-indent 'complete)
+              (setq-local completion-cycle-threshold t)
+              (setq-local ledger-complete-in-steps t)))
+  (setq ledger-post-amount-alignment-at :end)
+  (setq ledger-post-amount-alignment-column 100))
+
 ;; Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
@@ -555,6 +576,9 @@
          ("\\.jsx\\'" . rjsx-mode))
   :config (setq js-indent-level 2))
 
+(use-package typescript-mode
+  :mode (("\\.tsx\\'" . typescript-mode)))
+
 (defun setup-tide-mode()
   "Setup function for tide"
   (interactive)
@@ -564,43 +588,30 @@
   (company-mode +1))
 
 (use-package tide
-  :after (rjsx-mode company flycheck)
-  :hook (rjsx-mode . setup-tide-mode))
+  :after (typescript-mode company flycheck)
+  :hook (typescript-mode . setup-tide-mode))
 
 ;; (use-package js2-mode)
 
-;; (use-package web-mode
-;;   :mode (("\\.js\\'" . web-mode)
-;;          ("\\.jsx\\'" . web-mode)
-;;          ("\\.ts\\'" . web-mode)
-;;          ("\\.html\\'" . web-mode)
-;;          ("\\.tsx\\'" . web-mode))
-;;   :hook ((web-mode . lsp-deferred))
-;;   :config
-;;   (setq company-tooltip-align-annotations t)
-;;   (setq web-mode-markup-indent-offset 2)
-;;   (setq web-mode-css-indent-offset 2)
-;;   (setq web-mode-code-indent-offset 2)
-;;   (setq web-mode-content-types-alist
-;;         '(("jsx" . "\\.js[x]?\\'"))))
+(use-package web-mode
+  :mode (("\\.js\\'" . web-mode)
+         ;; ("\\.jsx\\'" . web-mode)
+         ("\\.ts\\'" . web-mode)
+         ("\\.html\\'" . web-mode))
+         ;; ("\\.tsx\\'" . web-mode))
+  :hook ((web-mode . lsp-deferred))
+  :config
+  (setq company-tooltip-align-annotations t)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2))
+  ;; (setq web-mode-content-types-alist
+  ;;       '(("tsx" . "\\.ts[x]?\\'"))))
 
 (use-package prettier-js
   :after (rjsx-mode)
   :hook ((json-mode . prettier-js-mode)
          (rjsx-mode . prettier-js-mode)))
-
-(use-package beancount-mode
-  :straight (beancount-mode
-             :type git
-             :host github
-             :repo "beancount/beancount-mode")
-  :hook
-  (beancount-mode . outline-minor)
-  :bind
-  ("C-c C-n" . outline-next-visible-heading)
-  ("C-c C-p" . outline-previous-visible-heading)
-  :mode
-  ("\\.bean\\(?:count\\)?\\'" . beancount-mode))
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
