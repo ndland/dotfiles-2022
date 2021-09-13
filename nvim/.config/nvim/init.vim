@@ -28,7 +28,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 call plug#end()
+
+lua require'lspconfig'.bashls.setup{}
 
 " Set syntax highlighting
 syntax on
@@ -47,3 +51,6 @@ colorscheme onedark
 " Enable Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='onedark'
+
+" Remap <ESC> to jj
+inoremap jj <ESC>
