@@ -16,8 +16,16 @@ if (empty($TMUX))
   endif
 endif
 
+let mapleader=','
+
 " Use numbers
 set number
+
+set encoding=UTF-8
+set guifont=Iosevka\ Nerd\ Font\ Regular:h16
+
+set tabstop=2
+set shiftwidth=2
 
 " Wrap text at 80 characters for Markdown files
 autocmd FileType markdown setlocal textwidth=80
@@ -27,16 +35,23 @@ Plug 'joshdick/onedark.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree'
+Plug 'easymotion/vim-easymotion'
 
-" LSP config
-Plug 'neovim/nvim-lspconfig'
-Plug 'glepnir/lspsaga.nvim'
+if (has("nvim"))
+	" LSP config
+	Plug 'neovim/nvim-lspconfig'
+	Plug 'glepnir/lspsaga.nvim'
 
-" Better syntax highlighting
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+	" Better syntax highlighting
+	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-" Autocompletion
-Plug 'nvim-lua/completion-nvim'
+	" Autocompletion
+	Plug 'nvim-lua/completion-nvim'
+
+	Plug 'ryanoasis/vim-devicons'
+	Plug 'vwxyutarooo/nerdtree-devicons-syntax'
+endif
 call plug#end()
 
 lua << EOF
@@ -102,6 +117,9 @@ nnoremap <silent>K :Lspsaga hover_doc<CR>
 nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
 
+nnoremap <leader>n :NERDTreeToggle<CR>
+
+let NERDTreeShowHidden=1
 
 " Set syntax highlighting
 syntax on
