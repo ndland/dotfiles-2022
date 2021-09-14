@@ -130,6 +130,7 @@ eval $(thefuck --alias)
 
 alias ytdl="youtube-dl -f bestvideo+bestaudio --format mp4"
 alias ec="emacsclient"
+alias vim="nvim"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
