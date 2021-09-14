@@ -38,6 +38,13 @@ Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 
+" js/jsx/tsx support
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'yuezk/vim-js'
+
 if (has("nvim"))
 	" LSP config
 	Plug 'neovim/nvim-lspconfig'
@@ -107,6 +114,9 @@ EOF
 
 luafile ~/.config/nvim/lua/lspsaga.rc.lua
 
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
 set completeopt=menuone,noinsert,noselect
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -118,6 +128,7 @@ nnoremap <silent> gh <Cmd>Lspsaga lsp_finder<CR>
 inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
 
 nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
 
 let NERDTreeShowHidden=1
 
