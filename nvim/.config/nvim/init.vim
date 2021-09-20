@@ -38,6 +38,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
+Plug 'romgrk/barbar.nvim'
 
 " js/jsx/tsx support
 Plug 'pangloss/vim-javascript'
@@ -129,6 +130,12 @@ inoremap <silent> <C-k> <Cmd>Lspsaga signature_help<CR>
 
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
+
+" For barbartab
+nnoremap <silent> <C-<> :BufferPrevious<CR>
+nnoremap <silent> <C->> :BufferNext<CR>
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.icons = v:false
 
 let NERDTreeShowHidden=1
 

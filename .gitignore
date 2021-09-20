@@ -67,3 +67,6 @@ flycheck_*.el
 /emacs/.emacs.d/nov-places
 /emacs/.emacs.d/projectile-bookmarks.eld
 /emacs/.emacs.d/transient/
+
+# NeoVim plugins
+*/**/plugged
