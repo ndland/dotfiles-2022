@@ -23,7 +23,7 @@ font:
   use_thin_strokes: true
 
 import:
-  - ~/.cache/wal/colors-alacritty.yml
+  - ~/.config/alacritty/dracula.yml
 
 # colors:
 #   # Default colors
