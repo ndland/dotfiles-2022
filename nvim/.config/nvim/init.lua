@@ -70,9 +70,6 @@ ts.setup {ensure_installed = 'maintained', highlight = {enable = true}}
 local lsp = require 'lspconfig'
 local lspfuzzy = require 'lspfuzzy'
 
--- We use the default settings for ccls and pylsp: the option table can stay empty
-lsp.ccls.setup {}
-lsp.pylsp.setup {}
 lsp.tsserver.setup {}
 lspfuzzy.setup {}  -- Make the LSP client use FZF instead of the quickfix list
 
