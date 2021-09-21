@@ -152,7 +152,7 @@ export BAT_THEME="base16"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$NPM_GLOBAL/bin:$PATH"
 export PATH="/opt/mongodb/bin:$PATH"
-export EDITOR="emacs" 
+export EDITOR="nvim" 
 
 stowit() {
   dir=$1
