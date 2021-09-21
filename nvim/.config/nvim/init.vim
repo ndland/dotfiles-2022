@@ -30,37 +30,37 @@ set shiftwidth=2
 
 " Wrap text at 80 characters for Markdown files
 autocmd FileType markdown setlocal textwidth=80
+autocmd FileType vim setlocal shiftwidth=2 tabstop=2
 
 call plug#begin()
-Plug 'joshdick/onedark.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
-Plug 'easymotion/vim-easymotion'
-Plug 'romgrk/barbar.nvim'
+	Plug 'dracula/vim', { 'as': 'dracula' }
+	Plug 'vim-airline/vim-airline'
+	Plug 'tpope/vim-fugitive'
+	Plug 'airblade/vim-gitgutter'
+	Plug 'scrooloose/nerdtree'
+	Plug 'easymotion/vim-easymotion'
 
-" js/jsx/tsx support
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'yuezk/vim-js'
+	" js/jsx/tsx support
+	Plug 'pangloss/vim-javascript'
+	Plug 'leafgarland/typescript-vim'
+	Plug 'peitalin/vim-jsx-typescript'
+	Plug 'maxmellon/vim-jsx-pretty'
+	Plug 'yuezk/vim-js'
 
-if (has("nvim"))
-	" LSP config
-	Plug 'neovim/nvim-lspconfig'
-	Plug 'glepnir/lspsaga.nvim'
+	if (has("nvim"))
+		" LSP config
+		Plug 'neovim/nvim-lspconfig'
+		Plug 'glepnir/lspsaga.nvim'
 
-	" Better syntax highlighting
-	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+		" Better syntax highlighting
+		Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-	" Autocompletion
-	Plug 'nvim-lua/completion-nvim'
+		" Autocompletion
+		Plug 'nvim-lua/completion-nvim'
 
-	Plug 'ryanoasis/vim-devicons'
-	Plug 'vwxyutarooo/nerdtree-devicons-syntax'
-endif
+		Plug 'ryanoasis/vim-devicons'
+		Plug 'vwxyutarooo/nerdtree-devicons-syntax'
+	endif
 call plug#end()
 
 lua << EOF
@@ -151,11 +151,11 @@ set background=dark
 " more blocky diff markers in signcolumn (e.g. GitGutter)
 let g:github_colors_block_diffmark = 0
 
-colorscheme onedark
+colorscheme dracula
 
 " Enable Airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='onedark'
+let g:airline_theme='dracula'
 
 " Remap <ESC> to jj
 inoremap jj <ESC>
