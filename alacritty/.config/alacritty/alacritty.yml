@@ -3,19 +3,19 @@ window:
   dynamic_padding: true
 
   # Startup Mode (changes require restart)
-  # startup_mode: Fullscreen
+  startup_mode: Fullscreen
 
 font:
   normal:
-    family: Iosevka Nerd Font Mono
+    family: VictorMono Nerd Font
     style: Medium
     
   italic:
-    family: Iosevka Nerd Font Mono
+    family: VictorMono Nerd Font
     style: Italic
 
   bold:
-    family: Iosevka Nerd Font Mono
+    family: VictorMono Nerd Font
     style: Bold
 
   size: 15
