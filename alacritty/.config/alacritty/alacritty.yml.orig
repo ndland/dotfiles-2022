@@ -7,6 +7,7 @@ window:
 
 font:
   normal:
+<<<<<<< HEAD
     family: VictorMono Nerd Font
     style: Medium
     
@@ -17,6 +18,18 @@ font:
   bold:
     family: VictorMono Nerd Font
     style: Bold
+=======
+    family: VictorMono
+    style: Regular
+    
+  italic:
+    family: VictorMono
+    style: Italic
+
+  bold:
+    family: VictorMono
+    style: Medium
+>>>>>>> 20511c191676d3b1989219bfae7a1926b8e640e5
 
   size: 13
 
