@@ -17,7 +17,7 @@ require('completion')
 
 -------------------- OPTIONS -------------------------------
 cmd 'colorscheme dracula' -- Put your favorite colorscheme here
-opt.completeopt = {'menuone', 'noinsert', 'noselect'} -- Completion options (for deoplete)
+opt.completeopt = {'menuone', 'menuone', 'noselect'} -- Completion options (for nvim-cmp)
 opt.expandtab = true -- Use spaces instead of tabs
 opt.hidden = true -- Enable background buffers
 opt.ignorecase = true -- Ignore case
@@ -35,7 +35,7 @@ opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
-o3pt.wildmode = {'list', 'longest'} -- Command-line completion mode
+opt.wildmode = {'list', 'longest'} -- Command-line completion mode
 opt.wrap = false -- Disable line wrap
 g.mapleader = ',' -- Set mapleader
 
@@ -43,14 +43,6 @@ g.mapleader = ',' -- Set mapleader
 map('', '<leader>c', '"+y') -- Copy to clipboard in normal, visual, select and operator modes
 map('i', '<C-u>', '<C-g>u<C-u>') -- Make <C-u> undo-friendly
 map('i', '<C-w>', '<C-g>u<C-w>') -- Make <C-w> undo-friendly
-
--- <Tab> to navigate the completion menu
-map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {
-    expr = true
-})
-map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {
-    expr = true
-})
 
 map('n', '<C-l>', '<cmd>noh<CR>') -- Clear highlights
 map('n', '<leader>o', 'm`o<Esc>``') -- Insert a newline in normal mode
@@ -73,16 +65,6 @@ lsp.tsserver.setup {
     capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 }
 lspfuzzy.setup {} -- Make the LSP client use FZF instead of the quickfix list
-
-map('n', '<space>,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-map('n', '<space>;', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-map('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<space>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-map('n', '<space>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<space>m', '<cmd>lua vim.lsp.buf.rename()<CR>')
-map('n', '<space>r', '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', '<space>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
 -------------------- COMMANDS ------------------------------
 cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}' -- disabled in visual mode
