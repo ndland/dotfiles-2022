@@ -1,7 +1,8 @@
+-- init.lua -- 2021-10-16
 ------------------- HELPERS -------------------------------
-local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
-local g = vim.g      -- a table to access global variables
-local opt = vim.opt  -- to set options
+local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
+local g = vim.g -- a table to access global variables
+local opt = vim.opt -- to set options
 
 local function map(mode, lhs, rhs, opts)
     local options = {
@@ -13,7 +14,7 @@ end
 
 require('plugins')
 
-g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
+g['deoplete#enable_at_startup'] = 1 -- enable deoplete at startup
 
 -------------------- OPTIONS -------------------------------
 cmd 'colorscheme dracula' -- Put your favorite colorscheme here
@@ -88,15 +89,15 @@ cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}' -- disable
 -- LUA configuration
 
 -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
-USER = fn.expand('$USER')
+USER = vim.fn.expand('$USER')
 
 local sumneko_root_path = ""
 local sumneko_binary = ""
 
-if fn.has("mac") == 1 then
+if vim.fn.has("mac") == 1 then
     sumneko_root_path = "/Users/" .. USER .. "/.config/nvim/lua-language-server"
     sumneko_binary = "/Users/" .. USER .. "/.config/nvim/lua-language-server/bin/macOS/lua-language-server"
-elseif fn.has("unix") == 1 then
+elseif vim.fn.has("unix") == 1 then
     sumneko_root_path = "/home/" .. USER .. "/.config/nvim/lua-language-server"
     sumneko_binary = "/home/" .. USER .. "/.config/nvim/lua-language-server/bin/Linux/lua-language-server"
 else
@@ -120,8 +121,8 @@ require'lspconfig'.sumneko_lua.setup {
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = {
-                    [fn.expand('$VIMRUNTIME/lua')] = true,
-                    [fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
                 }
             }
         }
