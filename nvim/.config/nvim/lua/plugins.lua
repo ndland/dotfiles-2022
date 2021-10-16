@@ -14,14 +14,14 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    use 'shougo/deoplete-lsp'
+    -- use 'shougo/deoplete-lsp'
     -- Post-install/update hook with call of vimscript function with argument
-    use {
-        'shougo/deoplete.nvim',
-        run = function()
-            vim.fn['remote#host#UpdateRemotePlugins'](0)
-        end
-    }
+    -- use {
+    --     'shougo/deoplete.nvim',
+    --     run = function()
+    --         vim.fn['remote#host#UpdateRemotePlugins'](0)
+    --     end
+    -- }
     use 'neovim/nvim-lspconfig'
     use {
         'junegunn/fzf',
@@ -42,7 +42,14 @@ return require('packer').startup(function(use)
 
     -- Track my code stats
     use 'wakatime/vim-wakatime'
+
     use 'tpope/vim-fugitive'
+
+    -- Completion
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-path'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

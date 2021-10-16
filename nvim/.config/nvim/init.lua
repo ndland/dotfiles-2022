@@ -13,8 +13,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 require('plugins')
-
-g['deoplete#enable_at_startup'] = 1 -- enable deoplete at startup
+require('completion')
 
 -------------------- OPTIONS -------------------------------
 cmd 'colorscheme dracula' -- Put your favorite colorscheme here
@@ -36,7 +35,7 @@ opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
-opt.wildmode = {'list', 'longest'} -- Command-line completion mode
+o3pt.wildmode = {'list', 'longest'} -- Command-line completion mode
 opt.wrap = false -- Disable line wrap
 g.mapleader = ',' -- Set mapleader
 
@@ -70,7 +69,9 @@ ts.setup {
 local lsp = require 'lspconfig'
 local lspfuzzy = require 'lspfuzzy'
 
-lsp.tsserver.setup {}
+lsp.tsserver.setup {
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+}
 lspfuzzy.setup {} -- Make the LSP client use FZF instead of the quickfix list
 
 map('n', '<space>,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
@@ -106,6 +107,7 @@ end
 
 require'lspconfig'.sumneko_lua.setup {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     settings = {
         Lua = {
             runtime = {
@@ -134,6 +136,7 @@ require'lspconfig'.efm.setup {
         documentFormatting = true
     },
     filetypes = {"lua"},
+    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
     settings = {
         rootMarkers = {".git/"},
         languages = {
