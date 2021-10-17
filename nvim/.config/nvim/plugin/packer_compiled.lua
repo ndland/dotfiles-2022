@@ -125,6 +125,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/nland/.local/share/nvim/site/pack/packer/start/vim-fugitive"
   },
+  ["vim-go"] = {
+    loaded = true,
+    path = "/Users/nland/.local/share/nvim/site/pack/packer/start/vim-go"
+  },
   ["vim-wakatime"] = {
     loaded = true,
     path = "/Users/nland/.local/share/nvim/site/pack/packer/start/vim-wakatime"

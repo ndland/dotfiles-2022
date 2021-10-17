@@ -107,4 +107,6 @@ require'lspconfig'.efm.setup {
     }
 }
 
+require'lspconfig'.gopls.setup {}
+
 cmd 'autocmd BufWritePre *.lua lua vim.lsp.buf.formatting_sync(nil, 100)'
