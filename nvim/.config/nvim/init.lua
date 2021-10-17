@@ -7,7 +7,7 @@ local opt = vim.opt -- to set options
 require('plugins')
 require('completion')
 
--------------------- OPTIONS -'------------------------------
+-------------------- OPTIONS -------------------------------
 cmd 'colorscheme dracula' -- Put your favorite colorscheme here
 opt.completeopt = {'menuone', 'menuone', 'noselect'} -- Completion options (for nvim-cmp)
 opt.expandtab = true -- Use spaces instead of tabs
