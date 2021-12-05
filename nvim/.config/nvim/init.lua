@@ -3,110 +3,132 @@
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local g = vim.g -- a table to access global variables
 local opt = vim.opt -- to set options
+local map = vim.api.nvim_set_keymap
 
-require('plugins')
-require('completion')
+-- Set the leader key
+g.mapleader = ','
 
--------------------- OPTIONS -------------------------------
-cmd 'colorscheme dracula' -- Put your favorite colorscheme here
-opt.completeopt = {'menuone', 'menuone', 'noselect'} -- Completion options (for nvim-cmp)
-opt.expandtab = true -- Use spaces instead of tabs
-opt.hidden = true -- Enable background buffers
-opt.ignorecase = true -- Ignore case
-opt.joinspaces = false -- No double spaces with join
-opt.list = true -- Show some invisible characters
-opt.number = true -- Show line numbers
-opt.relativenumber = true -- Relative line numbers
-opt.scrolloff = 4 -- Lines of context
-opt.shiftround = true -- Round indent
-opt.shiftwidth = 2 -- Size of an indent
-opt.sidescrolloff = 8 -- Columns of context
-opt.smartcase = true -- Do not ignore case with capitals
-opt.smartindent = true -- Insert indents automatically
-opt.splitbelow = true -- Put new windows below current
-opt.splitright = true -- Put new windows right of current
-opt.tabstop = 2 -- Number of spaces tabs count for
-opt.termguicolors = true -- True color support
-opt.wildmode = {'list', 'longest'} -- Command-line completion mode
-opt.wrap = false -- Disable line wrap
-g.mapleader = ',' -- Set mapleader
+-- Set numbers
+vim.o.number = true
 
-require('mappings')
-require('treesitter')
+local Plug = vim.fn['plug#']
 
--------------------- LSP -----------------------------------
-local lsp = require 'lspconfig'
-local lspfuzzy = require 'lspfuzzy'
+vim.call('plug#begin', '~/.config/nvim/plugged')
 
-lsp.tsserver.setup {
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-}
-lspfuzzy.setup {} -- Make the LSP client use FZF instead of the quickfix list
+-- Github theme
+Plug 'projekt0n/github-nvim-theme'
 
--------------------- COMMANDS ------------------------------
-cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}' -- disabled in visual mode
+-- Sidebar tree
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 
--- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
-USER = vim.fn.expand('$USER')
+Plug 'nvim-lualine/lualine.nvim'
 
-local sumneko_root_path = ""
-local sumneko_binary = ""
+Plug 'nvim-lua/plenary.nvim'
+Plug 'TimUntersberger/neogit'
 
-if vim.fn.has("mac") == 1 then
-    sumneko_root_path = "/Users/" .. USER .. "/.config/nvim/lua-language-server"
-    sumneko_binary = "/Users/" .. USER .. "/.config/nvim/lua-language-server/bin/macOS/lua-language-server"
-elseif vim.fn.has("unix") == 1 then
-    sumneko_root_path = "/home/" .. USER .. "/.config/nvim/lua-language-server"
-    sumneko_binary = "/home/" .. USER .. "/.config/nvim/lua-language-server/bin/Linux/lua-language-server"
-else
-    print("Unsupported system for sumneko")
-end
+vim.call('plug#end')
 
-require'lspconfig'.sumneko_lua.setup {
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-                -- Setup your lua path
-                path = vim.split(package.path, ';')
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = {'vim'}
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-                }
-            }
-        }
+local neogit = require('neogit')
+neogit.setup {}
+
+require('github-theme').setup()
+require('nvim-web-devicons').get_icons()
+
+-- Mapings
+-- Map ,n to toggle nvimTree
+map('n', '<leader>n', ':NvimTreeToggle<CR>', {})
+map('n', '<leader>g', ':Neogit<CR>', {})
+
+-- following options are the default
+-- each of these are documented in `:help nvim-tree.OPTION_NAME`
+require'nvim-tree'.setup {
+  disable_netrw       = true,
+  hijack_netrw        = true,
+  open_on_setup       = false,
+  ignore_ft_on_setup  = {},
+  auto_close          = false,
+  open_on_tab         = false,
+  hijack_cursor       = false,
+  update_cwd          = false,
+  update_to_buf_dir   = {
+    enable = true,
+    auto_open = true,
+  },
+  diagnostics = {
+    enable = false,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
     }
-}
-
-require'lspconfig'.efm.setup {
-    init_options = {
-        documentFormatting = true
+  },
+  update_focused_file = {
+    enable      = false,
+    update_cwd  = false,
+    ignore_list = {}
+  },
+  system_open = {
+    cmd  = nil,
+    args = {}
+  },
+  filters = {
+    dotfiles = true,
+    custom = {}
+  },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 500,
+  },
+  view = {
+    width = 30,
+    height = 30,
+    hide_root_folder = false,
+    side = 'left',
+    auto_resize = false,
+    mappings = {
+      custom_only = false,
+      list = {}
     },
-    filetypes = {"lua"},
-    capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-    settings = {
-        rootMarkers = {".git/"},
-        languages = {
-            lua = {
-                {
-                    formatCommand = "lua-format -i --no-keep-simple-function-one-line --no-break-after-operator --column-limit=150 --break-after-table-lb",
-                    formatStdin = true
-                }
-            }
-        }
-    }
+    number = false,
+    relativenumber = false
+  },
+  trash = {
+    cmd = "trash",
+    require_confirm = true
+  }
 }
 
-require'lspconfig'.gopls.setup {}
+-- Lualine config
+require'lualine'.setup {
+  options = {
+    theme = 'github',
+    icons_enabled = true,
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff',
+                  {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
 
-cmd 'autocmd BufWritePre *.lua lua vim.lsp.buf.formatting_sync(nil, 100)'
