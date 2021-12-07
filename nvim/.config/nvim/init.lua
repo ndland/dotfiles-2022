@@ -5,14 +5,13 @@ local g = vim.g -- a table to access global variables
 local opt = vim.opt -- to set options
 local map = vim.api.nvim_set_keymap
 
--- Set the leader key
-g.mapleader = ','
-
 -- Set numbers
 vim.o.number = true
 
-local Plug = vim.fn['plug#']
+-- Set the leader key
+g.mapleader = ','
 
+local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
 -- Github theme
@@ -27,6 +26,8 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'TimUntersberger/neogit'
 
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = 'TSUpdate'})
+
 vim.call('plug#end')
 
 local neogit = require('neogit')
@@ -39,6 +40,24 @@ require('nvim-web-devicons').get_icons()
 -- Map ,n to toggle nvimTree
 map('n', '<leader>n', ':NvimTreeToggle<CR>', {})
 map('n', '<leader>g', ':Neogit<CR>', {})
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+  ignore_install = { }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { },  -- list of language that will be disabled
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true,              -- false will disable the whole extension
+  }
+}
 
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
