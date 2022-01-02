@@ -30,20 +30,9 @@
 (use-package one-themes
   :defer t)
 
-(use-package doom-themes)
-
-(use-package ewal
-  :init (setq ewal-use-builtin-always-p nil
-              ewal-use-builtin-on-failure-p t))
-
-(use-package ewal-spacemacs-themes
-  :config (progn
-            (load-theme 'ewal-spacemacs-modern t)
-            (enable-theme 'ewal-spacemacs-modern)))
-(use-package ewal-evil-cursors
-  :after (ewal-spacemacs-themes)
-  :config (ewal-evil-cursors-get-colors
-           :apply t :spaceline t))
+(use-package doom-themes
+  :config
+  (load-theme 'doom-tokyo-night t))
 
 (setq inhibit-startup-message t)
 
@@ -80,18 +69,18 @@
 
 ;; Set the font a little bigger in OS X
 (if (memq window-system '(mac ns))
-    (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 135)
-  (set-face-attribute 'default nil :font "Iosevka Nerd Font" :height 100))
+    (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 135)
+  (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 100))
 
 ;; Set the variable pitch face
 (set-face-attribute 'fixed-pitch nil
-                    :font "Iosevka Nerd Font Mono"
-                    :height 100)
+                    :font "FiraCode Nerd Font Mono"
+                    :height 135)
 
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil
                     :font "Iosevka Etoile"
-                    :height 100)
+                    :height 135)
 
 (setq
  delete-old-versions t
@@ -573,11 +562,13 @@
 
 (use-package rjsx-mode
   :mode (("\\.js\\'" . rjsx-mode)
-         ("\\.jsx\\'" . rjsx-mode))
+         ("\\.jsx\\'" . rjsx-mode)
+         ("\\.tsx\\'" . rjsx-mode)
+         ("\\.ts\\'" . rjsx-mode))
   :config (setq js-indent-level 2))
 
-(use-package typescript-mode
-  :mode (("\\.tsx\\'" . typescript-mode)))
+;; (use-package typescript-mode
+;;  :mode (("\\.tsx\\'" . typescript-mode)))
 
 (defun setup-tide-mode()
   "Setup function for tide"
@@ -596,7 +587,7 @@
 (use-package web-mode
   :mode (("\\.js\\'" . web-mode)
          ;; ("\\.jsx\\'" . web-mode)
-         ("\\.ts\\'" . web-mode)
+         ;; ("\\.ts\\'" . web-mode)
          ("\\.html\\'" . web-mode))
          ;; ("\\.tsx\\'" . web-mode))
   :hook ((web-mode . lsp-deferred))
