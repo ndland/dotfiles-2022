@@ -14,27 +14,20 @@ g.mapleader = ','
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 
--- Github theme
-Plug 'projekt0n/github-nvim-theme'
-
--- Sidebar tree
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-
 Plug 'nvim-lualine/lualine.nvim'
-
-Plug 'nvim-lua/plenary.nvim'
-Plug 'TimUntersberger/neogit'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/tokyonight.nvim'
 
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = 'TSUpdate'})
+Plug('junegunn/fzf', {['do'] = 'fzf#install()'})
+Plug 'junegunn/fzf.vim'
+
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 vim.call('plug#end')
 
-local neogit = require('neogit')
-neogit.setup {}
-
-require('github-theme').setup()
-require('nvim-web-devicons').get_icons()
+cmd([[colorscheme tokyonight]])
 
 -- Language settings
 opt.tabstop = 2
@@ -42,10 +35,9 @@ opt.shiftwidth = 2
 
 -- Mapings
 -- Map ,n to toggle nvimTree
-map('n', '<leader>n', ':NvimTreeToggle<CR>', {})
-map('n', '<leader>g', ':Neogit<CR>', {})
+-- map('<mode> such as n', 'keybind', 'command', options)
 
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
 	ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 	sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
 	ignore_install = { }, -- List of parsers to ignore installing
@@ -63,71 +55,10 @@ require'nvim-treesitter.configs'.setup {
 	}
 }
 
--- following options are the default
--- each of these are documented in `:help nvim-tree.OPTION_NAME`
-require'nvim-tree'.setup {
-	disable_netrw       = true,
-	hijack_netrw        = true,
-	open_on_setup       = false,
-	ignore_ft_on_setup  = {},
-	auto_close          = false,
-	open_on_tab         = false,
-	hijack_cursor       = false,
-	update_cwd          = false,
-	update_to_buf_dir   = {
-		enable = true,
-		auto_open = true,
-	},
-	diagnostics = {
-		enable = false,
-		icons = {
-			hint = "",
-			info = "",
-			warning = "",
-			error = "",
-		}
-	},
-	update_focused_file = {
-		enable      = false,
-		update_cwd  = false,
-		ignore_list = {}
-	},
-	system_open = {
-		cmd  = nil,
-		args = {}
-	},
-	filters = {
-		dotfiles = true,
-		custom = {}
-	},
-	git = {
-		enable = true,
-		ignore = true,
-		timeout = 500,
-	},
-	view = {
-		width = 30,
-		height = 30,
-		hide_root_folder = false,
-		side = 'left',
-		auto_resize = false,
-		mappings = {
-			custom_only = false,
-			list = {}
-		},
-		number = false,
-		relativenumber = false
-	},
-	trash = {
-		cmd = "trash",
-		require_confirm = true
-	}
-}
-
 -- Lualine config
-require'lualine'.setup {
+require('lualine').setup {
 	options = {
-		theme = 'github',
+		theme = 'nightfly',
 		icons_enabled = true,
 		component_separators = { left = '', right = ''},
 		section_separators = { left = '', right = ''},
@@ -154,4 +85,3 @@ require'lualine'.setup {
 	tabline = {},
 	extensions = {}
 }
-
