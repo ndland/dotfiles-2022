@@ -209,7 +209,7 @@
   :hook (org-mode . nl/org-mode-setup)
   :config
   (setq org-log-into-drawer t)
-  (setq org-agenda-files '("~/Dropbox/org/inbox.org"))
+  ;; (setq org-agenda-files '("~/Dropbox/org/inbox.org"))
   (setq org-contacts-files '("~/Dropbox/org/inbox.org"))
 
   (setq org-ellipsis " ⌄"
