@@ -1,66 +1,70 @@
 -- init.lua -- 2021-10-16
 ------------------- HELPERS -------------------------------
-local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
-local g = vim.g -- a table to access global variables
-local opt = vim.opt -- to set options
-local map = vim.api.nvim_set_keymap
+local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
+local g = vim.g      -- a table to access global variables
+local opt = vim.opt  -- to set options
+local fn = vim.fn
 
--- Set numbers
-vim.o.number = true
+local function map(mode, lhs, rhs, opts)
+    local options = {
+        noremap = true
+    }
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
 
--- Set the leader key
-g.mapleader = ','
+require('plugins')
 
-local Plug = vim.fn['plug#']
-vim.call('plug#begin', '~/.config/nvim/plugged')
+g['deoplete#enable_at_startup'] = 1  -- enable deoplete at startup
 
--- Github theme
-Plug 'projekt0n/github-nvim-theme'
+-------------------- OPTIONS -------------------------------
+cmd 'colorscheme dracula' -- Put your favorite colorscheme here
+opt.completeopt = {'menuone', 'noinsert', 'noselect'} -- Completion options (for deoplete)
+opt.expandtab = true -- Use spaces instead of tabs
+opt.hidden = true -- Enable background buffers
+opt.ignorecase = true -- Ignore case
+opt.joinspaces = false -- No double spaces with join
+opt.list = true -- Show some invisible characters
+opt.number = true -- Show line numbers
+opt.relativenumber = true -- Relative line numbers
+opt.scrolloff = 4 -- Lines of context
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 2 -- Size of an indent
+opt.sidescrolloff = 8 -- Columns of context
+opt.smartcase = true -- Do not ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.splitbelow = true -- Put new windows below current
+opt.splitright = true -- Put new windows right of current
+opt.tabstop = 2 -- Number of spaces tabs count for
+opt.termguicolors = true -- True color support
+opt.wildmode = {'list', 'longest'} -- Command-line completion mode
+opt.wrap = false -- Disable line wrap
+g.mapleader = ',' -- Set mapleader
 
--- Sidebar tree
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
+-------------------- MAPPINGS ------------------------------
+map('', '<leader>c', '"+y') -- Copy to clipboard in normal, visual, select and operator modes
+map('i', '<C-u>', '<C-g>u<C-u>') -- Make <C-u> undo-friendly
+map('i', '<C-w>', '<C-g>u<C-w>') -- Make <C-w> undo-friendly
 
-Plug 'nvim-lualine/lualine.nvim'
+-- <Tab> to navigate the completion menu
+map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {
+    expr = true
+})
+map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {
+    expr = true
+})
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'TimUntersberger/neogit'
+map('n', '<C-l>', '<cmd>noh<CR>') -- Clear highlights
+map('n', '<leader>o', 'm`o<Esc>``') -- Insert a newline in normal mode
+map('n', '<leader>n', '<cmd>NERDTreeToggle<CR>') -- Insert a newline in normal mode
 
-Plug('nvim-treesitter/nvim-treesitter', {['do'] = 'TSUpdate'})
-
-vim.call('plug#end')
-
-local neogit = require('neogit')
-neogit.setup {}
-
-require('github-theme').setup()
-require('nvim-web-devicons').get_icons()
-
--- Language settings
-opt.tabstop = 2
-opt.shiftwidth = 2
-
--- Mapings
--- Map ,n to toggle nvimTree
-map('n', '<leader>n', ':NvimTreeToggle<CR>', {})
-map('n', '<leader>g', ':Neogit<CR>', {})
-
-require'nvim-treesitter.configs'.setup {
-	ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-	sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-	ignore_install = { }, -- List of parsers to ignore installing
-	highlight = {
-		enable = true,              -- false will disable the whole extension
-		disable = { },  -- list of language that will be disabled
-		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-		-- Using this option may slow down your editor, and you may see some duplicate highlights.
-		-- Instead of true it can also be a list of languages
-		additional_vim_regex_highlighting = false,
-	},
-	indent = {
-		enable = true,              -- false will disable the whole extension
-	}
+-------------------- TREE-SITTER ---------------------------
+local ts = require 'nvim-treesitter.configs'
+ts.setup {
+    ensure_installed = 'maintained',
+    highlight = {
+        enable = true
+    }
 }
 
 -- following options are the default
