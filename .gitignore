@@ -70,3 +70,6 @@ flycheck_*.el
 
 # NeoVim plugins
 */**/plugged
+
+# NeoVim dependency
+*/**/lua-language-server
