@@ -32,10 +32,16 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
+Plug 'onsails/lspkind-nvim'
+
+-- Formatting
+Plug 'sbdchd/neoformat'
 
 vim.call('plug#end')
 
 cmd([[colorscheme tokyonight]])
+cmd('let g:neoformat_try_node_exe = 1')
+cmd('autocmd BufWritePre *.jsx Neoformat')
 
 -- Language settings
 opt.tabstop = 2
@@ -70,7 +76,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'sumneko_lua' }
+local servers = { 'sumneko_lua', 'tsserver', 'eslint', 'tailwindcss' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -166,4 +172,20 @@ require('lualine').setup {
 	},
 	tabline = {},
 	extensions = {}
+}
+
+local lspkind = require('lspkind')
+cmp.setup {
+	formatting = {
+		format = lspkind.cmp_format({
+			with_text = false, -- do not show text alongside icons
+			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+			-- The function below will be called before any actual modifications from lspkind
+			-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+			before = function (entry, vim_item)
+				return vim_item
+			end
+		})
+	}
 }
