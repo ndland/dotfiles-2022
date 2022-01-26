@@ -2,7 +2,7 @@
 	editor = nvim
 [commit]
 	verbose = true
-	template = /home/vagrant/.git_commit_message_template
+	template = /home/nland/.git_commit_message_template
 [user]
 	name = Nick Land
 	email = land.d.nicholas@gmail.com
@@ -26,3 +26,5 @@
 	required = true
 [credential]
 	helper = store
+[pull]
+	rebase = true
