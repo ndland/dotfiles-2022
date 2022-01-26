@@ -3,7 +3,6 @@
 local cmd = vim.cmd -- to execute Vim commands e.g. cmd('pwd')
 local g = vim.g -- a table to access global variables
 local opt = vim.opt -- to set options
-local map = vim.api.nvim_set_keymap
 
 -- Set numbers
 vim.o.number = true
@@ -36,6 +35,8 @@ Plug 'onsails/lspkind-nvim'
 
 -- Formatting
 Plug 'sbdchd/neoformat'
+
+Plug 'kyazdani42/nvim-tree.lua'
 
 vim.call('plug#end')
 
@@ -189,3 +190,11 @@ cmp.setup {
 		})
 	}
 }
+
+require('nvim-tree').setup{
+	filters = {
+		dotfiles = true,
+		},
+}
+
+require('mappings')
