@@ -288,3 +288,6 @@
 
 (use-package magit-delta
   :hook (magit-mode . magit-delta-mode))
+
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
