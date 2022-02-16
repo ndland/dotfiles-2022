@@ -41,6 +41,13 @@
 
 (setq js-indent-level 2)
 
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                vterm-mode-hook
+                org-agenda-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
 ;; Packages
 
 ;; Latest version of org-mode
@@ -48,15 +55,25 @@
 
 (defun nl/org-mode-setup ()
   (org-indent-mode)
-  (variable-pitch-mode 1)
+  ;; (variable-pitch-mode 1)
   (auto-fill-mode 1))
 
 (use-package org
+  :after evil
   :hook (org-mode . nl/org-mode-setup)
+  :bind (("C-c o a" . org-agenda)
+	 ("C-c o c" . org-capture))
   :config
+  (evil-define-key '(normal visual) org-mode-map
+  "TAB" 'org-cycle)
+
+  (evil-define-key '(normal insert visual emacs) org-agenda-mode-map
+    "j" 'org-agenda-next-line
+    "k" 'org-agenda-previous-line)
+
   (setq org-log-into-drawer t)
-  (setq org-agenda-files (list (concat nl/org-directory "inbox.org")))
-  (setq org-contacts-files (list (concat nl/org-directory "inbox.org")))
+  (setq org-agenda-files `(,(concat nl/org-directory "inbox.org")))
+  (setq org-contacts-files `(,(concat nl/org-directory "inbox.org")))
 
   (setq org-ellipsis " ⌄"
         org-hide-emphasis-markers t)
@@ -106,18 +123,18 @@
           ("CANCELLED" . (:foreground "red" :weight bold))))
 
   (setq org-capture-templates
-        '(("t" "Tasks")
-          ("tt" "Task" entry
-           (file+olp (concat nl/org-directory "inbox.org") "Inbox")
-           "* TODO %?\nCaptured: %U\n%a\n %i"
-           :empty-lines 0)
-          ("td" "Task Today" entry
-           (file+olp (concat nl/org-directory "inbox.org") "Inbox")
-           "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n%a\n %i"
-           :empty-lines 0)
-          ("c" "Contacts")
-          ("cf" "Family" entry (file+headline (concat nl/org-directory "inbox.org") "Family")
-           "* %(org-contacts-template-name)
+	`(("t" "Tasks")
+	  ("tt" "Task" entry
+	   (file+olp ,(concat nl/org-directory "inbox.org") "Inbox")
+	   "* TODO %?\nCaptured: %U\n%a\n %i"
+	   :empty-lines 0)
+	  ("td" "Task Today" entry
+	   (file+olp ,(concat nl/org-directory "inbox.org") "Inbox")
+	   "* TODO %?\nSCHEDULED: %t\nCaptured: %U\n%a\n %i"
+	   :empty-lines 0)
+	  ("c" "Contacts")
+	  ("cf" "Family" entry (file+headline ,(concat nl/org-directory "inbox.org") "Family")
+	   "* %(org-contacts-template-name)
 :PROPERTIES:
 :ADDRESS: %^{289 Cleveland St. Brooklyn, 11206 NY, USA}
 :BIRTHDAY: %^{yyyy-mm-dd}
@@ -129,9 +146,9 @@
 :ICON:
 :NOTE: %^{Note}
 :END:"
-           :empty-lines 0)
-          ("cr" "Friends" entry (file+olp (concat nl/org-directory "inbox.org") "Contacts" "Friends")
-           "* %(org-contacts-template-name)
+	   :empty-lines 0)
+	  ("cr" "Friends" entry (file+olp ,(concat nl/org-directory "inbox.org") "Contacts" "Friends")
+	   "* %(org-contacts-template-name)
 :PROPERTIES:
 :ADDRESS: %^{289 Cleveland St. Brooklyn, 11206 NY, USA}
 :BIRTHDAY: %^{yyyy-mm-dd}
@@ -143,7 +160,7 @@
 :ICON:
 :NOTE: %^{Note}
 :END:"
-           :empty-lines 0)))
+	   :empty-lines 0)))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
