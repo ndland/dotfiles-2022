@@ -220,15 +220,41 @@
   :config
   (evil-collection-init))
 
-(use-package helm-core)
+(use-package vertico
+  :init
+  (vertico-mode)
 
-(use-package helm
-  :after helm-core
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
+
+  ;; Show more candidates
+  ;; (setq vertico-count 20)
+
+  ;; Grow and shrink the Vertico minibuffer
+  ;; (setq vertico-resize t)
+
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  ;; (setq vertico-cycle t)
+  )
+
+(use-package orderless
+  :custom (completion-styles '(orderless)))
+
+;; TODO Set up some keybinds
+(use-package consult)
+
+(use-package consult-company
   :config
-  (define-key global-map [remap find-file] #'helm-find-files)
-  (define-key global-map [remap execute-extended-command] #'helm-M-x)
-  (define-key global-map [remap switch-to-buffer] #'helm-mini)
-  (helm-mode 1))
+  (define-key company-mode-map [remap completion-at-point] #'consult-company))
+
+(use-package marginalia
+  :config
+  (marginalia-mode))
+
+(use-package embark
+  :bind (
+	 ("C-." . embark-act)
+	 ("C-h b" . embark-bindings)))
 
 ;; Niceties from doom
 (use-package doom-themes
@@ -253,6 +279,7 @@
 
 (use-package company
   :config
+  (global-company-mode)
   (setq company-idle-delay 0.0
 	company-minimum-prefix-length 1))
 
@@ -260,15 +287,9 @@
   :config
   (setq projectile-mode t))
 
-(use-package which-key
-  :config
-  (which-key-mode))
-
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (prog-mode . lsp-deferred)
-  :config
-  (lsp-enable-which-key-integration t))
+  :hook (prog-mode . lsp-deferred))
 
 ;; Neccessary for OS X
 (when (memq window-system '(mac ns))
@@ -285,6 +306,10 @@
   (global-wakatime-mode))
 
 (use-package magit)
+
+;; TODO: This isn't working, why?
+(use-package magit-todos
+  :commands (magit-todos-mode))
 
 (use-package magit-delta
   :hook (magit-mode . magit-delta-mode))
