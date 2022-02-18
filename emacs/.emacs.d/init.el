@@ -1,4 +1,8 @@
-;; Initialize package sources
+;;; init.el --- Entry point for Emacs configuration
+
+;;; Commentary:
+
+;;; Code:
 (setq package-archives '(("org" . "https://orgmode.org/elpa/")
 			 ("melpa" . "https://melpa.org/packages/")
 			 ("elpa" . "https://elpa.gnu.org/packages/")))
@@ -111,3 +115,5 @@
 
 (use-package emojify
   :hook (after-init . global-emojify-mode))
+
+;;; init.el ends here
