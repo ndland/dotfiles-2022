@@ -55,6 +55,11 @@
 ;; Load user config directory
 (add-to-list 'load-path (concat user-emacs-directory "lisp"))
 
+
+;;; ----------------------------------------------------------------------------
+;;; This is where my newly created config files are getting loaded
+;;; ----------------------------------------------------------------------------
+
 ;; Packages
 (require 'packages)
 (require 'org-config)
