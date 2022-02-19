@@ -21,6 +21,7 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+(defvar straight-use-package-by-default)
 (setq straight-use-package-by-default t)
 
 (straight-use-package 'use-package)
@@ -43,6 +44,8 @@
       read-process-output-max (* 1024 1024)
       create-lockfiles nil) ;; lock files will kill `npm start'
 
+;; This is only to satisfy flycheck
+(defvar js-indent-level)
 (setq js-indent-level 2)
 
 ;; Disable line numbers for some modes
@@ -52,13 +55,12 @@
                 org-agenda-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-;; Load user config directory
-(add-to-list 'load-path (concat user-emacs-directory "lisp"))
-
-
 ;;; ----------------------------------------------------------------------------
 ;;; This is where my newly created config files are getting loaded
 ;;; ----------------------------------------------------------------------------
+
+;; Load user config directory
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
 
 ;; Packages
 (require 'packages)
@@ -66,12 +68,16 @@
 (require 'evil-config)
 (require 'completions)
 
+;;; ----------------------------------------------------------------------------
+;;; This is the end of my 'new' config
+;;; ----------------------------------------------------------------------------
+
 ;; Niceties from doom
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
 	doom-themes-enable-italic t)
-  (load-theme 'doom-oceanic-next t)
+  (load-theme 'doom-molokai t)
   (doom-themes-org-config))
 
 (use-package doom-modeline
@@ -95,19 +101,8 @@
   :commands (lsp lsp-deferred)
   :hook (prog-mode . lsp-deferred))
 
-;; Neccessary for OS X
-(when (memq window-system '(mac ns))
-  (use-package exec-path-from-shell
-    :init
-    (exec-path-from-shell-initialize)))
-
 (use-package js2-mode
   :hook (js-mode . js2-minor-mode))
-
-;; Give me some metrics about my coding habits
-(use-package wakatime-mode
-  :init
-  (global-wakatime-mode))
 
 (use-package magit)
 

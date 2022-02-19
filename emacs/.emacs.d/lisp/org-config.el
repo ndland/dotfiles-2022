@@ -5,6 +5,9 @@
 ;;; Code:
 (require 'use-package)
 (require 'evil)
+(require 'olivetti)
+
+(setq fill-column 120)
 
 ;; Latest version of org-mode
 (defvar nl/org-directory "~/dev/github.com/ndland/org/")
@@ -18,6 +21,7 @@
   (auto-fill-mode 1))
 
 (add-hook 'org-mode-hook (lambda () (nl/org-mode-setup)))
+(add-hook 'org-mode-hook 'olivetti-mode)
 
 (evil-define-key '(normal visual) org-mode-map
   "TAB" 'org-cycle)
@@ -143,13 +147,13 @@
   :after org
   :hook (org-mode . org-bullets-mode))
 
-(defun nl/org-mode-visual-fill ()
-  (setq visual-fill-column-width 130
-        visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
+;; (defun nl/org-mode-visual-fill ()
+;;   (setq visual-fill-column-width 130
+;;         visual-fill-column-center-text t)
+;;   (visual-fill-column-mode 1))
 
-(use-package visual-fill-column
-  :hook (org-mode . nl/org-mode-visual-fill))
+;; (use-package visual-fill-column
+;;   :hook (org-mode . nl/org-mode-visual-fill))
 
 (use-package org-contrib
   :after org
