@@ -75,6 +75,11 @@ return packer.startup(function(use)
   use 'nvim-telescope/telescope-media-files.nvim'
 
   use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+  }
+
+  use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   }
