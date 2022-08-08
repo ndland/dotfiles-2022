@@ -26,6 +26,20 @@
 
 (straight-use-package 'use-package)
 
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font" ))
+(set-face-attribute 'default t :font "JetBrainsMono Nerd Font" :height 120 )
+
+;; start the initial frame maximized
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; start every frame maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; UI improvements
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+
 ;; Handle temp files
 (setq
  delete-old-versions t
@@ -67,17 +81,24 @@
 (require 'org-config)
 (require 'evil-config)
 (require 'completions)
+(require 'keymaps)
 
 ;;; ----------------------------------------------------------------------------
 ;;; This is the end of my 'new' config
 ;;; ----------------------------------------------------------------------------
+
+(use-package tree-sitter)
+(use-package tree-sitter-langs)
+
+(use-package dracula-theme
+  :config
+  (load-theme 'dracula t))
 
 ;; Niceties from doom
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
 	doom-themes-enable-italic t)
-  (load-theme 'doom-molokai t)
   (doom-themes-org-config))
 
 (use-package doom-modeline
@@ -116,4 +137,25 @@
 (use-package emojify
   :hook (after-init . global-emojify-mode))
 
+(use-package web-mode)
+(use-package tide)
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-mode))))
+;; enable typescript-tslint checker
+(flycheck-add-mode 'typescript-tslint 'web-mode)
+
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(mouse-wheel-progressive-speed nil)
+ '(wakatime-api-key "15252bb2-a832-4b9f-8b4b-bdfd914ce63f")
+ '(wakatime-cli-path "/usr/local/bin/wakatime-cli")
+ '(warning-suppress-types '((use-package) (use-package) (lsp-mode) (lsp-mode))))

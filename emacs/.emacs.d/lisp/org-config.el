@@ -10,7 +10,7 @@
 (setq fill-column 120)
 
 ;; Latest version of org-mode
-(defvar nl/org-directory "~/dev/github.com/ndland/org/")
+(defvar nl/org-directory "~/code/github.com/ndland/org/")
 
 (global-set-key (kbd "C-c o a") 'org-agenda)
 (global-set-key (kbd "C-c o c") 'org-capture)
@@ -161,13 +161,22 @@
   (require 'org-contacts))
 
 (use-package org-roam
-  :init
-  (setq org-roam-directory (file-truename "~/dev/github.com/ndland/org-roam"))
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/code/github.com/ndland/org-roam"))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)
-  :bind (("C-c n t" . org-roam-buffer-toggle)
-	 ("C-c n f" . org-roam-node-find)
-	 ("C-c n i" . org-roam-node-insert)))
-
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol))
 
 (provide 'org-config)
 
