@@ -7,6 +7,8 @@
 (require 'evil)
 (require 'olivetti)
 
+(add-hook 'org-mode-hook 'flyspell-mode)
+
 (setq fill-column 120)
 
 ;; Latest version of org-mode

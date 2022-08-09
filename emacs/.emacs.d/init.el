@@ -82,13 +82,11 @@
 (require 'evil-config)
 (require 'completions)
 (require 'keymaps)
+(require 'typescript)
 
 ;;; ----------------------------------------------------------------------------
 ;;; This is the end of my 'new' config
 ;;; ----------------------------------------------------------------------------
-
-(use-package tree-sitter)
-(use-package tree-sitter-langs)
 
 (use-package dracula-theme
   :config
@@ -118,13 +116,6 @@
   :config
   (setq projectile-mode t))
 
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook (prog-mode . lsp-deferred))
-
-(use-package js2-mode
-  :hook (js-mode . js2-minor-mode))
-
 (use-package magit)
 
 ;; TODO: This isn't working, why?
@@ -136,18 +127,6 @@
 
 (use-package emojify
   :hook (after-init . global-emojify-mode))
-
-(use-package web-mode)
-(use-package tide)
-
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-(add-hook 'web-mode-hook
-          (lambda ()
-            (when (string-equal "tsx" (file-name-extension buffer-file-name))
-              (setup-tide-mode))))
-;; enable typescript-tslint checker
-(flycheck-add-mode 'typescript-tslint 'web-mode)
 
 ;;; init.el ends here
 (custom-set-variables
