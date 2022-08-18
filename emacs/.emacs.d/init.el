@@ -131,8 +131,13 @@
 
 ;; Git
 (use-package magit
-  :ensure t)
+  :ensure t
+  :config
+  (setq transient-default-level 5))
 
 (use-package forge
   :ensure t
   :after magit)
+
+(use-package pinentry
+  :ensure t)
