@@ -140,4 +140,5 @@
   :after magit)
 
 (use-package pinentry
-  :ensure t)
+  :ensure t
+  :config (pinentry-start))
