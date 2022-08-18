@@ -1,144 +1,138 @@
-;;; init.el --- Entry point for Emacs configuration
-
-;;; Commentary:
-
-;;; Code:
-(setq package-archives '(("org" . "https://orgmode.org/elpa/")
-			 ("melpa" . "https://melpa.org/packages/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
+;; Initialize Packages
 
 ;; Straight.el
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
+      (bootstrap-version 6))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
 	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+	 "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
 	 'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-(defvar straight-use-package-by-default)
 (setq straight-use-package-by-default t)
-
 (straight-use-package 'use-package)
 
-(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font" ))
-(set-face-attribute 'default t :font "JetBrainsMono Nerd Font" :height 120 )
-
-;; start the initial frame maximized
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
-;; start every frame maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; UI improvements
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-
-;; Handle temp files
-(setq
- delete-old-versions t
- kept-new-versions 6
- kept-old-versions 2
- version-control t
- create-lockfiles nil
- backup-directory-alist
- `((".*" . ,temporary-file-directory))
- auto-save-file-name-transforms
- `((".*" ,temporary-file-directory )))
-
-(global-display-line-numbers-mode t)
-
-(setq gc-cons-threshold (* 100 1024 1024)
-      read-process-output-max (* 1024 1024)
-      create-lockfiles nil) ;; lock files will kill `npm start'
-
-;; This is only to satisfy flycheck
-(defvar js-indent-level)
-(setq js-indent-level 2)
-
-;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                vterm-mode-hook
-                org-agenda-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-;;; ----------------------------------------------------------------------------
-;;; This is where my newly created config files are getting loaded
-;;; ----------------------------------------------------------------------------
-
-;; Load user config directory
-(add-to-list 'load-path (concat user-emacs-directory "lisp"))
-
-;; Packages
-(require 'packages)
-(require 'org-config)
-(require 'evil-config)
-(require 'completions)
-(require 'keymaps)
-(require 'typescript)
-
-;;; ----------------------------------------------------------------------------
-;;; This is the end of my 'new' config
-;;; ----------------------------------------------------------------------------
-
 (use-package dracula-theme
-  :config
-  (load-theme 'dracula t))
+  :config (load-theme 'dracula t))
 
-;; Niceties from doom
-(use-package doom-themes
-  :config
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t)
-  (doom-themes-org-config))
+;; Treesitter
+(use-package tree-sitter
+  :config (global-tree-sitter-mode))
 
-(use-package doom-modeline
-  :init(doom-modeline-mode 1))
+(use-package tree-sitter-langs)
 
-;; Better documentation
-(use-package helpful
-  :config
-  (define-key global-map [remap describe-function] #'helpful-callable)
-  (define-key global-map [remap describe-variable] #'helpful-variable)
-  (define-key global-map [remap describe-key] #'helpful-key)
-  (global-set-key (kbd "C-c C-d") #'helpful-at-point)
-  (global-set-key (kbd "C-h F") #'helpful-function)
-  (global-set-key (kbd "C-h C") #'helpful-command))
-
-(use-package projectile
+(use-package evil
   :ensure t
   :init
-  (projectile-mode +1)
-  :bind (:map projectile-mode-map
-              ("s-p" . projectile-command-map)
-              ("C-c p" . projectile-command-map)))
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
 
-(use-package magit)
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
-;; TODO: This isn't working, why?
-(use-package magit-todos
-  :commands (magit-todos-mode))
+;; Completions
+;; Enable vertico
+(use-package vertico
+  :init
+  (vertico-mode)
 
-(use-package magit-delta
-  :hook (magit-mode . magit-delta-mode))
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
 
-(use-package emojify
-  :hook (after-init . global-emojify-mode))
+  ;; Show more candidates
+  ;; (setq vertico-count 20)
 
-;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(mouse-wheel-progressive-speed nil)
- '(wakatime-api-key "15252bb2-a832-4b9f-8b4b-bdfd914ce63f")
- '(wakatime-cli-path "/usr/local/bin/wakatime-cli")
- '(warning-suppress-types '((use-package) (use-package) (lsp-mode) (lsp-mode))))
+  ;; Grow and shrink the Vertico minibuffer
+  ;; (setq vertico-resize t)
+
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  ;; (setq vertico-cycle t)
+  )
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist
+  :init
+  (savehist-mode))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable recursive minibuffers
+  (setq enable-recursive-minibuffers t))
+
+(use-package marginalia
+  :ensure t
+  :config
+  (marginalia-mode))
+
+(use-package embark
+  :ensure t
+  :bind
+  (("s-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h b" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand t ; only necessary if you have the hook below
+  ;; if you want to have consult previews as you move around an
+  ;; auto-updating embark collect buffer
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+(use-package org
+  :ensure t)
+
+;; Git
+(use-package magit
+  :ensure t)
+
+(use-package forge
+  :ensure t
+  :after magit)
