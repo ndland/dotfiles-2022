@@ -139,6 +139,7 @@
   :ensure t
   :after magit)
 
+;; This is to allow for GPG signing
 (use-package pinentry
   :ensure t
   :config (pinentry-start))
