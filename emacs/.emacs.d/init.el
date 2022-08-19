@@ -18,6 +18,8 @@
 (setq straight-use-package-by-default t)
 (straight-use-package 'use-package)
 
+(straight-use-package 'org)
+
 (use-package dracula-theme
   :config (load-theme 'dracula t))
 
@@ -103,12 +105,9 @@
   (("s-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h b" . embark-bindings)) ;; alternative for `describe-bindings'
-
   :init
-
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
-
   :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
