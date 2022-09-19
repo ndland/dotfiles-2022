@@ -10,29 +10,19 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-
+# zplug
 source ~/.zplug/init.zsh
 
-zplug "modules/prompt", from:prezto
 zplug "changyuheng/fz", defer:1
 zplug "rupa/z", use:z.sh
+zplug "modules/prompt", from:prezto
 
-# Load theme file
-zplug 'dracula/zsh', as:theme
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
-
-# fnm
-export PATH=/home/vagrant/.fnm:$PATH
-eval "`fnm env`"
+eval $(thefuck --alias)
 
 alias vim="nvim"
+
+source /usr/local/share/zsh-you-should-use/you-should-use.plugin.zsh
+
+# fnm
+export PATH=/Users/nicholasland/.fnm:$PATH
+eval "$(fnm env --use-on-cd)"
