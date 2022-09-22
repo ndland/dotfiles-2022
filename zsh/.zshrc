@@ -23,6 +23,8 @@ alias vim="nvim"
 
 source /usr/local/share/zsh-you-should-use/you-should-use.plugin.zsh
 
+alias vim="nvim"
+
 # fnm
-export PATH=/Users/nicholasland/.fnm:$PATH
-eval "$(fnm env --use-on-cd)"
+export PATH=/home/nland/.fnm:$PATH
+eval "`fnm env`"

@@ -20,6 +20,7 @@ keymap('n', '<leader>fb', "<cmd>lua require'telescope.builtin'.buffers({ show_al
 keymap('n', '<leader>fr', "<cmd>Telescope live_grep<cr>", opts)
 keymap('n', '<leader>fm', "<cmd>Telescope marks<cr>", opts)
 keymap('n', '<leader>fp', "<cmd>Telescope projects<cr>", opts)
+keymap('n', '<leader>fm', "<cmd>Telescope marks<cr>", opts)
 keymap('n', '<leader>fg', "<cmd>lua require'telescope.builtin'.git_status()<cr>", opts)
 keymap('n', '<leader>fk', "<cmd>lua require'telescope.builtin'.keymaps()<cr>", opts)
 keymap('n', '<leader>f?', "<cmd> TodoTelescope<cr>", opts)
