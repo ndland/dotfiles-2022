@@ -12,7 +12,6 @@ null_ls.setup {
   debug = true,
   sources = {
     diagnostics.eslint,
-    diagnostics.flake8,
     formatting.prettier.with { extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } },
     formatting.stylua,
   },
