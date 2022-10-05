@@ -1,0 +1,4 @@
+;;; -*- lisp-data -*-
+(("~/code/github.com/ndland/org/")
+ ("~/code/github.com/ndland/dotfiles/")
+ ("~/code/github.com/ndland/test-typescript/"))
