@@ -4,4 +4,5 @@ if not status_ok then
 end
 
 require("nland.lsp.lsp-installer")
+require("nland.lsp.lsp-saga")
 require("nland.lsp.handlers")

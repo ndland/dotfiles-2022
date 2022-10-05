@@ -71,6 +71,7 @@ return packer.startup(function(use)
 
   use "neovim/nvim-lspconfig" -- enable LSP
   use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+  use 'glepnir/lspsaga.nvim'
 
   use "nvim-telescope/telescope.nvim"
   use 'nvim-telescope/telescope-media-files.nvim'
