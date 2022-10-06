@@ -9,7 +9,7 @@ require "nland.treesitter"
 require "nland.autopairs"
 require "nland.comment"
 require "nland.gitsigns"
---[[ require "nland.nullls" ]]
+require "nland.nullls"
 require "nland.toggleterm"
 require "nland.lualine"
 require "nland.nvim_tree"
