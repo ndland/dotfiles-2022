@@ -3,7 +3,7 @@ if not status_ok then
   return
 end
 
-project_nvim.setup {
+project_nvim.setup({
   -- Manual mode doesn't automatically change your root directory, so you have
   -- the option to manually do so using `:ProjectRoot` command.
   manual_mode = false,
@@ -16,7 +16,16 @@ project_nvim.setup {
 
   -- All the patterns used to detect root dir, when **"pattern"** is in
   -- detection_methods
-  patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+  patterns = {
+    ".git",
+    "_darcs",
+    ".hg",
+    ".bzr",
+    ".svn",
+    "Makefile",
+    "package.json",
+    "Library/Mobile Documents/iCloud~com~logseq~logseq/",
+  },
 
   -- Table of lsp clients to ignore by name
   -- eg: { "efm", ... }
@@ -42,6 +51,6 @@ project_nvim.setup {
   update_cwd = true,
   update_focused_file = {
     enable = true,
-    update_cwd = true
+    update_cwd = true,
   },
-}
+})
