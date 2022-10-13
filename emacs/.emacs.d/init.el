@@ -52,6 +52,10 @@
   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
   :config
+  (evil-set-leader 'normal (kbd ","))
+  (evil-define-key 'normal 'global (kbd "<leader>x") 'execute-extended-command)
+  (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
+  (evil-define-key 'normal 'global (kbd "<leader>g") 'magit-status)
   (evil-mode 1))
 
 (use-package evil-collection
