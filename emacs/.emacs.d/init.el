@@ -27,6 +27,8 @@
 (setq make-backup-files nil)
 (setq-default display-line-numbers 'visual)
 
+(use-package restart-emacs)
+
 (use-package doom-themes
   :ensure t
   :config
@@ -56,6 +58,8 @@
   (evil-define-key 'normal 'global (kbd "<leader>x") 'execute-extended-command)
   (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
   (evil-define-key 'normal 'global (kbd "<leader>g") 'magit-status)
+  (evil-define-key 'normal 'global (kbd "<leader>p") 'projectile-command-map)
+  (evil-define-key 'normal 'global (kbd "<leader>r") 'restart-emacs)
   (evil-mode 1))
 
 (use-package evil-collection
