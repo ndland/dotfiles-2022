@@ -26,6 +26,15 @@
 
 (setq make-backup-files nil)
 (setq-default display-line-numbers 'visual)
+(setq-default fill-column 120)
+(setq-default recentf-mode 1)
+
+;; Disable line numbers for some modes
+(dolist (mode '(org-mode-hook
+		term-mode-hook
+		vterm-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (use-package doom-themes
   :ensure t
@@ -40,6 +49,38 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+(use-package restart-emacs)
+
+(use-package general
+  :config
+  (general-create-definer my-leader-def
+    ;; :prefix my-leader
+    :prefix ",")
+
+  (my-leader-def
+    :states 'normal
+    ;; :keymaps 'override
+    "f" '(:ignore t :which-key "File")
+    "ff" 'find-file
+    "fs" 'evil-save
+    "fr" 'consult-recent-file
+
+    "g" '(:ignore t :which-key "Git")
+    "gs" 'magit-status
+    "gb" 'magit-blame
+
+    "x" 'execute-extended-command
+
+    "u" '(:ignore t :which-key "Utilities")
+    "uv" 'vterm
+    "ur" 'restart-emacs))
+
+(use-package vterm)
+
+(use-package projectile
+  :config
+  (projectile-mode +1))
+
 ;; Treesitter
 (use-package tree-sitter
   :config (global-tree-sitter-mode))
@@ -52,10 +93,6 @@
   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
   :config
-  (evil-set-leader 'normal (kbd ","))
-  (evil-define-key 'normal 'global (kbd "<leader>x") 'execute-extended-command)
-  (evil-define-key 'normal 'global (kbd "<leader>f") 'find-file)
-  (evil-define-key 'normal 'global (kbd "<leader>g") 'magit-status)
   (evil-mode 1))
 
 (use-package evil-collection
@@ -115,6 +152,12 @@
   ;; Enable recursive minibuffers
   (setq enable-recursive-minibuffers t))
 
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
 (use-package marginalia
   :ensure t
   :config
@@ -147,7 +190,8 @@
   (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package org
-  :ensure t)
+  :ensure t
+  :config (add-hook 'org-mode-hook 'turn-on-auto-fill))
 
 ;; Git
 (use-package magit
