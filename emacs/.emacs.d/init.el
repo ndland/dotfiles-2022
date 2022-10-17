@@ -36,6 +36,8 @@
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+(use-package restart-emacs)
+
 (use-package doom-themes
   :ensure t
   :config
