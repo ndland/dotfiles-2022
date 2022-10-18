@@ -27,7 +27,10 @@
 (setq make-backup-files nil)
 (setq-default display-line-numbers 'visual)
 (setq-default fill-column 120)
-(setq-default recentf-mode 1)
+
+;; Recent files
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
 
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
@@ -71,6 +74,7 @@
     "gs" 'magit-status
     "gb" 'magit-blame
 
+    "p" 'projectile-command-map
     "x" 'execute-extended-command
 
     "u" '(:ignore t :which-key "Utilities")
