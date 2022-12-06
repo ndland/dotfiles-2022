@@ -56,6 +56,7 @@ return packer.startup(function(use)
   -- Colorscheme
   use("dracula/vim") -- Colorscheme
   use("folke/tokyonight.nvim")
+  use({ "projekt0n/github-nvim-theme" })
 
   -- Completions
   use("hrsh7th/nvim-cmp") -- Completion
