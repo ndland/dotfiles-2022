@@ -1,7 +1,10 @@
-# emoji (If applied, this commit will...) <subject> (Max 72 char)
+# type (If applied, this commit will...) <subject> (Max 72 char)
 # |<----   Preferably using up to 50 chars   --->|<------------------->|
 # Example:
-# 🎉 Initial Commit
+# feat: add new features
+
+# Example with scope:
+# feat(scope): add new features
 
 # (Optional) Explain why this change is being made
 # |<----   Try To Limit Each Line to a Maximum Of 72 Characters   ---->|
@@ -9,45 +12,22 @@
 # (Optional) Provide links or keys to any relevant tickets, articles or other resources
 # Example: Github issue #23
 
-# 🎨 Improve structure / format of the code
-# ⚡ Improve performance
-# 🔥 Remove code or files
-# 🐛 Fix a bug
-# 🚑 Critical hotfix
-# ✨ Introduce new features
-# 📝 Write docs / Update docs
-# 🚀 Deploy stuff
-# 💄 Update the UI and style files
-# 🎉 Initial commit
-# ✅ Add tests
-# 🔒 Fix security issues
-# 🍎 Fix something on macOS
-# 🐧 Fix something on Linux
-# 🏁 Fix something on Windows
-# 🔖 Release / Version tags
-# 🚨 Remove linter warnings
-# 🚧 Work in progress
-# 💚 Fix CI Build
-# ⬇ Downgrade dependencies
-# ⬆ Upgrade dependencies
-# 👷 Add CI build system
-# 📈 Add analytics or tracking code
-# 🔨 Heavy refactoring
-# ➖ Remove a dependency
-# 🐳 Change Docker stuff
-# ➕ Add a dependency
-# 🔧 Change configuration files
-# 🌐 Internationalization and localization
-# ✏ Fix typo
-# 💩 Write bad code that needs to be improved
-# 📦 Update compiled files or packages
-# 🀄 Remove duplications
-# 🙈 Add or update .gitignore
-# 🚚 Move or rename resources (e.g.: files, paths, routes)
+# build     Fix CI Build
+# chore     Mundane tasks
+# ci        Changes reguarding CI
+# docs      Write docs / Update docs
+# feat      Introduce new features
+# fix       Fix a bug
+# perf      Improve performance
+# refactor  Any refactor
+# revert    Revert a previous change
+# style     Improve structure / format of the code
+# test      Add tests
 
 # --------------------
 # Remember to:
-#   * Capitalize the subject line
+#   * Add a colon after the type of commit
+#   * Not capitalize the subject line
 #   * Use the imperative mood in the subject line
 #   * Do not end the subject line with a period
 #   * Separate subject from body with a blank line
