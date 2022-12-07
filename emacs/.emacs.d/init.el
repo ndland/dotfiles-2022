@@ -74,8 +74,8 @@
     "gs" 'magit-status
     "gb" 'magit-blame
 
-    "p" 'projectile-command-map
-    "x" 'execute-extended-command
+    "p" '(:keymap projectile-command-map :wk "Projectile")
+    ("x" (general-simulate-key "M-x"))
 
     "u" '(:ignore t :which-key "Utilities")
     "uv" 'vterm
