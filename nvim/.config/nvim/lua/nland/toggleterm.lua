@@ -52,10 +52,6 @@ local lazygit = Terminal:new({
     vim.cmd("startinsert!")
     vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
   end,
-  -- function to run on closing the terminal
-  --[[ on_close = function(term)
-    vim.cmd("startinsert!")
-  end, ]]
 })
 
 function _LAZYGIT_TOGGLE()
