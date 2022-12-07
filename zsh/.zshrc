@@ -1,5 +1,3 @@
-eval "$(starship init zsh)"
-
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit
 compinit
@@ -46,3 +44,4 @@ export PATH=$HOME/.fnm:$PATH
 eval "`fnm env`"
 eval "$(fnm env --use-on-cd)"
 
+eval "$(starship init zsh)"
