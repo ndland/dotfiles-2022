@@ -60,6 +60,7 @@ return packer.startup(function(use)
 
   -- Completions
   use("hrsh7th/nvim-cmp") -- Completion
+  use("hrsh7th/cmp-copilot") -- Github copilot completions
   use("hrsh7th/cmp-buffer") -- buffer completions
   use("hrsh7th/cmp-path") -- path completions
   use("hrsh7th/cmp-cmdline") -- command line completions
@@ -108,6 +109,12 @@ return packer.startup(function(use)
 
   -- Projects
   use("ahmedkhalf/project.nvim")
+
+  -- Languages
+  use("bfontaine/Brewfile.vim")
+
+  -- Copilot
+  use("github/copilot.vim")
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
