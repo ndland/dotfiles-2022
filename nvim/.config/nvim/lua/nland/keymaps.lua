@@ -1,35 +1,49 @@
-local opts = { noremap = true, silent = true }
+local status_ok, which_key = pcall(require, "which-key")
+if not status_ok then
+  return
+end
 
-local keymap = vim.api.nvim_set_keymap
+which_key.setup({})
 
--- Remap ',' as leader
-keymap("", ",", "<Nop>", opts)
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+local opts = {
+  mode = "n",
+  prefix = ",",
+  buffer = nil,
+  silent = true,
+  noremap = true,
+  nowait = false,
+}
 
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
-
--- Press 'jj' to escape in insert mode
-keymap("i", "jj", "<ESC>", opts)
-
-keymap(
-  "n",
-  "<leader>ff",
-  "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>",
-  opts
-)
-keymap("n", "<leader>fb", "<cmd>lua require'telescope.builtin'.buffers({ show_all_buffers = true })<cr>", opts)
-keymap("n", "<leader>fr", "<cmd>Telescope live_grep<cr>", opts)
-keymap("n", "<leader>fm", "<cmd>Telescope marks<cr>", opts)
-keymap("n", "<leader>fp", "<cmd>Telescope projects<cr>", opts)
-keymap("n", "<leader>fm", "<cmd>Telescope marks<cr>", opts)
-keymap("n", "<leader>fg", "<cmd>lua require'telescope.builtin'.git_status()<cr>", opts)
-keymap("n", "<leader>fk", "<cmd>lua require'telescope.builtin'.keymaps()<cr>", opts)
-keymap("n", "<leader>f?", "<cmd> TodoTelescope<cr>", opts)
-keymap("n", "<leader>g", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
-keymap("n", "<leader>t", ":NvimTreeToggle<CR>", opts)
-keymap("n", "<leader>l", "<cmd>lua vim.lsp.buf.format() <CR>", opts)
-keymap("n", "<leader>h", ":noh<CR>", opts)
+which_key.register({
+  f = {
+    name = "file",
+    f = {
+      "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>",
+      "Find File",
+    },
+    b = { "<cmd>lua require('telescope.builtin').buffers({ show_all_buffers = true })<cr>", "Find Buffer" },
+    g = { "<cmd>lua require('telescope.builtin').git_status()<cr>", "Git Status" },
+    p = { "<cmd>Telescope projects<cr>", "Projects" },
+    t = { "<cmd>TodoTelescope<cr>", "Todos" },
+    k = { "<cmd>lua require('telescope.builtin').keymaps()<cr>", "Keymaps" },
+    l = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
+    r = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Ripgrep" },
+  },
+  g = {
+    name = "Git",
+    s = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Status" },
+  },
+  t = {
+    name = "Test",
+    a = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach" },
+    f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run File" },
+    F = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Debug File" },
+    l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
+    L = { "<cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>", "Debug Last" },
+    n = { "<cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
+    N = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Nearest" },
+    o = { "<cmd>lua require('neotest').output.open({ enter = true })<cr>", "Output" },
+    S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
+    s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Summary" },
+  },
+}, opts)
