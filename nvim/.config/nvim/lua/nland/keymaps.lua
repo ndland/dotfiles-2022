@@ -17,17 +17,18 @@ local opts = {
 which_key.register({
   f = {
     name = "file",
+    b = { "<cmd>lua require('telescope.builtin').buffers({ show_all_buffers = true })<cr>", "Find Buffer" },
     f = {
       "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>",
       "Find File",
     },
-    b = { "<cmd>lua require('telescope.builtin').buffers({ show_all_buffers = true })<cr>", "Find Buffer" },
     g = { "<cmd>lua require('telescope.builtin').git_status()<cr>", "Git Status" },
-    p = { "<cmd>Telescope projects<cr>", "Projects" },
-    t = { "<cmd>TodoTelescope<cr>", "Todos" },
     k = { "<cmd>lua require('telescope.builtin').keymaps()<cr>", "Keymaps" },
     l = { "<cmd>lua vim.lsp.buf.format()<cr>", "Format" },
+    o = { "<cmd>lua require('telescope.builtin').oldfiles()<cr>", "Old Files" },
+    p = { "<cmd>Telescope projects<cr>", "Projects" },
     r = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Ripgrep" },
+    t = { "<cmd>TodoTelescope<cr>", "Todos" },
   },
   g = {
     name = "Git",
@@ -35,15 +36,15 @@ which_key.register({
   },
   t = {
     name = "Test",
+    F = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Debug File" },
+    L = { "<cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>", "Debug Last" },
+    N = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Nearest" },
+    S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
     a = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach" },
     f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run File" },
-    F = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Debug File" },
     l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
-    L = { "<cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>", "Debug Last" },
     n = { "<cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
-    N = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Nearest" },
     o = { "<cmd>lua require('neotest').output.open({ enter = true })<cr>", "Output" },
-    S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
     s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Summary" },
   },
 }, opts)
