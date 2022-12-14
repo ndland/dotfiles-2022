@@ -118,6 +118,16 @@ return packer.startup(function(use)
 
   use("b0o/schemastore.nvim")
 
+  use({
+    "nvim-neotest/neotest",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "haydenmeade/neotest-jest",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+    },
+  })
+
   --  which-key
   use({
     "folke/which-key.nvim",
